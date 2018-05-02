@@ -1,23 +1,30 @@
 import * as React from 'react';
 import './App.css';
 
-import logo from './logo.svg';
 
-import Button from 'antd/lib/button';
+import { Avatar, Layout, Menu } from 'antd';
+const { Header } = Layout;
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <Button type="primary">Button</Button>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Layout>
+        <Header>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['1']}
+            style={{ lineHeight: '64px', float: 'left' }}>
+            <Menu.Item key="1">home</Menu.Item>
+            <Menu.Item key="2">notice</Menu.Item>
+            <Menu.Item key="3">plan</Menu.Item>
+          </Menu>
+          <div style={{ float: 'right' }}>
+            <Avatar style={{ background: '#00a2ae' }}>P</Avatar>
+          </div>
+        </Header>
+
+      </Layout>
     );
   }
   public handleChange(num: any) {
