@@ -1,30 +1,36 @@
 const path = require('path');
-const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: {
-    index: './src/index.js',
-    another: './src/another-module.js'
+  entry: './src/index.tsx',
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+    ]
   },
   plugins: [
-    new HTMLWebpackPlugin({
-      title: 'Code Splitting'
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      title: 'Output Management'
     })
-
   ],
-  optimization: {
-    runtimeChunk: true,
-    splitChunks: {
-      chunks: "initial",
-      cacheGroups: {
-        default: false,
-        vendors: false,
-      },
-    },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx']
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
+  },
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
   }
 };
