@@ -31,7 +31,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Output Management'
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
     })
   ],
   resolve: {
