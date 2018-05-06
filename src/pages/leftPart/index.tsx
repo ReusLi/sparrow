@@ -16,29 +16,37 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
 
     public render() {
         const placeholder = this.state.placeholder;
-        const CST = this.renderInputComponent();
+        const InputComp = this.renderInputComponent();
         return (
             <div>
-                {CST}
+                {InputComp}
             </div>
         )
     }
 
-    public renderInputComponent() {
+    private renderInputComponent() {
         const len = this.state.inputListNum.length,
-            placeholder = this.state.placeholder;
+            placeholder = this.state.placeholder,
+            enterCallback = this.enterCallback;
 
         let result = [];
 
-        for (let i = 0; i < len; i++) {
+        for (let index = 0; index < len; index++) {
             result.push(
-                <Row key={i} className="row-style">
-                    <Input key={i} placeholder={placeholder} />
+                <Row key={index} className="row-style">
+                    <Input key={index}
+                        placeholder={placeholder}
+                        onPressEnter={this.enterCallback.bind(this, index)}
+                    />
                 </Row>
             )
         }
 
         return result;
+    }
+
+    private enterCallback (index: number, e: object) {
+        console.log(e)
     }
 }
 
