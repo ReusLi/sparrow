@@ -1,13 +1,36 @@
 import * as React from 'react';
 
-import { Button } from 'antd'
+import { Row, Col, Input, Layout, Divider } from 'antd'
+const { Content } = Layout;
+
+import LeftPart from './pages/leftPart'
+
+import PageHeader from './components/header';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <Button>testing</Button>
-      </div>
+      <Layout className="pageLayout">
+        {/* 头部 */}
+        <PageHeader />
+        {/* content */}
+        <Content>
+          <Row>
+            {/* 左侧input list */}
+            <Col span={8}>
+              <LeftPart />
+            </Col>
+            {/* 分割线 */}
+            <Col span={1}>
+              <Divider type="vertical" />
+            </Col>
+            {/* 右侧 editor area */}
+            <Col span={15}>
+              RightPart
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
     );
   }
 }

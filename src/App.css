@@ -1,1 +1,5 @@
 @import '~antd/dist/antd.css';
+
+#root, .pageLayout {
+    height: 100%;
+}
