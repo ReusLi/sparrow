@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
@@ -27,6 +28,16 @@ module.exports = {
         ]
       }
     ]
+  },
+  optimization: {
+    runtimeChunk: true,
+    splitChunks: {
+      chunks: "initial",
+      cacheGroups: {
+        default: false,
+        vendors: false,
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
