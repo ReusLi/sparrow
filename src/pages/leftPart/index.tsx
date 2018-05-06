@@ -36,7 +36,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
                 <Row key={index} className="row-style">
                     <Input key={index}
                         placeholder={placeholder}
-                        onPressEnter={this.enterCallback.bind(this, index)}
+                        onPressEnter={enterCallback.bind(this, index)}
                     />
                 </Row>
             )
