@@ -43,7 +43,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
                     <Input
                         ref={(input) => { this.inputHTMLElement.push(input) }}
                         placeholder={this.state.placeholder}
-                        onPressEnter={this.onPressEnter.bind(this, index)}
+                        onPressEnter={this.onPressEnter.bind(this)}
                         onKeyDown={this.onKeyDown.bind(this)}
                     />
                 </Row>
@@ -53,7 +53,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         return result;
     }
 
-    private onPressEnter(index: number, e: object) {
+    private onPressEnter(e: object) {
         this.onKeyDown({
             keyCode: 40
         })
@@ -66,16 +66,18 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         let focusIndex: number = this.state.inputFocusIndex;
 
         // 向上键
-        if (key === 38 && focusIndex !== 0) {
-            this.inputHTMLElement[focusIndex - 1].focus();
+        if (key === 38 && focusIndex >= 0) {
             focusIndex--;
         } 
         // 向下键
-        else if (key === 40 && focusIndex !== maxLen) {
-            this.inputHTMLElement[focusIndex + 1].focus();
+        else if (key === 40 && focusIndex <= maxLen) {
             focusIndex++;
+        } 
+        // 其余情况返回
+        else {
+            return false;
         }
-
+        this.inputHTMLElement[focusIndex].focus();
         this.setState({
             inputFocusIndex: focusIndex
         })
