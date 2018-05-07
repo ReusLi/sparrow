@@ -10,8 +10,14 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         super(props);
         this.state = {
             placeholder: '输入colNames, 然后按回车',
-            inputListNum: [{}, {}]
+            inputListNum: [{}, {}],
+            inputHTMLElement: [],
+            inputFocusIndex: 0
         };
+    }
+
+    componentDidMount() {
+        this.state.inputHTMLElement[0].focus();
     }
 
     public render() {
@@ -25,18 +31,21 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
     }
 
     private renderInputComponent() {
-        const len = this.state.inputListNum.length,
-            placeholder = this.state.placeholder,
-            enterCallback = this.enterCallback;
+        const len = this.state.inputListNum.length;
 
-        let result = [];
+        let result = [],
+            inputHTMLElement = [],
+            refVal = '';
 
-        for (let index = 0; index < len; index++) {
+        for (let index = 0; index < len + 10; index++) {
             result.push(
                 <Row key={index} className="row-style">
-                    <Input key={index}
-                        placeholder={placeholder}
-                        onPressEnter={enterCallback.bind(this, index)}
+                    <Input
+                        ref={(input) => { this.state.inputHTMLElement.push(input) }}
+                        // ref={(input) => { this.textInput = input; }}
+                        placeholder={this.state.placeholder}
+                        onPressEnter={this.onPressEnter.bind(this, index)}
+                        onKeyDown={this.onKeyDown.bind(this)}
                     />
                 </Row>
             )
@@ -45,8 +54,30 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         return result;
     }
 
-    private enterCallback (index: number, e: object) {
+    private onPressEnter(index: number, e: object) {
         console.log(e)
+    }
+
+    private onKeyDown(e: any) {
+        const key: number = e.keyCode,
+            maxLen: number = this.state.inputHTMLElement.length;
+
+        let focusIndex: number = this.state.inputFocusIndex;
+
+        // 向上键
+        if (key === 38 && focusIndex !== 0) {
+            this.state.inputHTMLElement[focusIndex - 1].focus();
+            focusIndex--;
+        } 
+        // 向下键
+        else if (key === 40 && focusIndex !== maxLen) {
+            this.state.inputHTMLElement[focusIndex + 1].focus();
+            focusIndex++;
+        }
+
+        this.setState({
+            inputFocusIndex: focusIndex
+        })
     }
 }
 
@@ -59,7 +90,13 @@ interface LeftPagesStates {
     placeholder: string,
 
     /** 输入框数量 */
-    inputListNum: Array<Object>
+    inputListNum: Array<Object>,
+
+    /** 输入框HTML对象 */
+    inputHTMLElement: Array<any>
+
+    /** 当前foucus的input框下标 */
+    inputFocusIndex: number
 }
 
 export default LeftPart;
