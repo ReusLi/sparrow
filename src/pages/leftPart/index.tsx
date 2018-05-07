@@ -5,19 +5,20 @@ import { Input, Row } from 'antd'
 import './index.css'
 
 class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
+    /** 输入框的HTML元素集合 */
+    private inputHTMLElement: Array<any> = [];
 
     constructor(props: LeftPagesProps, state: LeftPagesStates) {
         super(props);
         this.state = {
             placeholder: '输入colNames, 然后按回车',
             inputListNum: [{}, {}],
-            inputHTMLElement: [],
             inputFocusIndex: 0
         };
     }
 
     componentDidMount() {
-        this.state.inputHTMLElement[0].focus();
+        this.inputHTMLElement[0].focus();
     }
 
     public render() {
@@ -34,15 +35,13 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         const len = this.state.inputListNum.length;
 
         let result = [],
-            inputHTMLElement = [],
             refVal = '';
 
         for (let index = 0; index < len + 10; index++) {
             result.push(
                 <Row key={index} className="row-style">
                     <Input
-                        ref={(input) => { this.state.inputHTMLElement.push(input) }}
-                        // ref={(input) => { this.textInput = input; }}
+                        ref={(input) => { this.inputHTMLElement.push(input) }}
                         placeholder={this.state.placeholder}
                         onPressEnter={this.onPressEnter.bind(this, index)}
                         onKeyDown={this.onKeyDown.bind(this)}
@@ -55,23 +54,25 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
     }
 
     private onPressEnter(index: number, e: object) {
-        console.log(e)
+        this.onKeyDown({
+            keyCode: 40
+        })
     }
 
     private onKeyDown(e: any) {
         const key: number = e.keyCode,
-            maxLen: number = this.state.inputHTMLElement.length;
+            maxLen: number = this.inputHTMLElement.length;
 
         let focusIndex: number = this.state.inputFocusIndex;
 
         // 向上键
         if (key === 38 && focusIndex !== 0) {
-            this.state.inputHTMLElement[focusIndex - 1].focus();
+            this.inputHTMLElement[focusIndex - 1].focus();
             focusIndex--;
         } 
         // 向下键
         else if (key === 40 && focusIndex !== maxLen) {
-            this.state.inputHTMLElement[focusIndex + 1].focus();
+            this.inputHTMLElement[focusIndex + 1].focus();
             focusIndex++;
         }
 
@@ -91,9 +92,6 @@ interface LeftPagesStates {
 
     /** 输入框数量 */
     inputListNum: Array<Object>,
-
-    /** 输入框HTML对象 */
-    inputHTMLElement: Array<any>
 
     /** 当前foucus的input框下标 */
     inputFocusIndex: number
