@@ -47,7 +47,17 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
             result.push(
                 <Row key={'inputComp_' + index} className='row-style' >
                     <Input
-                        ref={(input) => { this.inputHTMLElements.push(input) }}
+                        ref=
+                        {
+                            (input) => {
+                                /**
+                                 * input有可能是null, 具体原因看:
+                                 * https://github.com/facebook/react/issues/7267
+                                 * https://github.com/facebook/react/issues/7272
+                                 */
+                                input === null ? null : this.inputHTMLElements.push(input)
+                            }
+                        }
                         placeholder={this.state.placeholder}
                         onClick={this.onClick.bind(this, index)}
                         onPressEnter={this.onPressEnter.bind(this)}
@@ -56,7 +66,6 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
                 </Row>
             )
         }
-        console.log(this.inputHTMLElements)
         return result;
     }
     /**
@@ -75,10 +84,16 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
      * @param e 事件对象
      */
     private onPressEnter(e: object) {
-        const compIndex = this.state.inputComp.length
-        this.setState({
-            inputComp: this.renderInputComponent(compIndex)
-        })
+        const inputNum: number = this.inputHTMLElements.length;
+        const focusIndex: number = this.state.inputFocusIndex;
+
+        // 在最后一个input回车时, 自动新增一个input组件并focus
+        if (inputNum === (focusIndex + 1)) {
+            const compIndex = this.state.inputComp.length
+            this.setState({
+                inputComp: this.renderInputComponent(compIndex)
+            })
+        }
 
         setTimeout(() => {
             this.onKeyDown({
