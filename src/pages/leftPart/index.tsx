@@ -8,18 +8,20 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
     /** 输入框的HTML元素集合 */
     private inputHTMLElements: Array<any> = [];
 
-    private InputComp: any;
-
     constructor(props: LeftPagesProps, state: LeftPagesStates) {
         super(props);
         this.state = {
             placeholder: '输入colNames, 然后按回车',
             inputListNum: [{}, {}],
-            inputFocusIndex: 0
+            inputFocusIndex: 0,
+            inputComp: []
         };
     }
     componentWillMount() {
-        this.InputComp = this.renderInputComponent();
+        const compIndex: number = 0;
+        this.setState({
+            inputComp: this.renderInputComponent(compIndex)
+        })
     }
 
     componentDidMount() {
@@ -30,7 +32,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         const placeholder = this.state.placeholder;
         return (
             <div>
-                {this.InputComp}
+                {this.state.inputComp}
             </div>
         )
     }
@@ -38,15 +40,12 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
     /** 
      * 渲染输入框组件
      */
-    private renderInputComponent() {
-        const len: number = this.state.inputListNum.length + 10;
-
-        let result: Array<any> = [],
-            refVal: string = '';
-
-        for (let index = 0; index < len; index++) {
+    private renderInputComponent(compIndex: number) {
+        let result: Array<any> = [];
+        this.inputHTMLElements = [];
+        for (let index = 0; index <= compIndex; index++) {
             result.push(
-                <Row key={index} className="row-style">
+                <Row key={'inputComp_' + index} className='row-style' >
                     <Input
                         ref={(input) => { this.inputHTMLElements.push(input) }}
                         placeholder={this.state.placeholder}
@@ -57,7 +56,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
                 </Row>
             )
         }
-
+        console.log(this.inputHTMLElements)
         return result;
     }
     /**
@@ -76,9 +75,17 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
      * @param e 事件对象
      */
     private onPressEnter(e: object) {
-        this.onKeyDown({
-            keyCode: 40
+        const compIndex = this.state.inputComp.length
+        this.setState({
+            inputComp: this.renderInputComponent(compIndex)
         })
+
+        setTimeout(() => {
+            this.onKeyDown({
+                keyCode: 40
+            })
+        }, 100)
+
     }
     /**
      * 键盘按下事件
@@ -122,7 +129,10 @@ interface LeftPagesStates {
     inputListNum: Array<Object>,
 
     /** 当前foucus的input框下标 */
-    inputFocusIndex: number
+    inputFocusIndex: number,
+
+    /** 输入框组件集合 */
+    inputComp: Array<any>
 }
 
 export default LeftPart;
