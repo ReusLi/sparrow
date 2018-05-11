@@ -4,10 +4,13 @@ import { Row, Col, Input, Layout, Divider } from 'antd'
 const { Content } = Layout;
 
 import LeftPart from './pages/leftPart'
+import RightPart from './pages/rightPart'
 
 import PageHeader from './components/header';
 
 class App extends React.Component {
+  private editor: any;
+
   public render() {
     return (
       <Layout className="pageLayout">
@@ -26,7 +29,7 @@ class App extends React.Component {
             </Col>
             {/* 右侧 editor area */}
             <Col span={15}>
-              RightPart
+              <RightPart ref={(editor: any) => this.editor = editor} />
             </Col>
           </Row>
         </Content>
@@ -38,7 +41,7 @@ class App extends React.Component {
    * @param inputValue 输入框的值集合
    */
   private leftPartChange(inputValue: Array<string>) {
-    // console.log(inputValue)
+    this.editor.format(inputValue);
   }
 }
 
