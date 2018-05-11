@@ -4,11 +4,32 @@ import { Input, Row } from 'antd'
 
 import './index.css'
 
-class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
+
+interface props {
+    /** 输入框值变动后回调事件 */
+    leftPartChange: Function
+}
+
+interface states {
+
+    /** 输入框提示语 */
+    placeholder: string,
+
+    /** 输入框数量 */
+    inputListNum: Array<Object>,
+
+    /** 当前foucus的input框下标 */
+    inputFocusIndex: number,
+
+    /** 输入框组件集合 */
+    inputComp: Array<any>
+}
+
+class LeftPart extends React.Component<props, states> {
     /** 输入框的HTML元素集合 */
     private inputHTMLElements: Array<any> = [];
 
-    constructor(props: LeftPagesProps, state: LeftPagesStates) {
+    constructor(props: props, state: states) {
         super(props);
         this.state = {
             placeholder: '输入colNames, 然后按回车',
@@ -45,7 +66,7 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
         this.inputHTMLElements = [];
         for (let index = 0; index <= compIndex; index++) {
             result.push(
-                <Row key={'inputComp_' + index} className='row-style' >
+                <Row key={`inputComp_${index}`} className='row-style' >
                     <Input
                         ref=
                         {
@@ -62,11 +83,21 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
                         onClick={this.onClick.bind(this, index)}
                         onPressEnter={this.onPressEnter.bind(this)}
                         onKeyDown={this.onKeyDown.bind(this)}
+                        onChange={this.onChange.bind(this)}
                     />
                 </Row>
             )
         }
         return result;
+    }
+    /** 
+     * 把input list的数据组装并返回
+     */
+    private combine() {
+        let result = this.inputHTMLElements.map(element => {
+            return element.input.value;
+        })
+        this.props.leftPartChange(result);
     }
     /**
      * 点击事件
@@ -130,24 +161,13 @@ class LeftPart extends React.Component<LeftPagesProps, LeftPagesStates> {
             inputFocusIndex: focusIndex
         })
     }
-}
-
-interface LeftPagesProps {
-}
-
-interface LeftPagesStates {
-
-    /** 输入框提示语 */
-    placeholder: string,
-
-    /** 输入框数量 */
-    inputListNum: Array<Object>,
-
-    /** 当前foucus的input框下标 */
-    inputFocusIndex: number,
-
-    /** 输入框组件集合 */
-    inputComp: Array<any>
+    /**
+     * 输入框chagne事件
+     * @param e 事件对象
+     */
+    private onChange(e: any) {
+        this.combine();
+    }
 }
 
 export default LeftPart;

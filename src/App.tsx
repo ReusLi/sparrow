@@ -18,7 +18,7 @@ class App extends React.Component {
           <Row>
             {/* 左侧input list */}
             <Col span={8}>
-              <LeftPart />
+              <LeftPart leftPartChange={this.leftPartChange.bind(this)} />
             </Col>
             {/* 分割线 */}
             <Col span={1}>
@@ -32,6 +32,13 @@ class App extends React.Component {
         </Content>
       </Layout>
     );
+  }
+  /**
+   * 输入框值变化后事件
+   * @param inputValue 输入框的值集合
+   */
+  private leftPartChange(inputValue: Array<string>) {
+    // console.log(inputValue)
   }
 }
 
