@@ -34,9 +34,9 @@ export default class RightPart extends React.Component<props, states> {
         )
     }
 
-    public format(inputValue: Array<string>) {
+    public setColNameValue(colNameStr: string) {
         this.setState({
-            value: inputValue.toString()
+            value: colNameStr
         })
     }
 }

@@ -31,19 +31,33 @@ class App extends React.Component {
             </Col>
             {/* 右侧 editor area */}
             <Col span={15}>
-              <RightPart ref={(editor: any) => this.editor = editor}/>
+              <RightPart ref={(editor: any) => this.editor = editor} />
             </Col>
           </Row>
         </Content>
       </Layout>
     );
   }
+
+  /**
+   * 初始化qzz col name
+   * @param inputValue 输入框的值集合
+   * 
+   * @return 组装后的colname新集合
+   */
+  private initColNames(inputValue: Array<string>) {
+    let data: string = 'var colNames';
+    
+    return `${data} = ${JSON.stringify(inputValue)}`;
+  }
+
   /**
    * 输入框值变化后事件
    * @param inputValue 输入框的值集合
    */
   private leftPartChange(inputValue: Array<string>) {
-    this.editor.format(inputValue);
+    const colNameStr: string = this.initColNames(inputValue);
+    this.editor.setColNameValue(colNameStr);
   }
 }
 
