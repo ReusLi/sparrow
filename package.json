@@ -44,6 +44,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "lodash": "^4.17.10",
+    "pinyin": "^2.8.3",
     "react-ace": "^6.1.1"
   }
 }

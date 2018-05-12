@@ -8,6 +8,8 @@ import RightPart from './pages/rightPart'
 
 import PageHeader from './components/header';
 
+import hzzpyUtils from './utils/pinyin';
+
 class App extends React.Component {
   private editor: any;
 
@@ -48,7 +50,11 @@ class App extends React.Component {
   private initColNames(inputValue: Array<string>) {
     let data: string = 'var colNames';
     
-    return `${data} = ${JSON.stringify(inputValue)}`;
+    let pyArray = inputValue.map((value) => {
+      return hzzpyUtils.transfrom(value);
+    })
+    
+    return `${data} = ${JSON.stringify(pyArray)}`;
   }
 
   /**
