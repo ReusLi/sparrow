@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+// 编辑器插件
 import AceEditor from 'react-ace';
 
 interface props {

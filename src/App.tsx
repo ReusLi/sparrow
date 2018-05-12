@@ -1,13 +1,17 @@
 import * as React from 'react';
 
+// ui组件
 import { Row, Col, Input, Layout, Divider } from 'antd'
 const { Content } = Layout;
 
+// 页面组成
 import LeftPart from './pages/leftPart'
 import RightPart from './pages/rightPart'
 
+// 组件
 import PageHeader from './components/header';
 
+// 工具
 import hzzpyUtils from './utils/pinyin';
 
 class App extends React.Component {

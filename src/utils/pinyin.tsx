@@ -1,3 +1,4 @@
+// 汉子转拼音工具
 const pinyin = require('pinyin');
 
 export default {
