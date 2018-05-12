@@ -25,7 +25,7 @@ export default class RightPart extends React.Component<props, states> {
     public render() {
         return (
             <AceEditor
-                mode="java"
+                mode="javascript"
                 theme="github"
                 name="UNIQUE_ID_OF_DIV"
                 value={this.state.value}
