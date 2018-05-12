@@ -45,16 +45,30 @@ class App extends React.Component {
    * 初始化qzz col name
    * @param inputValue 输入框的值集合
    * 
-   * @return 组装后的colname新集合
+   * @return 组装后的colNames新集合
    */
   private initColNames(inputValue: Array<string>) {
     let data: string = 'var colNames';
-    
+
+    return `${data} = ${JSON.stringify(inputValue)}`;
+  }
+
+  /**
+   * 初始化qzz col model
+   * @param inputValue 输入框的值集合
+   * 
+   * @return 组装后的colModels新集合
+   */
+  private initColModels(inputValue: Array<string>) {
+    let data: string = 'var colModels';
+
     let pyArray = inputValue.map((value) => {
-      return hzzpyUtils.transfrom(value);
+      return {
+        name: hzzpyUtils.transfrom(value)
+      }
     })
-    
-    return `${data} = ${JSON.stringify(pyArray)}`;
+
+    return `${data} = ${JSON.stringify(pyArray, null, '\t')}`;
   }
 
   /**
@@ -62,8 +76,11 @@ class App extends React.Component {
    * @param inputValue 输入框的值集合
    */
   private leftPartChange(inputValue: Array<string>) {
-    const colNameStr: string = this.initColNames(inputValue);
-    this.editor.setColNameValue(colNameStr);
+    const colNamesStr: string = this.initColNames(inputValue);
+    const colModelsStr: string = this.initColModels(inputValue);
+
+    const value = `${colNamesStr}\n\n${colModelsStr}` 
+    this.editor.setColNameValue(value);
   }
 }
 
