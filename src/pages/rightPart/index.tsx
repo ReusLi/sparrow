@@ -1,30 +1,42 @@
 import * as React from 'react'
 
-import MonacoEditor from 'react-monaco-editor'
+import AceEditor from 'react-ace';
 
 interface props {
+    /** 引用          */
     ref: any
 }
 
 interface states {
+    /** editor的值 */
+    value: string
 }
 
 export default class RightPart extends React.Component<props, states> {
     private editor: any;
 
+    constructor(props: props, state: states) {
+        super(props);
+        this.state = {
+            value: ''
+        };
+    }
+
     public render() {
         return (
-            <MonacoEditor
-                ref={(editor: any) => this.editor = editor}
-                width="800"
-                height="600"
-                language="javascript"
-                theme="vs-dark"
+            <AceEditor
+                mode="java"
+                theme="github"
+                name="UNIQUE_ID_OF_DIV"
+                value={this.state.value}
+                editorProps={{ $blockScrolling: true }}
             />
         )
     }
 
     public format(inputValue: Array<string>) {
-        this.editor.editor.setValue(inputValue)
+        this.setState({
+            value: inputValue.toString()
+        })
     }
 }

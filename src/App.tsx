@@ -11,6 +11,8 @@ import PageHeader from './components/header';
 class App extends React.Component {
   private editor: any;
 
+  private inp: any;
+
   public render() {
     return (
       <Layout className="pageLayout">
@@ -29,7 +31,7 @@ class App extends React.Component {
             </Col>
             {/* 右侧 editor area */}
             <Col span={15}>
-              <RightPart ref={(editor: any) => this.editor = editor} />
+              <RightPart ref={(editor: any) => this.editor = editor}/>
             </Col>
           </Row>
         </Content>
