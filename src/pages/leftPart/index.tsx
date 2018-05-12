@@ -16,9 +16,6 @@ interface states {
     /** 输入框提示语 */
     placeholder: string,
 
-    /** 输入框数量 */
-    inputListNum: Array<Object>,
-
     /** 当前foucus的input框下标 */
     inputFocusIndex: number,
 
@@ -34,7 +31,6 @@ class LeftPart extends React.Component<props, states> {
         super(props);
         this.state = {
             placeholder: '输入colNames, 然后按回车',
-            inputListNum: [{}, {}],
             inputFocusIndex: 0,
             inputComp: []
         };
