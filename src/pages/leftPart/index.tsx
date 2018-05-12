@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 // ui组件
-import { Input, Row } from 'antd'
+import { Input, Radio, Row } from 'antd'
 
 import './index.css'
 
@@ -26,6 +26,12 @@ interface states {
 class LeftPart extends React.Component<props, states> {
     /** 输入框的HTML元素集合 */
     private inputHTMLElements: Array<any> = [];
+
+    /** radio的HTML元素集合 */
+    private radioHTMLElements: Array<any> = [];
+
+    /** dataType选项值 */
+    private dataTypeOption = ['string', 'number', 'date'];
 
     constructor(props: props, state: states) {
         super(props);
@@ -63,7 +69,7 @@ class LeftPart extends React.Component<props, states> {
         this.inputHTMLElements = [];
         for (let index = 0; index <= compIndex; index++) {
             result.push(
-                <Row key={`inputComp_${index}`} className='row-style' >
+                <Row key={`inputComp_${index}`} className='row-style'>
                     <Input
                         ref=
                         {
@@ -82,17 +88,57 @@ class LeftPart extends React.Component<props, states> {
                         onKeyDown={this.onKeyDown.bind(this)}
                         onChange={this.onChange.bind(this)}
                     />
+                    <Row className='attr-row-style'>
+                        <span>dataType:</span>
+                        <Radio.Group
+                            size="small"
+                            ref=
+                            {
+                                (radioGroup) => {
+                                    /**
+                                     * 此处写法同上inputHTMLElements
+                                     */
+                                    radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
+                                }
+                            }
+                            options={this.dataTypeOption}
+                            onChange={this.handleRadioChange}
+                        />
+                    </Row>
                 </Row>
             )
         }
         return result;
     }
+    /**
+     * radio change event
+     * @param e 
+     */
+    private handleRadioChange(e: any) {
+        console.log(e)
+    }
     /** 
      * 把input list的数据组装并返回
      */
     private combine() {
-        let result = this.inputHTMLElements.map(element => {
-            return element.input.value;
+        let colName: string = '',
+            dataType: string = '';
+
+        let result = this.inputHTMLElements.map((element, index) => {
+            colName = element.input.value;
+            return {
+                colName: colName,
+                dataType: ''
+            }
+        })
+
+        this.radioHTMLElements.forEach((element, index) => {
+            dataType = element.state.value;
+            if (dataType === 'string') {
+                delete result[index].dataType;
+            } else {
+                result[index].dataType = dataType;
+            }
         })
         this.props.leftPartChange(result);
     }

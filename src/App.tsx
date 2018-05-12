@@ -14,6 +14,11 @@ import PageHeader from './components/header';
 // 工具
 import hzzpyUtils from './utils/pinyin';
 
+interface dataSetModel {
+  colName: string,
+  dataType: string
+}
+
 class App extends React.Component {
   private editor: any;
 
@@ -47,29 +52,45 @@ class App extends React.Component {
 
   /**
    * 初始化qzz col name
-   * @param inputValue 输入框的值集合
+   * @param dataSet 输入框的值集合
    * 
    * @return 组装后的colNames新集合
    */
-  private initColNames(inputValue: Array<string>) {
+  private initColNames(dataSet: Array<dataSetModel>) {
     let data: string = 'var colNames';
 
-    return `${data} = ${JSON.stringify(inputValue)}`;
+    let colNames = dataSet.map(element => {
+      return element.colName;
+    })
+    return `${data} = ${JSON.stringify(colNames)}`;
   }
 
   /**
    * 初始化qzz col model
-   * @param inputValue 输入框的值集合
+   * @param dataSet 输入框的值集合
    * 
    * @return 组装后的colModels新集合
    */
-  private initColModels(inputValue: Array<string>) {
+  private initColModels(dataSet: Array<dataSetModel>) {
     let data: string = 'var colModels';
 
-    let pyArray = inputValue.map((value) => {
-      return {
-        name: hzzpyUtils.transfrom(value)
-      }
+    let dataType: string;
+    let colModel = {
+      name: '',
+      dataType: ''
+    };
+
+    let pyArray = dataSet.map(element => {
+      // name
+      colModel.name = hzzpyUtils.transfrom(element.colName);
+
+      // dataType
+      dataType = element.dataType;
+      dataType === 'string' ?
+        colModel.dataType = 'string'
+        : colModel.dataType = dataType;
+
+      return colModel
     })
 
     return `${data} = ${JSON.stringify(pyArray, null, '\t')}`;
@@ -77,13 +98,13 @@ class App extends React.Component {
 
   /**
    * 输入框值变化后事件
-   * @param inputValue 输入框的值集合
+   * @param dataSet 输入框的值集合
    */
-  private leftPartChange(inputValue: Array<string>) {
-    const colNamesStr: string = this.initColNames(inputValue);
-    const colModelsStr: string = this.initColModels(inputValue);
+  private leftPartChange(dataSet: Array<dataSetModel>) {
+    const colNamesStr: string = this.initColNames(dataSet);
+    const colModelsStr: string = this.initColModels(dataSet);
 
-    const value = `${colNamesStr}\n\n${colModelsStr}` 
+    const value = `${colNamesStr}\n\n${colModelsStr}`
     this.editor.setColNameValue(value);
   }
 }
