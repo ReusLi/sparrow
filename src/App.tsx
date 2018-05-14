@@ -80,20 +80,19 @@ class App extends React.Component {
       dataType: ''
     };
 
-    let pyArray = dataSet.map(element => {
+    let pyArray: Array<any> = [];
+    dataSet.forEach(element => {
       // name
       colModel.name = hzzpyUtils.transfrom(element.colName);
 
       // dataType
-      dataType = element.dataType;
-      dataType === 'string' ?
-        colModel.dataType = 'string'
-        : colModel.dataType = dataType;
+      // dataType = element.dataType;
+      dataType === element.dataType;
 
-      return colModel
+      pyArray.push(colModel)
     })
-
-    return `${data} = ${JSON.stringify(pyArray, null, '\t')}`;
+    // 暂时直接用dataSet
+    return `${data} = ${JSON.stringify(dataSet, null, '\t')}`;
   }
 
   /**

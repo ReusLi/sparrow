@@ -101,6 +101,7 @@ class LeftPart extends React.Component<props, states> {
                                     radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
                                 }
                             }
+                            value="string"
                             options={this.dataTypeOption}
                             onChange={this.handleRadioChange}
                         />
@@ -132,14 +133,15 @@ class LeftPart extends React.Component<props, states> {
             }
         })
 
-        this.radioHTMLElements.forEach((element, index) => {
-            dataType = element.state.value;
-            if (dataType === 'string') {
-                delete result[index].dataType;
-            } else {
-                result[index].dataType = dataType;
+        result = result.map((element, index) => {
+            dataType = this.radioHTMLElements[index].state.value;
+            if (dataType !== 'string') {
+                element.dataType = dataType;
             }
+            return element
         })
+        
+        console.log(result)
         this.props.leftPartChange(result);
     }
     /**
