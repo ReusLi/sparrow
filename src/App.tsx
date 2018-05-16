@@ -91,7 +91,7 @@ class App extends React.Component {
 
       pyArray.push(colModel)
     })
-    // 暂时直接用dataSet
+    // 暂时直接用dataSet 
     return `${data} = ${JSON.stringify(dataSet, null, '\t')}`;
   }
 
