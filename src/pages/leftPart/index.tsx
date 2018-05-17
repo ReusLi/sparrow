@@ -3,6 +3,8 @@ import * as React from 'react'
 // ui组件
 import { Input, Radio, Row } from 'antd'
 
+const RadioGroup = Radio.Group;
+
 import './index.css'
 
 
@@ -93,7 +95,7 @@ class LeftPart extends React.Component<props, states> {
                     />
                     <Row className='attr-row-style'>
                         <span>dataType:</span>
-                        <Radio.Group
+                        <RadioGroup
                             size="small"
                             ref=
                             {
@@ -106,7 +108,7 @@ class LeftPart extends React.Component<props, states> {
                             }
                             defaultValue="string"
                             options={this.dataTypeOption}
-                            onChange={this.handleRadioChange.bind(this)}
+                            onChange={this.handleRadioChange.bind(this, index)}
                         />
                     </Row>
                 </Row>
@@ -118,14 +120,13 @@ class LeftPart extends React.Component<props, states> {
      * radio change event
      * @param e 
      */
-    private handleRadioChange(e: any) {
-        console.log(e)
-        this.combine();
+    private handleRadioChange(index: number | boolean, e: any) {
+        this.combine(index, e.target.value);
     }
     /** 
      * 把input list的数据组装并返回
      */
-    private combine() {
+    private combine(radioSort: number | boolean, radioValue: string | boolean) {
         let colName: string = '',
             dataType: string = '';
 
@@ -133,7 +134,7 @@ class LeftPart extends React.Component<props, states> {
             colName = element.input.value;
             return {
                 colName: colName,
-                dataType: ''
+                dataType: null
             }
         })
 
@@ -141,6 +142,9 @@ class LeftPart extends React.Component<props, states> {
             dataType = this.radioHTMLElements[index].state.value;
             if (dataType !== 'string') {
                 element.dataType = dataType;
+            }
+            if (index === radioSort) {
+                element.dataType = radioValue;
             }
             return element
         })
@@ -215,7 +219,7 @@ class LeftPart extends React.Component<props, states> {
      * @param e 事件对象
      */
     private onChange(e: any) {
-        this.combine();
+        this.combine(false, false);
     }
 }
 
