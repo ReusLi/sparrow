@@ -67,6 +67,7 @@ class LeftPart extends React.Component<props, states> {
     private renderInputComponent(compIndex: number) {
         let result: Array<any> = [];
         this.inputHTMLElements = [];
+        this.radioHTMLElements = [];
         for (let index = 0; index <= compIndex; index++) {
             result.push(
                 <Row key={`inputComp_${index}`} className='row-style'>
@@ -101,7 +102,6 @@ class LeftPart extends React.Component<props, states> {
                                     radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
                                 }
                             }
-                            value="string"
                             options={this.dataTypeOption}
                             onChange={this.handleRadioChange}
                         />
