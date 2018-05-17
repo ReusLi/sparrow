@@ -63,6 +63,8 @@ class LeftPart extends React.Component<props, states> {
 
     /** 
      * 渲染输入框组件
+     * 
+     * @param compIndex 要渲染的组件数量
      */
     private renderInputComponent(compIndex: number) {
         let result: Array<any> = [];
@@ -70,7 +72,7 @@ class LeftPart extends React.Component<props, states> {
         this.radioHTMLElements = [];
         for (let index = 0; index <= compIndex; index++) {
             result.push(
-                <Row key={`inputComp_${index}`} className='row-style'>
+                <Row key={"inputComp_" + index} className="row-style">
                     <Input
                         ref=
                         {
@@ -102,8 +104,9 @@ class LeftPart extends React.Component<props, states> {
                                     radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
                                 }
                             }
+                            defaultValue="string"
                             options={this.dataTypeOption}
-                            onChange={this.handleRadioChange}
+                            onChange={this.handleRadioChange.bind(this)}
                         />
                     </Row>
                 </Row>
@@ -117,6 +120,7 @@ class LeftPart extends React.Component<props, states> {
      */
     private handleRadioChange(e: any) {
         console.log(e)
+        this.combine();
     }
     /** 
      * 把input list的数据组装并返回
@@ -140,7 +144,7 @@ class LeftPart extends React.Component<props, states> {
             }
             return element
         })
-        
+
         console.log(result)
         this.props.leftPartChange(result);
     }
