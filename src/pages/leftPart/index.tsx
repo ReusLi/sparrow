@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from "react"
 
 // ui组件
-import { Input, Radio, Row } from 'antd'
+import { Input, Radio, Row } from "antd"
 
 const RadioGroup = Radio.Group;
 
-import './index.css'
+import "./index.css"
 
 
 interface props {
@@ -33,12 +33,12 @@ class LeftPart extends React.Component<props, states> {
     private radioHTMLElements: Array<any> = [];
 
     /** dataType选项值 */
-    private dataTypeOption = ['string', 'number', 'date'];
+    private dataTypeOption = ["string", "number", "date"];
 
     constructor(props: props, state: states) {
         super(props);
         this.state = {
-            placeholder: '输入colNames, 然后按回车',
+            placeholder: "输入colNames, 然后按回车",
             inputFocusIndex: 0,
             inputComp: []
         };
@@ -93,7 +93,7 @@ class LeftPart extends React.Component<props, states> {
                         onKeyDown={this.onKeyDown.bind(this)}
                         onChange={this.onChange.bind(this)}
                     />
-                    <Row className='attr-row-style'>
+                    <Row className="attr-row-style">
                         <span>dataType:</span>
                         <RadioGroup
                             size="small"
@@ -117,19 +117,23 @@ class LeftPart extends React.Component<props, states> {
         return result;
     }
     /**
-     * radio change event
+     * radio group chagne event
+     * @param index radioGroup的序号
      * @param e 
      */
     private handleRadioChange(index: number | boolean, e: any) {
         this.combine(index, e.target.value);
     }
-    /** 
+    /**
      * 把input list的数据组装并返回
+     * @param radioSort radioGroup 最近change的组件的序号
+     * @param radioValue radioGroup 最近change的组件的值
      */
     private combine(radioSort: number | boolean, radioValue: string | boolean) {
-        let colName: string = '',
-            dataType: string = '';
+        let colName: string = "",
+            dataType: string = "";
 
+        // 根据input组件初始化colName
         let result = this.inputHTMLElements.map((element, index) => {
             colName = element.input.value;
             return {
@@ -138,24 +142,32 @@ class LeftPart extends React.Component<props, states> {
             }
         })
 
+        // 根据RadioGroup组件初始化dataType
         result = result.map((element, index) => {
             dataType = this.radioHTMLElements[index].state.value;
-            if (dataType !== 'string') {
+            if (dataType !== "") {
                 element.dataType = dataType;
             }
             if (index === radioSort) {
                 element.dataType = radioValue;
             }
-            return element
+            return element;
         })
 
-        console.log(result)
+        // dataType为string || ""的过滤掉dataType属性
+        const illegalValue: Array<string> = ["", "string"];
+        result.map((element, index) => {
+            if (illegalValue.indexOf(element.dataType) !== -1) {
+                delete result[index].dataType;
+            }
+        })
+
         this.props.leftPartChange(result);
     }
     /**
-     * 点击事件
+     * input click event
      * @param index 输入框序号
-     * @param e 事件对象
+     * @param e event object
      */
     private onClick(index: number, e: any) {
         // 点击input时,更新当前focus的input序号
@@ -164,8 +176,8 @@ class LeftPart extends React.Component<props, states> {
         })
     }
     /**
-     * 回车事件
-     * @param e 事件对象
+     * input press enter event
+     * @param e event object
      */
     private onPressEnter(e: object) {
         const inputNum: number = this.inputHTMLElements.length;
@@ -187,8 +199,8 @@ class LeftPart extends React.Component<props, states> {
 
     }
     /**
-     * 键盘按下事件
-     * @param e 事件对象
+     * input key down event
+     * @param e event object
      */
     private onKeyDown(e: any) {
         const key: number = e.keyCode,
@@ -215,8 +227,8 @@ class LeftPart extends React.Component<props, states> {
         })
     }
     /**
-     * 输入框chagne事件
-     * @param e 事件对象
+     * input chagne event
+     * @param e event object
      */
     private onChange(e: any) {
         this.combine(false, false);
