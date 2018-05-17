@@ -8,7 +8,7 @@ import './index.css'
 class PageHeader extends React.Component {
     public render() {
         return (
-            <Header className='header'>to-do-list-app</Header>
+            <Header className='header'>template-builder</Header>
         )
     }
 }
