@@ -1,7 +1,7 @@
 import * as React from "react"
 
 // ui组件
-import { Input, Radio, Row } from "antd"
+import { Button, Col, Input, Icon, Radio, Row } from "antd"
 
 const RadioGroup = Radio.Group;
 
@@ -75,41 +75,51 @@ class LeftPart extends React.Component<props, states> {
         for (let index = 0; index <= compIndex; index++) {
             result.push(
                 <Row key={"inputComp_" + index} className="row-style">
-                    <Input
-                        ref=
-                        {
-                            (input) => {
-                                /**
-                                 * input有可能是null, 具体原因看:
-                                 * https://github.com/facebook/react/issues/7267
-                                 * https://github.com/facebook/react/issues/7272
-                                 */
-                                input === null ? null : this.inputHTMLElements.push(input)
-                            }
-                        }
-                        placeholder={this.state.placeholder}
-                        onClick={this.onClick.bind(this, index)}
-                        onPressEnter={this.onPressEnter.bind(this)}
-                        onKeyDown={this.onKeyDown.bind(this)}
-                        onChange={this.onChange.bind(this)}
-                    />
-                    <Row className="attr-row-style">
-                        <span>dataType:</span>
-                        <RadioGroup
-                            size="small"
+                    <Col offset={1} span={20}>
+                        <Input
                             ref=
                             {
-                                (radioGroup) => {
+                                (input) => {
                                     /**
-                                     * 此处写法同上inputHTMLElements
+                                     * input有可能是null, 具体原因看:
+                                     * https://github.com/facebook/react/issues/7267
+                                     * https://github.com/facebook/react/issues/7272
                                      */
-                                    radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
+                                    input === null ? null : this.inputHTMLElements.push(input)
                                 }
                             }
-                            defaultValue="string"
-                            options={this.dataTypeOption}
-                            onChange={this.handleRadioChange.bind(this, index)}
+                            placeholder={this.state.placeholder}
+                            onClick={this.onClick.bind(this, index)}
+                            onPressEnter={this.onPressEnter.bind(this)}
+                            onKeyDown={this.onKeyDown.bind(this)}
+                            onChange={this.onChange.bind(this)}
                         />
+                    </Col>
+                    <Col offset={1} span={2}>
+                        <Button type="danger" size="default">
+                            <Icon type="delete" />
+                        </Button>
+                    </Col>
+                    
+                    <Row className="attr-row-style">
+                        <Col offset={1} span={23}>
+                            <span>dataType:</span>
+                            <RadioGroup
+                                size="small"
+                                ref=
+                                {
+                                    (radioGroup) => {
+                                        /**
+                                         * 此处写法同上inputHTMLElements
+                                         */
+                                        radioGroup === null ? null : this.radioHTMLElements.push(radioGroup)
+                                    }
+                                }
+                                defaultValue="string"
+                                options={this.dataTypeOption}
+                                onChange={this.handleRadioChange.bind(this, index)}
+                            />
+                        </Col>
                     </Row>
                 </Row>
             )
