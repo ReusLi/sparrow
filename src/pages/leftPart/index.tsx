@@ -36,13 +36,17 @@ interface listModel {
     /** uuid */
     uuid: string
 
+    colNameRef: any
+
     /** input输入框值 */
     colName: string
 
     /** radio输入框值 */
     dataType: string
 
-    [key: string]: string;
+    /** Array key */
+    [key: string]: string
+
 }
 
 class LeftPart extends React.Component<props, states> {
@@ -64,16 +68,16 @@ class LeftPart extends React.Component<props, states> {
             inputFocusIndex: 0,
             inputComp: [],
             listModel: [{
-                uuid: '123',
-                colName: 'test',
+                uuid: new Date().getTime().toString(),
+                colName: '',
+                colNameRef: null,
                 dataType: 'string'
             }],
             listTemplate: null
         };
     }
     componentWillMount() {
-        this.initListModel();
-        this.initListTemplate();
+        this.getListTemplate();
     }
 
     componentDidMount() {
@@ -91,14 +95,29 @@ class LeftPart extends React.Component<props, states> {
     /** 
      * 初始化列表模型
      */
-    private initListModel() {
+    private addListModel() {
+        const model = {
+            uuid: new Date().getTime().toString(),
+            colName: '',
+            colNameRef: "",
+            dataType: 'string'
+        }
 
+        let listModel = this.state.listModel;
+
+        listModel.push(model);
+
+        this.setState({
+            listModel: listModel
+        })
+
+        this.getListTemplate();
     }
 
     /** 
      * 初始化列表模板
      */
-    private initListTemplate() {
+    private getListTemplate() {
         const listTemplate = this.renderList();
         this.setState({
             listTemplate: listTemplate
@@ -119,12 +138,14 @@ class LeftPart extends React.Component<props, states> {
                 <Row key={UUID} className='row-style'>
                     <Input
                         style={{ width: '80%', margin: '0 10px' }}
-                        // value={model.colName}
+                        ref={(element)=>{
+                            model.colNameRef = element;
+                        }}
                         placeholder={this.state.placeholder}
-                        onClick={this.onClick.bind(this, UUID)}
-                        onPressEnter={this.onPressEnter.bind(this, UUID)}
-                        onKeyDown={this.onKeyDown.bind(this, UUID)}
-                        onChange={this.onColNameChange.bind(this, UUID)}
+                        onClick={this.onColNameInputClick.bind(this, index)}
+                        onPressEnter={this.onColNameInputPressEnter.bind(this, index + 1)}
+                        onKeyDown={this.onColNameInputKeyDown.bind(this)}
+                        onChange={this.onColNameInputChange.bind(this, UUID)}
                     />
                     <Button shape='circle' type='danger' size='default'>
                         <Icon type='delete' />
@@ -136,9 +157,8 @@ class LeftPart extends React.Component<props, states> {
                             <RadioGroup
                                 size='small'
                                 defaultValue='string'
-                                // value={model.dataType}
                                 options={this.dataTypeOption}
-                                onChange={this.handleRadioChange.bind(this, UUID)}
+                                onChange={this.onDataTypeChange.bind(this, UUID)}
                             />
                         </Col>
                     </Row>
@@ -152,7 +172,7 @@ class LeftPart extends React.Component<props, states> {
      * @param UUID model item`s uuid
      * @param e event
      */
-    private handleRadioChange(UUID: string, e: any) {
+    private onDataTypeChange(UUID: string, e: any) {
         const key = 'dataType',
             value = e.target.value;
 
@@ -163,47 +183,22 @@ class LeftPart extends React.Component<props, states> {
      * @param radioSort radioGroup 最近change的组件的序号
      * @param radioValue radioGroup 最近change的组件的值
      */
-    private combine(radioSort: number | boolean, radioValue: string | boolean) {
-        let colName: string = '',
-            dataType: string = '';
-
-        // 根据input组件初始化colName
-        let result = this.inputHTMLElements.map((element, index) => {
-            colName = element.input.value;
+    private combine() {
+        let combineData = this.state.listModel.map((model) => {
             return {
-                colName: colName,
-                dataType: null
+                colName: model.colName,
+                dataType: model.dataType
             }
         })
 
-        // 根据RadioGroup组件初始化dataType
-        result = result.map((element, index) => {
-            dataType = this.radioHTMLElements[index].state.value;
-            if (dataType !== '') {
-                element.dataType = dataType;
-            }
-            if (index === radioSort) {
-                element.dataType = radioValue;
-            }
-            return element;
-        })
-
-        // dataType为string || ''的过滤掉dataType属性
-        const illegalValue: Array<string> = ['', 'string'];
-        result.map((element, index) => {
-            if (illegalValue.indexOf(element.dataType) !== -1) {
-                delete result[index].dataType;
-            }
-        })
-
-        this.props.leftPartChange(result);
+        this.props.leftPartChange(combineData);
     }
     /**
      * input click event
      * @param index 输入框序号
      * @param e event object
      */
-    private onClick(index: number, e: any) {
+    private onColNameInputClick(index: number, e: any) {
         // 点击input时,更新当前focus的input序号
         this.setState({
             inputFocusIndex: index
@@ -213,20 +208,15 @@ class LeftPart extends React.Component<props, states> {
      * input press enter event
      * @param e event object
      */
-    private onPressEnter(e: object) {
-        const inputNum: number = this.inputHTMLElements.length;
-        const focusIndex: number = this.state.inputFocusIndex;
-
+    private onColNameInputPressEnter(colNameIndex: number, e: object) {
+        const listModelLen: number = this.state.listModel.length;
         // 在最后一个input回车时, 自动新增一个input组件并focus
-        if (inputNum === (focusIndex + 1)) {
-            // this.setState({
-            //     inputComp: this.renderList()
-            // })
-            this.initListTemplate();
+        if (colNameIndex === listModelLen) {
+            this.addListModel();
         }
 
         setTimeout(() => {
-            this.onKeyDown({
+            this.onColNameInputKeyDown({
                 keyCode: 40
             })
         }, 100)
@@ -236,9 +226,9 @@ class LeftPart extends React.Component<props, states> {
      * input key down event
      * @param e event object
      */
-    private onKeyDown(e: any) {
+    private onColNameInputKeyDown(e: any) {
         const key: number = e.keyCode,
-            maxLen: number = this.inputHTMLElements.length;
+            maxLen: number = this.state.listModel.length;
 
         let focusIndex: number = this.state.inputFocusIndex;
 
@@ -255,7 +245,8 @@ class LeftPart extends React.Component<props, states> {
             return false;
         }
 
-        this.inputHTMLElements[focusIndex].focus();
+        this.state.listModel[focusIndex].colNameRef.focus();
+        
         this.setState({
             inputFocusIndex: focusIndex
         })
@@ -265,7 +256,7 @@ class LeftPart extends React.Component<props, states> {
      * @param UUID model item`s uuid
      * @param e event
      */
-    private onColNameChange(UUID: string, e: any) {
+    private onColNameInputChange(UUID: string, e: any) {
         const key = 'colName',
             value = e.currentTarget.value;
 
@@ -290,7 +281,8 @@ class LeftPart extends React.Component<props, states> {
         this.setState({
             listModel: listModel
         })
-        console.log(this.state.listModel)
+        
+        this.combine();
     }
 }
 
