@@ -16,13 +16,31 @@ interface props {
 interface states {
 
     /** 输入框提示语 */
-    placeholder: string,
+    placeholder: string
 
     /** 当前foucus的input框下标 */
-    inputFocusIndex: number,
+    inputFocusIndex: number
 
     /** 输入框组件集合 */
     inputComp: Array<any>
+
+    /** 列表模型 */
+    listModel: Array<listModel>
+}
+
+/** 列表模型 */
+interface listModel {
+    /** input输入框对象 */
+    inputRef: any
+    
+    /** input输入框值 */
+    inputValue: string
+
+    /** radio输入框对象 */
+    radioRef: any
+
+    /** radio输入框值 */
+    radioValue: string
 }
 
 class LeftPart extends React.Component<props, states> {
@@ -40,13 +58,16 @@ class LeftPart extends React.Component<props, states> {
         this.state = {
             placeholder: "输入colNames, 然后按回车",
             inputFocusIndex: 0,
-            inputComp: []
+            inputComp: [],
+            listModel: []
         };
     }
     componentWillMount() {
+        this.initListModel();
         const compIndex: number = 0;
         this.setState({
-            inputComp: this.renderInputComponent(compIndex)
+            inputComp: this.renderInputComponent(compIndex),
+            listModel: []
         })
     }
 
@@ -61,6 +82,10 @@ class LeftPart extends React.Component<props, states> {
                 {this.state.inputComp}
             </div>
         )
+    }
+
+    private initListModel() {
+
     }
 
     /** 
