@@ -75,31 +75,28 @@ class LeftPart extends React.Component<props, states> {
         for (let index = 0; index <= compIndex; index++) {
             result.push(
                 <Row key={"inputComp_" + index} className="row-style">
-                    <Col offset={1} span={20}>
-                        <Input
-                            ref=
-                            {
-                                (input) => {
-                                    /**
-                                     * input有可能是null, 具体原因看:
-                                     * https://github.com/facebook/react/issues/7267
-                                     * https://github.com/facebook/react/issues/7272
-                                     */
-                                    input === null ? null : this.inputHTMLElements.push(input)
-                                }
+                    <Input
+                        style={{width: '80%', margin: '0 10px'}}
+                        ref=
+                        {
+                            (input) => {
+                                /**
+                                 * input有可能是null, 具体原因看:
+                                 * https://github.com/facebook/react/issues/7267
+                                 * https://github.com/facebook/react/issues/7272
+                                 */
+                                input === null ? null : this.inputHTMLElements.push(input)
                             }
-                            placeholder={this.state.placeholder}
-                            onClick={this.onClick.bind(this, index)}
-                            onPressEnter={this.onPressEnter.bind(this)}
-                            onKeyDown={this.onKeyDown.bind(this)}
-                            onChange={this.onChange.bind(this)}
-                        />
-                    </Col>
-                    <Col offset={1} span={2}>
-                        <Button type="danger" size="default">
-                            <Icon type="delete" />
-                        </Button>
-                    </Col>
+                        }
+                        placeholder={this.state.placeholder}
+                        onClick={this.onClick.bind(this, index)}
+                        onPressEnter={this.onPressEnter.bind(this)}
+                        onKeyDown={this.onKeyDown.bind(this)}
+                        onChange={this.onChange.bind(this)}
+                    />
+                    <Button shape="circle" type="danger" size="default">
+                        <Icon type="delete" />
+                    </Button>
                     
                     <Row className="attr-row-style">
                         <Col offset={1} span={23}>
