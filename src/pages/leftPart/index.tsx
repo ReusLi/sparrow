@@ -1,11 +1,11 @@
-import * as React from "react"
+import * as React from 'react'
 
 // ui组件
-import { Button, Col, Input, Icon, Radio, Row } from "antd"
+import { Button, Col, Input, Icon, Radio, Row } from 'antd'
 
 const RadioGroup = Radio.Group;
 
-import "./index.css"
+import './index.css'
 
 
 interface props {
@@ -53,14 +53,14 @@ class LeftPart extends React.Component<props, states> {
     private radioHTMLElements: Array<any> = [];
 
     /** dataType选项值 */
-    private dataTypeOption = ["string", "number", "date"];
+    private dataTypeOption = ['string', 'number', 'date'];
 
     private listTemplate: any;
 
     constructor(props: props, state: states) {
         super(props);
         this.state = {
-            placeholder: "输入colNames, 然后按回车",
+            placeholder: '输入colNames, 然后按回车',
             inputFocusIndex: 0,
             inputComp: [],
             listModel: [{
@@ -116,7 +116,7 @@ class LeftPart extends React.Component<props, states> {
         this.state.listModel.forEach((model, index) => {
             UUID = model.uuid;
             result.push(
-                <Row key={UUID} className="row-style">
+                <Row key={UUID} className='row-style'>
                     <Input
                         style={{ width: '80%', margin: '0 10px' }}
                         // value={model.colName}
@@ -126,16 +126,16 @@ class LeftPart extends React.Component<props, states> {
                         onKeyDown={this.onKeyDown.bind(this, UUID)}
                         onChange={this.onColNameChange.bind(this, UUID)}
                     />
-                    <Button shape="circle" type="danger" size="default">
-                        <Icon type="delete" />
+                    <Button shape='circle' type='danger' size='default'>
+                        <Icon type='delete' />
                     </Button>
 
-                    <Row className="attr-row-style">
+                    <Row className='attr-row-style'>
                         <Col offset={1} span={23}>
                             <span>dataType:</span>
                             <RadioGroup
-                                size="small"
-                                defaultValue="string"
+                                size='small'
+                                defaultValue='string'
                                 // value={model.dataType}
                                 options={this.dataTypeOption}
                                 onChange={this.handleRadioChange.bind(this, UUID)}
@@ -153,7 +153,7 @@ class LeftPart extends React.Component<props, states> {
      * @param e event
      */
     private handleRadioChange(UUID: string, e: any) {
-        const key = "dataType",
+        const key = 'dataType',
             value = e.target.value;
 
         this.modifyModelByUUID(UUID, key, value);
@@ -164,8 +164,8 @@ class LeftPart extends React.Component<props, states> {
      * @param radioValue radioGroup 最近change的组件的值
      */
     private combine(radioSort: number | boolean, radioValue: string | boolean) {
-        let colName: string = "",
-            dataType: string = "";
+        let colName: string = '',
+            dataType: string = '';
 
         // 根据input组件初始化colName
         let result = this.inputHTMLElements.map((element, index) => {
@@ -179,7 +179,7 @@ class LeftPart extends React.Component<props, states> {
         // 根据RadioGroup组件初始化dataType
         result = result.map((element, index) => {
             dataType = this.radioHTMLElements[index].state.value;
-            if (dataType !== "") {
+            if (dataType !== '') {
                 element.dataType = dataType;
             }
             if (index === radioSort) {
@@ -188,8 +188,8 @@ class LeftPart extends React.Component<props, states> {
             return element;
         })
 
-        // dataType为string || ""的过滤掉dataType属性
-        const illegalValue: Array<string> = ["", "string"];
+        // dataType为string || ''的过滤掉dataType属性
+        const illegalValue: Array<string> = ['', 'string'];
         result.map((element, index) => {
             if (illegalValue.indexOf(element.dataType) !== -1) {
                 delete result[index].dataType;
@@ -266,7 +266,7 @@ class LeftPart extends React.Component<props, states> {
      * @param e event
      */
     private onColNameChange(UUID: string, e: any) {
-        const key = "colName",
+        const key = 'colName',
             value = e.currentTarget.value;
 
         this.modifyModelByUUID(UUID, key, value);
