@@ -140,7 +140,7 @@ class LeftPart extends React.Component<props, states> {
                 <Row key={UUID} className='row-style'>
                     <Input
                         style={{ width: '80%', margin: '0 10px' }}
-                        ref={(element)=>{
+                        ref={(element) => {
                             model.colNameRef = element;
                         }}
                         placeholder={this.state.placeholder}
@@ -149,7 +149,11 @@ class LeftPart extends React.Component<props, states> {
                         onKeyDown={this.onColNameInputKeyDown.bind(this)}
                         onChange={this.onColNameInputChange.bind(this, UUID)}
                     />
-                    <Button shape='circle' type='danger' size='default'>
+                    <Button
+                        shape='circle'
+                        type='danger'
+                        size='default'
+                        onClick={this.onDelBtnClick.bind(this, UUID)}>
                         <Icon type='delete' />
                     </Button>
 
@@ -168,6 +172,25 @@ class LeftPart extends React.Component<props, states> {
             )
         })
         return result;
+    }
+
+    /**
+     * delete one of list model item
+     * @param UUID listModel item`s uuid
+     */
+    private onDelBtnClick(UUID: string) {
+        let listModel = this.state.listModel;
+        if (listModel.length <= 1) {
+            return false;
+        }
+        listModel = this.state.listModel.filter((model) => model.uuid !== UUID);
+
+        this.setState({
+            listModel: listModel
+        }, () => {
+            this.getListTemplate();
+            this.combine();
+        })
     }
     /**
      * 
@@ -248,7 +271,7 @@ class LeftPart extends React.Component<props, states> {
         }
 
         this.state.listModel[focusIndex].colNameRef.focus();
-        
+
         this.setState({
             inputFocusIndex: focusIndex
         })
@@ -283,7 +306,7 @@ class LeftPart extends React.Component<props, states> {
         this.setState({
             listModel: listModel
         })
-        
+
         this.combine();
     }
 }
