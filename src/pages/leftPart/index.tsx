@@ -81,7 +81,9 @@ class LeftPart extends React.Component<props, states> {
     }
 
     componentDidMount() {
-        // this.inputHTMLElements[0].focus();
+        setTimeout(() => {
+            this.state.listModel[0].colNameRef.focus();
+        }, 100)
     }
 
     public render() {
