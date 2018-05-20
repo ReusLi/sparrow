@@ -56,13 +56,13 @@ class App extends React.Component {
    * 
    * @return 组装后的colNames新集合
    */
-  private initColNames(dataSet: Array<dataSetModel>) {
-    let data: string = 'var colNames';
+  private initColNames(data: Array<dataSetModel>) {
+    let colNames: string = 'var colNames';
 
-    let colNames = dataSet.map(element => {
+    let dataSet = data.map(element => {
       return element.colName;
     })
-    return `${data} = ${JSON.stringify(colNames)}`;
+    return `${colNames} = ${JSON.stringify(dataSet)}`;
   }
 
   /**
@@ -71,28 +71,30 @@ class App extends React.Component {
    * 
    * @return 组装后的colModels新集合
    */
-  private initColModels(dataSet: Array<dataSetModel>) {
-    let data: string = 'var colModels';
+  private initColModels(data: Array<dataSetModel>) {
+    let colModels: string = 'var colModels';
 
-    let dataType: string;
     let colModel = {
       name: '',
       dataType: ''
     };
 
-    let pyArray: Array<any> = [];
-    dataSet.forEach(element => {
-      // name
+    let dataSet: Array<any> = [];
+    data.forEach(element => {
+      colModel = {
+        name: '',
+        dataType: ''
+      }
+      // 中文拼音首字母
       colModel.name = hzzpyUtils.transfrom(element.colName);
 
-      // dataType
-      // dataType = element.dataType;
-      dataType === element.dataType;
+      // dataType值
+      element.dataType !== 'string' ? colModel.dataType = element.dataType : delete colModel.dataType;
 
-      pyArray.push(colModel)
+      dataSet.push(colModel)
     })
-    // 暂时直接用dataSet 
-    return `${data} = ${JSON.stringify(dataSet, null, '\t')}`;
+
+    return `${colModels} = ${JSON.stringify(dataSet, null, '\t')}`;
   }
 
   /**
