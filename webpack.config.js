@@ -18,7 +18,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback:'style-loader',
+          fallback: 'style-loader',
           use: [
             { loader: "css-loader" }
           ]
@@ -27,7 +27,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
-          fallback:'style-loader',
+          fallback: 'style-loader',
           use: [
             { loader: "less-loader" }
           ]
@@ -41,15 +41,15 @@ module.exports = {
       chunks: "initial",
       cacheGroups: {
         default: false,
-        vendor: { 
+        vendor: {
           test: /node_modules/,
           chunks: 'initial',
           name: 'vendor',
-          priority: 10, 
+          priority: 10,
           enforce: true
         }
       }
-      
+
     },
   },
   plugins: [
