@@ -35,8 +35,15 @@ module.exports = {
       chunks: "initial",
       cacheGroups: {
         default: false,
-        vendors: false,
-      },
+        vendor: { 
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10, 
+          enforce: true
+        }
+      }
+      
     },
   },
   plugins: [
