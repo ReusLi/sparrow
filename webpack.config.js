@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -16,16 +17,21 @@ module.exports = {
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.css$/,
-        use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback:'style-loader',
+          use: [
+            { loader: "css-loader" }
+          ]
+        })
       },
       {
         test: /\.less$/,
-        use: [
-          { loader: "less-loader" }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback:'style-loader',
+          use: [
+            { loader: "less-loader" }
+          ]
+        })
       }
     ]
   },
@@ -52,6 +58,9 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html',
       inject: true
+    }),
+    new ExtractTextPlugin({
+      filename: "[name].[hash].css"
     })
   ],
   resolve: {
