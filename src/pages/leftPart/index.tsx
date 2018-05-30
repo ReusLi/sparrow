@@ -7,6 +7,8 @@ const RadioGroup = Radio.Group;
 
 import './index.css'
 
+// 自定义组件
+import AttrComponent from './attrComponent'
 
 interface props {
     /** 输入框值变动后回调事件 */
@@ -159,13 +161,21 @@ class LeftPart extends React.Component<props, states> {
 
                     <Row className='attr-row-style'>
                         <Col offset={1} span={23}>
-                            <span>dataType:</span>
+                            <AttrComponent 
+                               UUID={UUID} 
+                               labelName='dataType'
+                               defaultValue='string'
+                               dataTypeOption={this.dataTypeOption}
+                               onDataTypeChange={this.onDataTypeChange}
+                               parent={this}
+                            />
+                            {/* <span>dataType:</span>
                             <RadioGroup
                                 size='small'
                                 defaultValue='string'
                                 options={this.dataTypeOption}
                                 onChange={this.onDataTypeChange.bind(this, UUID)}
-                            />
+                            /> */}
                         </Col>
                     </Row>
                 </Row>
@@ -197,9 +207,8 @@ class LeftPart extends React.Component<props, states> {
      * @param UUID model item`s uuid
      * @param e event
      */
-    private onDataTypeChange(UUID: string, e: any) {
-        const key = 'dataType',
-            value = e.target.value;
+    private onDataTypeChange(UUID: string, value: any) {
+        const key = 'dataType';
 
         this.modifyModelByUUID(UUID, key, value);
     }
