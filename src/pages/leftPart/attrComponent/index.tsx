@@ -1,11 +1,8 @@
 import * as React from 'react'
 
-import { createContext } from 'react'
 
 // ui组件
 import { Radio } from 'antd'
-
-const AppContext = createContext(null);
 
 const RadioGroup = Radio.Group;
 
@@ -27,7 +24,7 @@ interface props {
     defaultValue: string | number
 
     /** change event */
-    onDataTypeChange: Function
+    // onDataTypeChange: Function
 
     parent: any
 }

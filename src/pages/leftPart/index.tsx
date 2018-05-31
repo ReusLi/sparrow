@@ -31,6 +31,8 @@ interface states {
 
     /** list 模板 */
     listTemplate: any
+
+    onDataTypeChange: Function
 }
 
 /** 列表模型 */
@@ -50,6 +52,10 @@ interface listModel {
     [key: string]: string
 
 }
+
+const AttrContext = React.createContext({
+    onDataTypeChange: (UUID: string, value: any) => { }
+})
 
 class LeftPart extends React.Component<props, states> {
     /** 输入框的HTML元素集合 */
@@ -75,7 +81,8 @@ class LeftPart extends React.Component<props, states> {
                 colNameRef: null,
                 dataType: 'string'
             }],
-            listTemplate: null
+            listTemplate: null,
+            onDataTypeChange: function(){console.log(123)}
         };
     }
     componentWillMount() {
@@ -161,14 +168,16 @@ class LeftPart extends React.Component<props, states> {
 
                     <Row className='attr-row-style'>
                         <Col offset={1} span={23}>
-                            <AttrComponent 
-                               UUID={UUID} 
-                               labelName='dataType'
-                               defaultValue='string'
-                               dataTypeOption={this.dataTypeOption}
-                               onDataTypeChange={this.onDataTypeChange}
-                               parent={this}
-                            />
+                            <AttrContext.Provider value={this.state}>
+                                <AttrComponent
+                                    UUID={UUID}
+                                    labelName='dataType'
+                                    defaultValue='string'
+                                    dataTypeOption={this.dataTypeOption}
+                                    onDataTypeChange={this.onDataTypeChange}
+                                    parent={this}
+                                />
+                            </AttrContext>
                             {/* <span>dataType:</span>
                             <RadioGroup
                                 size='small'
@@ -207,7 +216,7 @@ class LeftPart extends React.Component<props, states> {
      * @param UUID model item`s uuid
      * @param e event
      */
-    private onDataTypeChange(UUID: string, value: any) {
+    public onDataTypeChange(UUID: string, value: any) {
         const key = 'dataType';
 
         this.modifyModelByUUID(UUID, key, value);
@@ -319,5 +328,7 @@ class LeftPart extends React.Component<props, states> {
         this.combine();
     }
 }
+
+
 
 export default LeftPart;
