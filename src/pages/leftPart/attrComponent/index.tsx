@@ -29,6 +29,9 @@ interface props {
     parent: any
 }
 
+// context
+import { AttrContext } from '../../../context/AttrContext'
+
 class AttrComponent extends React.Component<props, states> {
     constructor(props: props, state: states) {
         super(props);
@@ -36,18 +39,22 @@ class AttrComponent extends React.Component<props, states> {
 
     public render() {
         return (
-            <RadioGroup
-                size='small'
-                defaultValue={this.props.defaultValue}
-                options={this.props.dataTypeOption}
-                onChange={this.onDataTypeChange.bind(this)}
-            />
+            <AttrContext.Consumer>
+                {({ onDataTypeChange }) => (
+                    <RadioGroup
+                        size='small'
+                        defaultValue={this.props.defaultValue}
+                        options={this.props.dataTypeOption}
+                        onChange={this.onDataTypeChange.bind(this, onDataTypeChange)}
+                    />
+                )}
+            </AttrContext.Consumer>
         )
     }
 
-    onDataTypeChange(e: any) {
+    onDataTypeChange(method: Function, e: any) {
         const value = e.target.value;
-        this.props.parent.onDataTypeChange(this.props.UUID, value);
+        method(this.props.UUID, value)
     }
 }
 

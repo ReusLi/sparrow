@@ -10,6 +10,9 @@ import './index.css'
 // 自定义组件
 import AttrComponent from './attrComponent'
 
+// context
+import { AttrContext } from '../../context/AttrContext'
+
 interface props {
     /** 输入框值变动后回调事件 */
     leftPartChange: Function
@@ -32,7 +35,7 @@ interface states {
     /** list 模板 */
     listTemplate: any
 
-    onDataTypeChange: Function
+    onDataTypeChange: any
 }
 
 /** 列表模型 */
@@ -53,10 +56,6 @@ interface listModel {
 
 }
 
-const AttrContext = React.createContext({
-    onDataTypeChange: (UUID: string, value: any) => { }
-})
-
 class LeftPart extends React.Component<props, states> {
     /** 输入框的HTML元素集合 */
     private inputHTMLElements: Array<any> = [];
@@ -71,6 +70,7 @@ class LeftPart extends React.Component<props, states> {
 
     constructor(props: props, state: states) {
         super(props);
+
         this.state = {
             placeholder: '输入colNames, 然后按回车',
             inputFocusIndex: 0,
@@ -82,7 +82,9 @@ class LeftPart extends React.Component<props, states> {
                 dataType: 'string'
             }],
             listTemplate: null,
-            onDataTypeChange: function(){console.log(123)}
+
+            //context method
+            onDataTypeChange: this.onDataTypeChange.bind(this)
         };
     }
     componentWillMount() {
@@ -174,17 +176,9 @@ class LeftPart extends React.Component<props, states> {
                                     labelName='dataType'
                                     defaultValue='string'
                                     dataTypeOption={this.dataTypeOption}
-                                    onDataTypeChange={this.onDataTypeChange}
                                     parent={this}
                                 />
-                            </AttrContext>
-                            {/* <span>dataType:</span>
-                            <RadioGroup
-                                size='small'
-                                defaultValue='string'
-                                options={this.dataTypeOption}
-                                onChange={this.onDataTypeChange.bind(this, UUID)}
-                            /> */}
+                            </AttrContext.Provider>
                         </Col>
                     </Row>
                 </Row>
