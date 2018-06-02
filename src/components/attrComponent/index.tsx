@@ -22,15 +22,10 @@ interface props {
 
     /** 默认值 */
     defaultValue: string | number
-
-    /** change event */
-    // onDataTypeChange: Function
-
-    parent: any
 }
 
 // context
-import { AttrContext } from '../../../context/AttrContext'
+import { AttrContext } from '../../context/AttrContext'
 
 class AttrComponent extends React.Component<props, states> {
     constructor(props: props, state: states) {
@@ -41,12 +36,15 @@ class AttrComponent extends React.Component<props, states> {
         return (
             <AttrContext.Consumer>
                 {({ onDataTypeChange }) => (
-                    <RadioGroup
-                        size='small'
-                        defaultValue={this.props.defaultValue}
-                        options={this.props.dataTypeOption}
-                        onChange={this.onDataTypeChange.bind(this, onDataTypeChange)}
-                    />
+                    <div>
+                        <label>{this.props.labelName}：</label>
+                        <RadioGroup
+                            size='small'
+                            defaultValue={this.props.defaultValue}
+                            options={this.props.dataTypeOption}
+                            onChange={this.onDataTypeChange.bind(this, onDataTypeChange)}
+                        />
+                    </div>
                 )}
             </AttrContext.Consumer>
         )

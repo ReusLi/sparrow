@@ -8,7 +8,7 @@ const RadioGroup = Radio.Group;
 import './index.css'
 
 // 自定义组件
-import AttrComponent from './attrComponent'
+import AttrComponent from 'components/attrComponent'
 
 // context
 import { AttrContext } from '../../context/AttrContext'
@@ -176,7 +176,6 @@ class LeftPart extends React.Component<props, states> {
                                     labelName='dataType'
                                     defaultValue='string'
                                     dataTypeOption={this.dataTypeOption}
-                                    parent={this}
                                 />
                             </AttrContext.Provider>
                         </Col>
