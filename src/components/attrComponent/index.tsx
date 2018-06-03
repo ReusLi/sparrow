@@ -50,9 +50,14 @@ class AttrComponent extends React.Component<props, states> {
         )
     }
 
-    onDataTypeChange(method: Function, e: any) {
+    /**
+     * 
+     * @param methodFromContext the method from parent`s context {AttrContext}
+     * @param e 
+     */
+    onDataTypeChange(methodFromContext: Function, e: any) {
         const value = e.target.value;
-        method(this.props.UUID, value)
+        methodFromContext(this.props.UUID, value)
     }
 }
 
