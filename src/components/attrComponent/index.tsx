@@ -25,7 +25,7 @@ interface props {
 }
 
 // context
-import { AttrContext } from '../../context/AttrContext'
+import { AttrContext } from 'context/AttrContext'
 
 class AttrComponent extends React.Component<props, states> {
     constructor(props: props, state: states) {

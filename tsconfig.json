@@ -12,7 +12,8 @@
         "paths": {
             "*": [
                 "*",
-                "components/*"
+                "components/*",
+                "context/*"
             ]
         }
     },

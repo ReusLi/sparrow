@@ -11,7 +11,7 @@ import './index.css'
 import AttrComponent from 'components/attrComponent'
 
 // context
-import { AttrContext } from '../../context/AttrContext'
+import { AttrContext } from 'context/AttrContext'
 
 interface props {
     /** 输入框值变动后回调事件 */
