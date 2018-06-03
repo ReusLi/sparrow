@@ -13,6 +13,9 @@ import AttrComponent from 'components/attrComponent'
 // context
 import { AttrContext } from 'context/AttrContext'
 
+// 属性配置
+import attributeConfig from './attributeConfig'
+
 interface props {
     /** 输入框值变动后回调事件 */
     leftPartChange: Function
@@ -139,14 +142,23 @@ class LeftPart extends React.Component<props, states> {
 
     /** 
      * 渲染输入框组件
-     * 
-     * @param compIndex 要渲染的组件数量
      */
     private renderList() {
         let result: Array<any> = [],
+            // 属性模板
+            AttributeTemplate: any,
             UUID: string = '';
+
+
         this.state.listModel.forEach((model, index) => {
             UUID = model.uuid;
+            
+            // 获取属性模板
+            AttributeTemplate = this.getAttributeTemplate(UUID);
+
+            /**
+             * 每一行的html template
+             */
             result.push(
                 <Row key={UUID} className='row-style'>
                     <Input
@@ -168,22 +180,42 @@ class LeftPart extends React.Component<props, states> {
                         <Icon type='delete' />
                     </Button>
 
-                    <Row className='attr-row-style'>
-                        <Col offset={1} span={23}>
-                            <AttrContext.Provider value={this.state}>
-                                <AttrComponent
-                                    UUID={UUID}
-                                    labelName='dataType'
-                                    defaultValue='string'
-                                    dataTypeOption={this.dataTypeOption}
-                                />
-                            </AttrContext.Provider>
-                        </Col>
-                    </Row>
+                    {/* 属性 */}
+                    {AttributeTemplate}
+
                 </Row>
             )
         })
         return result;
+    }
+
+    /**
+     * 根据属性配置, 初始化每一行的属性数据
+     * @param UUID 每一行的UUID, 用于属性值change时更新数据
+     * @return {Array}
+     */
+    private getAttributeTemplate(UUID: string) {
+        let AttributeTemplate: Array<any> = [];
+        /**
+         * 根据属性配置, 初始化每一行的属性数据
+         */
+        attributeConfig.forEach((attribute) => {
+            AttributeTemplate.push(
+                <Row key={UUID} className='attr-row-style'>
+                    <Col offset={1} span={23}>
+                        <AttrContext.Provider value={this.state}>
+                            <AttrComponent
+                                UUID={UUID}
+                                labelName={attribute.attributeName}
+                                defaultValue={attribute.defaultValue}
+                                dataTypeOption={attribute.option}
+                            />
+                        </AttrContext.Provider>
+                    </Col>
+                </Row>
+            )
+        })
+        return AttributeTemplate;
     }
 
     /**
@@ -216,8 +248,6 @@ class LeftPart extends React.Component<props, states> {
     }
     /**
      * 把input list的数据组装并返回
-     * @param radioSort radioGroup 最近change的组件的序号
-     * @param radioValue radioGroup 最近change的组件的值
      */
     private combine() {
         let combineData = this.state.listModel.map((model) => {
