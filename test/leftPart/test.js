@@ -1,4 +1,4 @@
-import attributeConfig from '../../src/pages/leftPart/attributeConfig/index.ts'
+import attrComponent from 'components/attrComponent'
 
 var assert = require('assert');
 describe('attributeConfig', function() {
