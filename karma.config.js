@@ -3,12 +3,17 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+require('babel-polyfill')
+require('phantomjs-polyfill-find')
 
 module.exports = function (config) {
     config.set({
         frameworks: ['mocha', 'chai'],
 
         files: [
+            'node_modules/babelify/node_modules/babel-core/browser-polyfill.js', //Polyfills Promises
+            'node_modules/babel-polyfill/dist/polyfill.js',
+            // './node_modules/phantomjs-polyfill-find/find-polyfill.js',
             'test/**/*.js'
         ],
 
@@ -33,7 +38,7 @@ module.exports = function (config) {
         ],
 
         webpack: {
-            mode: 'production',
+            mode: 'development',
             module: {
                 rules: [
                     {
@@ -71,6 +76,7 @@ module.exports = function (config) {
             },
             resolve: {
                 alias: {
+                    'pages': path.resolve(__dirname, 'src/pages'),
                     'components': path.resolve(__dirname, 'src/components'),
                     'context': path.resolve(__dirname, 'src/context')
                 },
@@ -85,8 +91,11 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        browsers: ['PhantomJS'],
-
+        // browsers: ['PhantomJS'],
+        browserify: {
+            debug: true, // for sourcemaps and easier debugging
+            transform: ['babelify']
+        },
         singleRun: true,
 
         coverageReporter: {

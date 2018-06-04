@@ -1,11 +1,17 @@
-import attrComponent from 'components/attrComponent'
+import attributeConfig from 'pages/leftPart/attributeConfig'
 
 var assert = require('assert');
-describe('attributeConfig', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      // console.log(attributeConfig)
-      assert.equal([1,2,3].indexOf(4), -1);
-    });
-  });
-});
+
+describe('attributeConfig', function () {
+  describe('attribute`s checklist', function () {
+    it('should have attributeName, option and defaultValue', function () {
+      console.log(attributeConfig)
+      attributeConfig.forEach(function (attribute) {
+        assert.exists(attribute.attributeName)
+        assert.exists(attribute.option)
+        assert.exists(attribute.defaultValue)
+      })
+
+    })
+  })
+})

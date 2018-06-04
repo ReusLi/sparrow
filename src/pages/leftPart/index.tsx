@@ -14,7 +14,7 @@ import AttrComponent from 'components/attrComponent'
 import { AttrContext } from 'context/AttrContext'
 
 // 属性配置
-import attributeConfig from './attributeConfig'
+import attributeConfig from 'pages/leftPart/attributeConfig'
 
 interface props {
     /** 输入框值变动后回调事件 */
