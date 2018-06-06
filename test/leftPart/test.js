@@ -1,6 +1,8 @@
 import attributeConfig from 'pages/leftPart/attributeConfig'
 
-var assert = require('assert');
+import chai from 'chai'
+
+let assert = chai.assert;
 
 describe('attributeConfig', function () {
   describe('attribute`s checklist', function () {

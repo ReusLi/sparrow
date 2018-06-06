@@ -4,13 +4,14 @@
   "description": "a mini tool app for note",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --config webpack.config.js",
     "dev": "webpack-dev-server",
     "build": "webpack --config webpack.prod.js",
     "config": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
-    "server": "node server.js"
+    "server": "node server.js",
+
+    "karma": "karma start karma.config.js"
   },
   "author": "",
   "license": "ISC",

@@ -85,6 +85,8 @@ module.exports = function (config) {
             watch: true
         },
 
+        listenAddress: 'localhost',
+
         port: 9876,
 
         colors: true,
@@ -103,6 +105,8 @@ module.exports = function (config) {
                 { type: 'lcov', dir: 'coverage', subdir: '.' },
                 { type: 'text-summary', dir: 'coverage', subdir: '.' }
             ]
-        }
+        },
+
+        watched: true
     })
 }
