@@ -13,7 +13,7 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'test/**/*.js': ['webpack', 'sourcemap']
+            'test/**/*.spec.js': ['webpack', 'sourcemap']
         },
 
         reporters: ['mocha', 'coverage'],
