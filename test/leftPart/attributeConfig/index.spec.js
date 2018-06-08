@@ -12,7 +12,6 @@ describe('attributeConfig', function () {
         assert.exists(attribute.option)
         assert.exists(attribute.defaultValue)
       })
-
     })
   })
 })

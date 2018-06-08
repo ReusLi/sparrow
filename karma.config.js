@@ -77,6 +77,11 @@ module.exports = function (config) {
                 },
                 extensions: ['.tsx', '.ts', '.js', '.jsx']
             },
+            plugins: [
+                new ExtractTextPlugin({
+                    filename: "[name].[hash].css"
+                })
+            ],
             watch: true
         },
 
