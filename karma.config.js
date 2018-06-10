@@ -13,7 +13,8 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'test/**/*.spec.js': ['webpack', 'sourcemap']
+            'test/**/*.spec.jsx': ['webpack', 'sourcemap']
+            // 'test/**/*.spec.jsx': ['webpack', 'sourcemap']
         },
 
         reporters: ['mocha', 'coverage'],
@@ -36,6 +37,14 @@ module.exports = function (config) {
             mode: 'development',
             module: {
                 rules: [
+                    {
+                        test: /\.jsx?$/,
+                        exclude: /node_modules/,
+                        loader: 'babel',
+                        query: {
+                            presets: ['es2015', 'react']
+                        }
+                    },
                     {
                         test: /\.tsx?$/,
                         exclude: /node_modules/,
