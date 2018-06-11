@@ -13,7 +13,7 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'test/**/*.spec.jsx': ['webpack', 'sourcemap']
+            'test/**/*.spec.js': ['webpack', 'sourcemap']
             // 'test/**/*.spec.jsx': ['webpack', 'sourcemap']
         },
 
@@ -40,7 +40,7 @@ module.exports = function (config) {
                     {
                         test: /\.jsx?$/,
                         exclude: /node_modules/,
-                        loader: 'babel',
+                        loader: 'babel-loader',
                         query: {
                             presets: ['es2015', 'react']
                         }
