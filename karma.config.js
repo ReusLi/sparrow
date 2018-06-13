@@ -14,7 +14,6 @@ module.exports = function (config) {
 
         preprocessors: {
             'test/**/*.spec.js': ['webpack', 'sourcemap']
-            // 'test/**/*.spec.jsx': ['webpack', 'sourcemap']
         },
 
         reporters: ['mocha', 'coverage'],

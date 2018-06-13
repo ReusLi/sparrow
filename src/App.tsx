@@ -22,8 +22,6 @@ interface dataSetModel {
 class App extends React.Component {
   private editor: any;
 
-  private inp: any;
-
   public render() {
     return (
       <Layout className="pageLayout">
