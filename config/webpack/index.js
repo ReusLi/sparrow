@@ -1,10 +1,9 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 // 自定义js
 const RULES = require('./rules');
+const PLUGINS = require('./plugins');
 
 module.exports = {
   mode: 'development',
@@ -60,17 +59,7 @@ module.exports = {
 
     },
   },
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
-    new ExtractTextPlugin({
-      filename: "[name].[hash].css"
-    })
-  ],
+  plugins: PLUGINS,
   resolve: {
     alias: {
       'pages': path.resolve(__dirname, 'src/pages'),
