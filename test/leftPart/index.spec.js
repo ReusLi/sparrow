@@ -10,8 +10,7 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('left part code', function () {
     describe('init', function () {
         it('checking the left part file has import', function () {
-            const wrapper = shallow(<LeftPart />);
-
+            const componentObj = shallow(<LeftPart />).instance();
             // const num = wrapper.instance().testforenzyme()
 
             expect(num).to.be.equal(1);
