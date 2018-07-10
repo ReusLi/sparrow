@@ -4,9 +4,14 @@
 
 const path = require('path');
 
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// editor webpack plugin
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -32,10 +37,11 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
+                    // fallback: 'style-loader',
                     use: [
+                        { loader: "style-loader" },
                         { loader: "css-loader" }
                     ]
                 })
@@ -103,7 +109,8 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: "[name].[hash].css"
-        })
+        }),
+        new MonacoWebpackPlugin(webpack)
     ],
     resolve: {
         alias: {
