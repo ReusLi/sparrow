@@ -39,7 +39,7 @@ module.exports = {
                 test: /\.css$/,
                 // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
-                    // fallback: 'style-loader',
+                    fallback: 'style-loader',
                     use: [
                         { loader: "style-loader" },
                         { loader: "css-loader" }

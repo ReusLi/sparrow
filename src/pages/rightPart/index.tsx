@@ -3,7 +3,7 @@ import * as React from 'react'
 // 编辑器插件
 // import AceEditor from 'react-ace';
 
-import * as monaco from 'monaco-editor';
+import MonacoEditor from 'react-monaco-editor'
 
 interface props {
     /** 引用          */
@@ -26,6 +26,7 @@ export default class RightPart extends React.Component<props, states> {
     }
 
     public render() {
+
         return (
             // <AceEditor
             //     mode="javascript"
@@ -34,19 +35,18 @@ export default class RightPart extends React.Component<props, states> {
             //     value={this.state.value}
             //     editorProps={{ $blockScrolling: true }}
             // />
-            <div id="mocano"></div>
+            <MonacoEditor
+                width="800"
+                height="600"
+                language="javascript"
+                value="// type your code..."
+            />
+            // <div id="mocano"></div>
         )
     }
 
     public componentDidMount() {
-        monaco.editor.create(document.getElementById('mocano'), {
-            value: [
-                'function x() {',
-                '\tconsole.log("Hello world!");',
-                '}'
-            ].join('\n'),
-            language: 'javascript'
-        });
+
     }
 
     public setColNameValue(colNameStr: string) {
