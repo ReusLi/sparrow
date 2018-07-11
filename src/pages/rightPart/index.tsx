@@ -1,8 +1,6 @@
 import * as React from 'react'
 
 // 编辑器插件
-// import AceEditor from 'react-ace';
-
 import MonacoEditor from 'react-monaco-editor'
 
 interface props {
@@ -28,20 +26,12 @@ export default class RightPart extends React.Component<props, states> {
     public render() {
 
         return (
-            // <AceEditor
-            //     mode="javascript"
-            //     theme="github"
-            //     name="UNIQUE_ID_OF_DIV"
-            //     value={this.state.value}
-            //     editorProps={{ $blockScrolling: true }}
-            // />
             <MonacoEditor
                 width="800"
                 height="600"
                 language="javascript"
-                value="// type your code..."
+                value={this.state.value}
             />
-            // <div id="mocano"></div>
         )
     }
 
