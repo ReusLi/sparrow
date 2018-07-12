@@ -14,7 +14,6 @@ interface states {
 }
 
 export default class RightPart extends React.Component<props, states> {
-    private editor: any;
 
     constructor(props: props, state: states) {
         super(props);
@@ -30,6 +29,7 @@ export default class RightPart extends React.Component<props, states> {
                 width="800"
                 height="600"
                 language="javascript"
+                onChange={this.onChange.bind(this)}
                 value={this.state.value}
             />
         )
@@ -39,9 +39,19 @@ export default class RightPart extends React.Component<props, states> {
 
     }
 
+    private onChange(newValue: string, e: any) {
+        this.setState({
+            value: newValue
+        })
+    }
+
     public setColNameValue(colNameStr: string) {
         this.setState({
             value: colNameStr
         })
+    }
+
+    public getEditorValue() {
+        return this.state.value;
     }
 }

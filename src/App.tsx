@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // ui组件
-import { Row, Col, Input, Layout, Divider } from 'antd'
+import { Button, Row, Col, Input, Layout, Divider } from 'antd'
 const { Content } = Layout;
 
 // 页面组成
@@ -38,6 +38,9 @@ class App extends React.Component {
             <Col span={1}>
               <Divider type="vertical" />
             </Col>
+            {/* <Col span={1}>
+              <Button onClick={this.getEditorValue.bind(this)} type="primary">Primary</Button>
+            </Col> */}
             {/* 右侧 editor area */}
             <Col span={15}>
               <RightPart ref={(editor: any) => this.editor = editor} />
@@ -46,6 +49,14 @@ class App extends React.Component {
         </Content>
       </Layout>
     );
+  }
+
+  /**
+   * 获取编辑器的值
+   */
+  private getEditorValue() {
+    var editorValue = this.editor.getEditorValue();
+    console.log(editorValue);
   }
 
   /**
