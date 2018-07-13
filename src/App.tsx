@@ -56,8 +56,13 @@ class App extends React.Component {
    */
   private getEditorValue() {
     var editorValue = this.editor.getEditorValue();
-    var  val  =  editorValue.match(/^private (.+?);/g)
-    console.log(val);
+    // 按每一行切割
+    editorValue = editorValue.split('\n')
+    // 遍历
+    editorValue.forEach((rowValue: string) => {
+      // 正则
+      rowValue.match(/^private (.+?);/g);
+    })
   }
 
   /**
