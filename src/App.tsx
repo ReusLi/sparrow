@@ -38,9 +38,9 @@ class App extends React.Component {
             <Col span={1}>
               <Divider type="vertical" />
             </Col>
-            {/* <Col span={1}>
+            <Col span={1}>
               <Button onClick={this.getEditorValue.bind(this)} type="primary">Primary</Button>
-            </Col> */}
+            </Col>
             {/* 右侧 editor area */}
             <Col span={15}>
               <RightPart ref={(editor: any) => this.editor = editor} />
@@ -56,7 +56,8 @@ class App extends React.Component {
    */
   private getEditorValue() {
     var editorValue = this.editor.getEditorValue();
-    console.log(editorValue);
+    var  val  =  editorValue.match(/^private (.+?);/g)
+    console.log(val);
   }
 
   /**

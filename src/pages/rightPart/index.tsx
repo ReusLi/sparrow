@@ -28,7 +28,7 @@ export default class RightPart extends React.Component<props, states> {
             <MonacoEditor
                 width="800"
                 height="600"
-                language="javascript"
+                language="java"
                 onChange={this.onChange.bind(this)}
                 value={this.state.value}
             />
