@@ -1,0 +1,8 @@
+.custom-cell:focus {
+    border:  none;
+    outline: medium;
+}
+
+.custom-cell {
+    border-bottom: none!important;
+}

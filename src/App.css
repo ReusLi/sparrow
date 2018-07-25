@@ -2,4 +2,9 @@
 
 #root, .pageLayout {
     height: 100%;
+    background: cadetblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
