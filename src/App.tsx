@@ -7,7 +7,7 @@ export default class App extends React.Component {
 
     public componentWillMount() {
         for (let i = 1, len = 10; i <= len; i++) {
-            this.header.push(`表头${i}`)
+            this.header.push(`表头`)
         }
     }
     public render() {

@@ -12,7 +12,8 @@ interface state {
 }
 
 export default class Table extends React.Component<props, state> {
-    private thCom: Array<any> = []
+    private thCom0: Array<any> = []
+    private thCom1: Array<any> = []
 
     constructor(props: props, state: state) {
         super(props);
@@ -23,9 +24,40 @@ export default class Table extends React.Component<props, state> {
     }
 
     private initTh() {
+        let linekey = {
+            key: '',
+            text: '',
+            cellKey: {
+                row: 0,
+                col: 0
+            },
+            selectInfo: {
+                startCell: {
+                    row: 0,
+                    col: 0
+                },
+
+                endCell: {
+                    row: 1,
+                    col: 3
+                }
+            }
+        }
+
         this.props.header.forEach((element, index) => {
-            this.thCom.push(
-                <Cell key={index} text={element}/>
+            linekey.key = index + '0'
+            linekey.text = element + `(0, ${index})`
+            linekey.cellKey.row = 0
+            linekey.cellKey.col = index
+            this.thCom0.push(
+                <Cell {...linekey} />
+            )
+            linekey.key = index + '1'
+            linekey.text = element + `(1, ${index})`
+            linekey.cellKey.row = 1
+            linekey.cellKey.col = index
+            this.thCom1.push(
+                <Cell  {...linekey} />
             )
         });
     }
@@ -39,8 +71,11 @@ export default class Table extends React.Component<props, state> {
             <table>
                 <thead className="ant-table-thead">
                     <tr>
-                        {this.thCom}
+                        {this.thCom0}
                     </tr>
+                    <tr>
+                        {this.thCom1}
+                    </tr>>
                 </thead>
             </table>
         )
