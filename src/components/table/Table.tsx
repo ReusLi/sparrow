@@ -2,13 +2,17 @@ import * as React from 'react'
 
 import Cell from 'components/cell/Cell'
 
+
+
 interface props {
     header: Array<string>
 }
 
 interface state {
     // 表头是否可以编辑
-    isEditable: boolean
+    isEditable: boolean,
+    startPoint: object,
+    endPoint: object
 }
 
 export default class Table extends React.Component<props, state> {
@@ -19,7 +23,9 @@ export default class Table extends React.Component<props, state> {
         super(props);
 
         this.state = {
-            isEditable: true
+            isEditable: true,
+            startPoint: {},
+            endPoint: {}
         }
     }
 

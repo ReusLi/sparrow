@@ -48,6 +48,7 @@ export default class Cell extends React.Component<props, state> {
     }
 
     public componentWillMount() {
+        this.buildXY();
         this.setfocusClass()
     }
 
@@ -72,6 +73,39 @@ export default class Cell extends React.Component<props, state> {
 
     private onMouseDown() {
 
+    }
+
+    private buildXY() {
+        let selectInfo = this.props.selectInfo;
+
+        let startPoint = {
+            X: 0,
+            Y: 0
+        }
+        let endPoint = {
+            X: 0,
+            Y: 0
+        }
+
+
+        selectInfo.startCell.row < selectInfo.endCell.row
+            ? startPoint.X = selectInfo.startCell.row
+            : startPoint.X = selectInfo.endCell.row
+
+        selectInfo.startCell.col < selectInfo.endCell.col
+            ? startPoint.Y = selectInfo.startCell.col
+            : startPoint.Y = selectInfo.endCell.col
+
+        selectInfo.startCell.row > selectInfo.endCell.row
+            ? endPoint.X = selectInfo.startCell.row
+            : endPoint.X = selectInfo.endCell.row
+
+        selectInfo.startCell.col > selectInfo.endCell.col
+            ? endPoint.Y = selectInfo.startCell.col
+            : endPoint.Y = selectInfo.endCell.col
+
+        console.log(startPoint)
+        console.log(endPoint)
     }
 
     /**
@@ -138,14 +172,14 @@ export default class Cell extends React.Component<props, state> {
         return className;
     }
 
-    private isInSideCell () {
+    private isInSideCell() {
         var isPass = false,
             myRow = this.props.cellKey.row,
             startRow = this.props.selectInfo.startCell.row,
             endRow = this.props.selectInfo.endCell.row;
 
         isPass = (startRow >= endRow && startRow >= myRow && myRow <= endRow)
-                || (endRow >= startRow && endRow >= myRow && myRow <= startRow);
+            || (endRow >= startRow && endRow >= myRow && myRow <= startRow);
 
         return isPass;
     }
