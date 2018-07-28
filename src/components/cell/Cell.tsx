@@ -78,6 +78,9 @@ export default class Cell extends React.Component<props, state> {
      * 
      */
     private setfocusClass() {
+        if (!this.isInSideCell()) {
+            return false;
+        }
         let className = ['custom-cell'];
 
         className = this.isTop(className)
@@ -133,5 +136,17 @@ export default class Cell extends React.Component<props, state> {
         }
 
         return className;
+    }
+
+    private isInSideCell () {
+        var isPass = false,
+            myRow = this.props.cellKey.row,
+            startRow = this.props.selectInfo.startCell.row,
+            endRow = this.props.selectInfo.endCell.row;
+
+        isPass = (startRow >= endRow && startRow >= myRow && myRow <= endRow)
+                || (endRow >= startRow && endRow >= myRow && myRow <= startRow);
+
+        return isPass;
     }
 }
