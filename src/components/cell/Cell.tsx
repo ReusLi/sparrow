@@ -4,13 +4,13 @@ import * as React from 'react'
 import './cell.css'
 
 interface cellKey {
-    row: number,
-    col: number
+    X: number,
+    Y: number
 }
 
 interface selectInfo {
-    startCell: cellKey
-    endCell: cellKey
+    startPoint: cellKey
+    endPoint: cellKey
 }
 
 interface props {
@@ -48,7 +48,6 @@ export default class Cell extends React.Component<props, state> {
     }
 
     public componentWillMount() {
-        this.buildXY();
         this.setfocusClass()
     }
 
@@ -75,39 +74,6 @@ export default class Cell extends React.Component<props, state> {
 
     }
 
-    private buildXY() {
-        let selectInfo = this.props.selectInfo;
-
-        let startPoint = {
-            X: 0,
-            Y: 0
-        }
-        let endPoint = {
-            X: 0,
-            Y: 0
-        }
-
-
-        selectInfo.startCell.row < selectInfo.endCell.row
-            ? startPoint.X = selectInfo.startCell.row
-            : startPoint.X = selectInfo.endCell.row
-
-        selectInfo.startCell.col < selectInfo.endCell.col
-            ? startPoint.Y = selectInfo.startCell.col
-            : startPoint.Y = selectInfo.endCell.col
-
-        selectInfo.startCell.row > selectInfo.endCell.row
-            ? endPoint.X = selectInfo.startCell.row
-            : endPoint.X = selectInfo.endCell.row
-
-        selectInfo.startCell.col > selectInfo.endCell.col
-            ? endPoint.Y = selectInfo.startCell.col
-            : endPoint.Y = selectInfo.endCell.col
-
-        console.log(startPoint)
-        console.log(endPoint)
-    }
-
     /**
      * 
      */
@@ -116,7 +82,7 @@ export default class Cell extends React.Component<props, state> {
             return false;
         }
         let className = ['custom-cell'];
-
+        console.log('pass')
         className = this.isTop(className)
         className = this.isRight(className)
         className = this.isBottm(className)
@@ -128,9 +94,9 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private isTop(className: Array<string>) {
-        var myRow = this.props.cellKey.row,
-            startRow = this.props.selectInfo.startCell.row,
-            endRow = this.props.selectInfo.endCell.row;
+        var myRow = this.props.cellKey.X,
+            startRow = this.props.selectInfo.startPoint.X,
+            endRow = this.props.selectInfo.endPoint.X;
 
         if (myRow === startRow && startRow <= endRow) {
             className.push(this.focusClass.TOP)
@@ -139,9 +105,9 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private isRight(className: Array<string>) {
-        var myCol = this.props.cellKey.col,
-            startCol = this.props.selectInfo.startCell.col,
-            endCol = this.props.selectInfo.endCell.col;
+        var myCol = this.props.cellKey.Y,
+            startCol = this.props.selectInfo.startPoint.Y,
+            endCol = this.props.selectInfo.endPoint.Y;
 
         if (myCol === startCol && startCol <= endCol) {
             className.push(this.focusClass.RIGHT)
@@ -150,9 +116,9 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private isBottm(className: Array<string>) {
-        var myRow = this.props.cellKey.row,
-            startRow = this.props.selectInfo.startCell.row,
-            endRow = this.props.selectInfo.endCell.row;
+        var myRow = this.props.cellKey.X,
+            startRow = this.props.selectInfo.startPoint.X,
+            endRow = this.props.selectInfo.endPoint.X;
 
         if (myRow === endRow && startRow <= endRow) {
             className.push(this.focusClass.TOP)
@@ -161,9 +127,9 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private isLeft(className: Array<string>) {
-        var myCol = this.props.cellKey.col,
-            startCol = this.props.selectInfo.startCell.col,
-            endCol = this.props.selectInfo.endCell.col;
+        var myCol = this.props.cellKey.Y,
+            startCol = this.props.selectInfo.startPoint.Y,
+            endCol = this.props.selectInfo.endPoint.Y;
 
         if (myCol === endCol && startCol <= endCol) {
             className.push(this.focusClass.RIGHT)
@@ -173,14 +139,18 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private isInSideCell() {
-        var isPass = false,
-            myRow = this.props.cellKey.row,
-            startRow = this.props.selectInfo.startCell.row,
-            endRow = this.props.selectInfo.endCell.row;
+        let isPass = false
 
-        isPass = (startRow >= endRow && startRow >= myRow && myRow <= endRow)
-            || (endRow >= startRow && endRow >= myRow && myRow <= startRow);
-
+        let x0 = this.props.selectInfo.startPoint.X,
+            y0 = this.props.selectInfo.startPoint.Y,
+            x1 = this.props.selectInfo.endPoint.X,
+            y1 = this.props.selectInfo.endPoint.Y,
+            cX = this.props.cellKey.X,
+            cY = this.props.cellKey.Y;
+        if (x0 <= cX && cX <= x1 && y0 <= cY && cY <=y1) {
+            isPass = true;
+        }
+        
         return isPass;
     }
 }
