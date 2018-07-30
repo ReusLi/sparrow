@@ -1,4 +1,5 @@
 import * as React from 'react'
+import immutabeUpdate from 'immutability-helper'
 
 import Cell from 'components/cell/Cell'
 
@@ -114,16 +115,27 @@ export default class Table extends React.Component<props, state> {
     }
 
     private mouseDownEvent(cellKey: cellKey) {
-        let selectInfo: selectInfo = {
+        let selectInfoCopy: selectInfo = {
             startPoint: cellKey,
             endPoint: cellKey
         }
 
-        selectInfo = this.buildXY(selectInfo)
+        selectInfoCopy = this.buildXY(selectInfoCopy)
 
-        console.log(selectInfo)
+        console.log(selectInfoCopy)
+
+        let abc = immutabeUpdate(this.state.selectInfo, {
+            startPointX: { $set: selectInfoCopy.startPoint },
+            endPoint: { $set: selectInfoCopy.endPoint },
+        });
+
+        // abc = immutabeUpdate(this.state.selectInfo.endPoint, {
+        //     X: { $set: selectInfoCopy.endPoint.X },
+        //     Y: { $set: selectInfoCopy.endPoint.Y }
+        // });
+
         this.setState({
-            selectInfo: selectInfo
+            selectInfo: abc
         })
     }
 

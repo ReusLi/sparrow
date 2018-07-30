@@ -60,6 +60,15 @@ export default class Cell extends React.Component<props, state> {
         this.setfocusClass()
         console.log('componentWillReceiveProps')
     }
+
+    getDerivedStateFromProps() {
+        console.log('getDerivedStateFromProps')
+    }
+
+    shouldComponentUpdate () {
+        console.log('shouldComponentUpdate ')
+        return true
+    }
     
 
     public render() {
