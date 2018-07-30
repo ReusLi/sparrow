@@ -16,7 +16,10 @@ interface selectInfo {
 interface props {
     text: string,
     cellKey: cellKey,
-    selectInfo: selectInfo
+    selectInfo: selectInfo,
+    mouseDownEvent: Function,
+    mouseUpEvent: Function,
+    mouseOverEvent: Function
 }
 
 interface state {
@@ -46,6 +49,7 @@ export default class Cell extends React.Component<props, state> {
     }
 
     public componentWillMount() {
+        console.log(this.props.selectInfo)
         this.setfocusClass()
     }
 
@@ -53,6 +57,7 @@ export default class Cell extends React.Component<props, state> {
      * props变化时触发, 第一次render不会触发
      */
     public componentWillReceiveProps() {
+        this.setfocusClass()
         console.log('componentWillReceiveProps')
     }
 
@@ -69,7 +74,7 @@ export default class Cell extends React.Component<props, state> {
     }
 
     private onMouseDown() {
-
+        this.props.mouseDownEvent(this.props.cellKey)
     }
 
     /**
