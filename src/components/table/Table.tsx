@@ -3,12 +3,16 @@ import * as React from 'react'
 import Cell from 'components/cell/Cell'
 
 interface cellKey {
+    // X轴坐标
     X: number,
+    // Y轴坐标
     Y: number
 }
 
 interface selectInfo {
+    // 鼠标开始mouse down的cell
     startCell: cellKey
+    // mouse up 的 cell
     endCell: cellKey
 }
 
@@ -49,8 +53,31 @@ export default class Table extends React.Component<props, state> {
         }
     }
 
+    /**
+     * 初始化表头
+     */
     private initTh() {
-        let linekey = {
+        // cell组件props
+        let cellProps;
+        this.props.header.forEach((element, index) => {
+            cellProps = this.getCellProps(); 
+            cellProps = this.buildCellProps('0', cellProps, element, index)
+            this.thCom0.push(
+                <Cell {...cellProps} />
+            )
+            cellProps = this.getCellProps();
+            cellProps = this.buildCellProps('1', cellProps, element, index)
+            this.thCom1.push(
+                <Cell  {...cellProps} />
+            )
+        });
+    }
+
+    /**
+     * 获取表格cell组件的属性
+     */
+    private getCellProps() {
+        let cellProps = {
             key: '',
             text: '',
             cellKey: {
@@ -70,34 +97,37 @@ export default class Table extends React.Component<props, state> {
             }
         }
 
-        linekey.selectInfo = this.buildXY();
+        cellProps.selectInfo = this.buildXY();
 
-        this.props.header.forEach((element, index) => {
-            linekey.key = index + '0'
-            linekey.text = element + `(0, ${index})`
-            linekey.cellKey.X = 0
-            linekey.cellKey.Y = index
-            this.thCom0.push(
-                <Cell {...linekey} />
-            )
-            linekey.key = index + '1'
-            linekey.text = element + `(1, ${index})`
-            linekey.cellKey.X = 1
-            linekey.cellKey.Y = index
-            this.thCom1.push(
-                <Cell  {...linekey} />
-            )
-        });
+        return cellProps;
+    }
+
+    /**
+     * 构建表格cell组件的props
+     * 
+     * @param lineNum 行号
+     * @param cellProps cell组件的props object
+     * @param element 循环的element
+     * @param index 循环的下标
+     */
+    private buildCellProps(lineNum: string, cellProps: any, element: any, index: number) {
+
+        cellProps.key = index + lineNum
+        cellProps.text = element + `(${lineNum}, ${index})`
+        cellProps.cellKey.X = 0
+        cellProps.cellKey.Y = index
+
+        return cellProps;
     }
 
     private buildXY() {
         let selectInfo: selectInfo = this.state.selectInfo;
 
-        let startPoint = {
+        let startPoint: cellKey = {
             X: 0,
             Y: 0
         }
-        let endPoint = {
+        let endPoint: cellKey = {
             X: 0,
             Y: 0
         }
@@ -137,7 +167,7 @@ export default class Table extends React.Component<props, state> {
                     </tr>
                     <tr>
                         {this.thCom1}
-                    </tr>>
+                    </tr>
                 </thead>
             </table>
         )

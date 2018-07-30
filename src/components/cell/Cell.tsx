@@ -36,8 +36,6 @@ export default class Cell extends React.Component<props, state> {
         LEFT: 'custom-focus-left'
     }
 
-    private test = ['custom-focus-top']
-
     constructor(props: props, state: state) {
         super(props);
 
@@ -48,6 +46,7 @@ export default class Cell extends React.Component<props, state> {
     }
 
     public componentWillMount() {
+        console.log(this.props.cellKey.Y)
         this.setfocusClass()
     }
 
