@@ -46,7 +46,6 @@ export default class Cell extends React.Component<props, state> {
     }
 
     public componentWillMount() {
-        console.log(this.props.cellKey.Y)
         this.setfocusClass()
     }
 

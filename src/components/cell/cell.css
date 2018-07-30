@@ -3,6 +3,10 @@
     outline: medium;
 }
 
+.custom-cell:hover {
+    cursor: cell;
+}
+
 .custom-cell {
     border-bottom: none!important;
 }

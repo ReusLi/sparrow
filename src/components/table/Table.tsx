@@ -41,13 +41,13 @@ export default class Table extends React.Component<props, state> {
             endPoint: {},
             selectInfo: {
                 startCell: {
-                    X: 0,
-                    Y: 5
+                    X: -1,
+                    Y: -1
                 },
 
                 endCell: {
-                    X: 1,
-                    Y: 1
+                    X: -1,
+                    Y: -1
                 }
             }
         }
@@ -94,7 +94,8 @@ export default class Table extends React.Component<props, state> {
                     X: 1,
                     Y: 3
                 }
-            }
+            },
+            updateCurCell: () => {}
         }
 
         cellProps.selectInfo = this.buildXY();
