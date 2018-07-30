@@ -60,6 +60,7 @@ export default class Cell extends React.Component<props, state> {
         this.setfocusClass()
         console.log('componentWillReceiveProps')
     }
+    
 
     public render() {
         return (
