@@ -81,7 +81,6 @@ export default class Cell extends React.Component<props, state> {
             return false;
         }
         let className = ['custom-cell'];
-        console.log('pass')
         className = this.isTop(className)
         className = this.isRight(className)
         className = this.isBottm(className)
@@ -94,10 +93,9 @@ export default class Cell extends React.Component<props, state> {
 
     private isTop(className: Array<string>) {
         var myRow = this.props.cellKey.X,
-            startRow = this.props.selectInfo.startPoint.X,
-            endRow = this.props.selectInfo.endPoint.X;
+            startRow = this.props.selectInfo.startPoint.X;
 
-        if (myRow === startRow && startRow <= endRow) {
+        if (myRow === startRow) {
             className.push(this.focusClass.TOP)
         }
         return className;
@@ -105,10 +103,9 @@ export default class Cell extends React.Component<props, state> {
 
     private isRight(className: Array<string>) {
         var myCol = this.props.cellKey.Y,
-            startCol = this.props.selectInfo.startPoint.Y,
             endCol = this.props.selectInfo.endPoint.Y;
 
-        if (myCol === startCol && startCol <= endCol) {
+        if (myCol === endCol) {
             className.push(this.focusClass.RIGHT)
         }
         return className;
@@ -116,22 +113,19 @@ export default class Cell extends React.Component<props, state> {
 
     private isBottm(className: Array<string>) {
         var myRow = this.props.cellKey.X,
-            startRow = this.props.selectInfo.startPoint.X,
             endRow = this.props.selectInfo.endPoint.X;
-
-        if (myRow === endRow && startRow <= endRow) {
-            className.push(this.focusClass.TOP)
+        if (myRow === endRow) {
+            className.push(this.focusClass.BOTTOM)
         }
         return className;
     }
 
     private isLeft(className: Array<string>) {
         var myCol = this.props.cellKey.Y,
-            startCol = this.props.selectInfo.startPoint.Y,
-            endCol = this.props.selectInfo.endPoint.Y;
+            startCol = this.props.selectInfo.startPoint.Y;
 
-        if (myCol === endCol && startCol <= endCol) {
-            className.push(this.focusClass.RIGHT)
+        if (myCol === startCol) {
+            className.push(this.focusClass.LEFT)
         }
 
         return className;

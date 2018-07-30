@@ -42,12 +42,12 @@ export default class Table extends React.Component<props, state> {
             selectInfo: {
                 startCell: {
                     X: 0,
-                    Y: 0
+                    Y: 5
                 },
 
                 endCell: {
                     X: 1,
-                    Y: 3
+                    Y: 1
                 }
             }
         }
@@ -114,7 +114,7 @@ export default class Table extends React.Component<props, state> {
 
         cellProps.key = index + lineNum
         cellProps.text = element + `(${lineNum}, ${index})`
-        cellProps.cellKey.X = 0
+        cellProps.cellKey.X = Number(lineNum)
         cellProps.cellKey.Y = index
 
         return cellProps;
