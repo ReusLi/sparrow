@@ -1,5 +1,4 @@
 import * as React from 'react'
-import immutabeUpdate from 'immutability-helper'
 
 import Cell from 'components/cell/Cell'
 
@@ -37,7 +36,7 @@ export default class Table extends React.Component<props, state> {
         super(props);
 
         this.state = {
-            isEditable: true,
+            isEditable: false,
             startPoint: {},
             endPoint: {},
             selectInfo: {
@@ -111,31 +110,43 @@ export default class Table extends React.Component<props, state> {
         cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
 
+        cellProps.isEditable = this.state.isEditable
         return cellProps;
     }
 
     private mouseDownEvent(cellKey: cellKey) {
-        let selectInfoCopy: selectInfo = {
-            startPoint: cellKey,
-            endPoint: cellKey
-        }
+        // let selectInfoCopy: selectInfo = {
+        //     startPoint: cellKey,
+        //     endPoint: cellKey
+        // }
 
-        selectInfoCopy = this.buildXY(selectInfoCopy)
+        // selectInfoCopy = this.buildXY(selectInfoCopy)
 
-        console.log(selectInfoCopy)
+        // console.log(selectInfoCopy)
 
-        let abc = immutabeUpdate(this.state.selectInfo, {
-            startPointX: { $set: selectInfoCopy.startPoint },
-            endPoint: { $set: selectInfoCopy.endPoint },
-        });
+        // let abc = immutabeUpdate(this.state.selectInfo, {
+        //     startPointX: { $set: selectInfoCopy.startPoint },
+        //     endPoint: { $set: selectInfoCopy.endPoint },
+        // });
 
         // abc = immutabeUpdate(this.state.selectInfo.endPoint, {
         //     X: { $set: selectInfoCopy.endPoint.X },
         //     Y: { $set: selectInfoCopy.endPoint.Y }
         // });
-
+        // debugger
         this.setState({
-            selectInfo: abc
+            // selectInfo: {
+            //     startPoint: {
+            //         X: 0,
+            //         Y: 0
+            //     },
+
+            //     endPoint: {
+            //         X: 0,
+            //         Y: 0
+            //     }
+            // },
+            isEditable: false
         })
     }
 
@@ -186,6 +197,8 @@ export default class Table extends React.Component<props, state> {
     }
 
     public render() {
+        let cellProps = this.getCellProps();
+        cellProps = this.buildCellProps('0', cellProps, 'test', 13)
         return (
             <table>
                 <thead className="ant-table-thead">
@@ -195,6 +208,15 @@ export default class Table extends React.Component<props, state> {
                     <tr>
                         {this.thCom1}
                     </tr>
+                    {/* <Cell  
+                    text='test'
+                    cellKey={{X:0, Y:0}}
+                    isEditable={true}
+                    selectInfo={this.state.selectInfo}
+                    mouseDownEvent={this.mouseDownEvent.bind(this)}
+                    mouseUpEvent={()=>{}}
+                    mouseOverEvent={()=>{}}
+                    /> */}
                 </thead>
             </table>
         )

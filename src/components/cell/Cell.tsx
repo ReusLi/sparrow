@@ -16,6 +16,7 @@ interface selectInfo {
 interface props {
     text: string,
     cellKey: cellKey,
+    isEditable: boolean,
     selectInfo: selectInfo,
     mouseDownEvent: Function,
     mouseUpEvent: Function,
@@ -48,21 +49,30 @@ export default class Cell extends React.Component<props, state> {
         }
     }
 
-    public componentWillMount() {
-        console.log(this.props.selectInfo)
-        this.setfocusClass()
+    static componentWillMount() {
+        console.log('222')
+        // this.setfocusClass()
     }
 
     /**
      * props变化时触发, 第一次render不会触发
      */
-    public componentWillReceiveProps() {
+    componentWillReceiveProps() {
         this.setfocusClass()
         console.log('componentWillReceiveProps')
     }
 
-    getDerivedStateFromProps() {
+    static getDerivedStateFromProps(nextProps: object, prevState: object) {
         console.log('getDerivedStateFromProps')
+        return nextProps
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate ')
+    }
+
+    getSnapshotBeforeUpdate(prevProps: object, prevState: object) {
+        console.log('getSnapshotBeforeUpdate')
     }
 
     shouldComponentUpdate () {
@@ -75,7 +85,7 @@ export default class Cell extends React.Component<props, state> {
         return (
             <th
                 className={this.state.className.join(' ')}
-                contentEditable={this.state.isEditable}
+                contentEditable={this.props.isEditable}
                 onMouseDown={this.onMouseDown.bind(this)}
             >
                 {this.props.text}
