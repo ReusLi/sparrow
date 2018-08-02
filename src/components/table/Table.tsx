@@ -57,6 +57,7 @@ export default class Table extends React.Component<props, state> {
      * 初始化表头
      */
     private initTh() {
+        this.thCom0 = [];
         // cell组件props
         let cellProps;
         this.props.header.forEach((element, index) => {
@@ -71,6 +72,8 @@ export default class Table extends React.Component<props, state> {
             //     <Cell  {...cellProps} selectInfo={this.state.selectInfo} />
             // )
         });
+
+        return this.thCom0;
     }
 
     /**
@@ -172,22 +175,18 @@ export default class Table extends React.Component<props, state> {
     }
 
     public componentWillMount() {
-        this.initTh()
+        // this.initTh()
     }
 
-    public render() {
-        let cellProps = this.getCellProps();
-        cellProps = this.buildCellProps('0', cellProps, 'test', 13)
+    test123 () {
+        let com = this.initTh()
         return (
             <table>
                 <thead className="ant-table-thead">
                     <tr>
-                        {this.thCom0}
+                        {com}
                     </tr>
-                    <tr>
-                        {this.thCom1}
-                    </tr>
-                    <Cell  
+                    {/* <Cell  
                     text='test'
                     cellKey={{X:0, Y:0}}
                     isEditable={true}
@@ -195,9 +194,15 @@ export default class Table extends React.Component<props, state> {
                     mouseDownEvent={this.mouseDownEvent.bind(this)}
                     mouseUpEvent={()=>{}}
                     mouseOverEvent={()=>{}}
-                    />
+                    /> */}
                 </thead>
             </table>
         )
+    }
+
+    public render() {
+        let cellProps = this.getCellProps();
+        cellProps = this.buildCellProps('0', cellProps, 'test', 13)
+        return this.test123()
     }
 }
