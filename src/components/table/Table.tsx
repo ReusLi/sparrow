@@ -63,7 +63,7 @@ export default class Table extends React.Component<props, state> {
             cellProps = this.getCellProps();
             cellProps = this.buildCellProps('0', cellProps, element, index)
             this.thCom0.push(
-                <Cell {...cellProps} />
+                <Cell {...cellProps} selectInfo={this.state.selectInfo}/>
             )
             // cellProps = this.getCellProps();
             // cellProps = this.buildCellProps('1', cellProps, element, index)
@@ -115,38 +115,17 @@ export default class Table extends React.Component<props, state> {
     }
 
     private mouseDownEvent(cellKey: cellKey) {
-        // let selectInfoCopy: selectInfo = {
-        //     startPoint: cellKey,
-        //     endPoint: cellKey
-        // }
-
-        // selectInfoCopy = this.buildXY(selectInfoCopy)
-
-        // console.log(selectInfoCopy)
-
-        // let abc = immutabeUpdate(this.state.selectInfo, {
-        //     startPointX: { $set: selectInfoCopy.startPoint },
-        //     endPoint: { $set: selectInfoCopy.endPoint },
-        // });
-
-        // abc = immutabeUpdate(this.state.selectInfo.endPoint, {
-        //     X: { $set: selectInfoCopy.endPoint.X },
-        //     Y: { $set: selectInfoCopy.endPoint.Y }
-        // });
-        // debugger
         this.setState({
-            // selectInfo: {
-            //     startPoint: {
-            //         X: 0,
-            //         Y: 0
-            //     },
-
-            //     endPoint: {
-            //         X: 0,
-            //         Y: 0
-            //     }
-            // },
-            isEditable: false
+            selectInfo: {
+                startPoint: {
+                    X: 0,
+                    Y: 0
+                },
+                endPoint: {
+                    X: 0,
+                    Y: 0
+                }
+            }
         })
     }
 
@@ -208,7 +187,7 @@ export default class Table extends React.Component<props, state> {
                     <tr>
                         {this.thCom1}
                     </tr>
-                    {/* <Cell  
+                    <Cell  
                     text='test'
                     cellKey={{X:0, Y:0}}
                     isEditable={true}
@@ -216,7 +195,7 @@ export default class Table extends React.Component<props, state> {
                     mouseDownEvent={this.mouseDownEvent.bind(this)}
                     mouseUpEvent={()=>{}}
                     mouseOverEvent={()=>{}}
-                    /> */}
+                    />
                 </thead>
             </table>
         )
