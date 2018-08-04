@@ -59,20 +59,21 @@ export default class Cell extends React.Component<props, state> {
      */
     componentWillReceiveProps() {
         this.setfocusClass()
-        // console.log('componentWillReceiveProps')
+        console.log('componentWillReceiveProps')
     }
 
     static getDerivedStateFromProps(nextProps: object, prevState: object) {
-        // console.log('getDerivedStateFromProps')
+        console.log('getDerivedStateFromProps')
         return nextProps
     }
 
     componentDidUpdate() {
-        this.setfocusClass()
+        // this.setfocusClass()
         // console.log('componentDidUpdate ')
     }
 
     getSnapshotBeforeUpdate(prevProps: object, prevState: object) {
+        this.setfocusClass()
         // console.log('getSnapshotBeforeUpdate')
     }
 
