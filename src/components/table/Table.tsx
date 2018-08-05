@@ -36,18 +36,18 @@ export default class Table extends React.Component<props, state> {
         super(props);
 
         this.state = {
-            isEditable: false,
+            isEditable: true,
             startPoint: {},
             endPoint: {},
             selectInfo: {
                 startPoint: {
-                    X: -1,
-                    Y: -1
+                    X: 0,
+                    Y: 1
                 },
 
                 endPoint: {
-                    X: -1,
-                    Y: -1
+                    X: 0,
+                    Y: 2
                 }
             }
         }
