@@ -64,7 +64,8 @@ export default class Table extends React.Component<props, state> {
             cellProps = this.getCellProps();
             cellProps = this.buildCellProps('0', cellProps, element, index)
             this.thCom0.push(
-                <Cell {...cellProps} selectInfo={this.state.selectInfo}/>
+                <Cell {...cellProps}
+                    selectInfo={this.state.selectInfo} />
             )
             // cellProps = this.getCellProps();
             // cellProps = this.buildCellProps('1', cellProps, element, index)
@@ -89,8 +90,6 @@ export default class Table extends React.Component<props, state> {
             },
             selectInfo: this.state.selectInfo
         }
-
-        // cellProps.selectInfo = this.buildXY(this.state.selectInfo);
 
         return cellProps;
     }
@@ -174,11 +173,7 @@ export default class Table extends React.Component<props, state> {
         }
     }
 
-    public componentWillMount() {
-        // this.initTh()
-    }
-
-    test123 () {
+    renderCellList() {
         let com = this.initTh()
         return (
             <table>
@@ -201,8 +196,6 @@ export default class Table extends React.Component<props, state> {
     }
 
     public render() {
-        let cellProps = this.getCellProps();
-        cellProps = this.buildCellProps('0', cellProps, 'test', 13)
-        return this.test123()
+        return this.renderCellList()
     }
 }

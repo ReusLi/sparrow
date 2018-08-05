@@ -49,37 +49,17 @@ export default class Cell extends React.Component<props, state> {
         }
     }
 
-    static componentWillMount() {
-        console.log('222')
-        // this.setfocusClass()
+    componentWillMount() {
+        this.setfocusClass()
     }
 
     /**
      * props变化时触发, 第一次render不会触发
      */
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps: object) {
         this.setfocusClass()
+        this.forceUpdate()
         console.log('componentWillReceiveProps')
-    }
-
-    static getDerivedStateFromProps(nextProps: object, prevState: object) {
-        console.log('getDerivedStateFromProps')
-        return nextProps
-    }
-
-    componentDidUpdate() {
-        // this.setfocusClass()
-        // console.log('componentDidUpdate ')
-    }
-
-    getSnapshotBeforeUpdate(prevProps: object, prevState: object) {
-        this.setfocusClass()
-        // console.log('getSnapshotBeforeUpdate')
-    }
-
-    shouldComponentUpdate () {
-        // console.log('shouldComponentUpdate ')
-        return true
     }
     
 
@@ -87,6 +67,7 @@ export default class Cell extends React.Component<props, state> {
         return (
             <th
                 className={this.state.className.join(' ')}
+                // className={this.className}
                 contentEditable={this.props.isEditable}
                 onMouseDown={this.onMouseDown.bind(this)}
             >
