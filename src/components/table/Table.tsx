@@ -66,11 +66,6 @@ export default class Table extends React.Component<props, state> {
                 <Cell {...cellProps}
                     selectInfo={this.state.selectInfo} />
             )
-            // cellProps = this.getCellProps();
-            // cellProps = this.buildCellProps('1', cellProps, element, index)
-            // this.thCom1.push(
-            //     <Cell  {...cellProps} selectInfo={this.state.selectInfo} />
-            // )
         });
 
         return this.thCom0;
@@ -108,8 +103,8 @@ export default class Table extends React.Component<props, state> {
         cellProps.cellKey.X = Number(lineNum)
         cellProps.cellKey.Y = index
         cellProps.mouseDownEvent = this.mouseDownEvent.bind(this)
-        cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
+        cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
 
         cellProps.isEditable = this.state.isEditable
         return cellProps;
@@ -130,12 +125,40 @@ export default class Table extends React.Component<props, state> {
         })
     }
 
-    private mouseUpEvent() {
+    private mouseOverEvent(cellKey: cellKey) {
+        let startPoint_X = this.state.selectInfo.startPoint.X,
+            startPoint_Y = this.state.selectInfo.startPoint.Y
 
+        this.setState({
+            selectInfo: {
+                startPoint: {
+                    X: startPoint_X,
+                    Y: startPoint_Y
+                },
+                endPoint: {
+                    X: cellKey.X,
+                    Y: cellKey.Y
+                }
+            }
+        })
     }
 
-    private mouseOverEvent() {
+    private mouseUpEvent(cellKey: cellKey) {
+        let startPoint_X = this.state.selectInfo.startPoint.X,
+            startPoint_Y = this.state.selectInfo.startPoint.Y
 
+        this.setState({
+            selectInfo: {
+                startPoint: {
+                    X: startPoint_X,
+                    Y: startPoint_Y
+                },
+                endPoint: {
+                    X: cellKey.X,
+                    Y: cellKey.Y
+                }
+            }
+        })
     }
 
     private buildXY(selectInfo: selectInfo) {
@@ -180,15 +203,6 @@ export default class Table extends React.Component<props, state> {
                     <tr>
                         {com}
                     </tr>
-                    {/* <Cell  
-                    text='test'
-                    cellKey={{X:0, Y:0}}
-                    isEditable={true}
-                    selectInfo={this.state.selectInfo}
-                    mouseDownEvent={this.mouseDownEvent.bind(this)}
-                    mouseUpEvent={()=>{}}
-                    mouseOverEvent={()=>{}}
-                    /> */}
                 </thead>
             </table>
         )

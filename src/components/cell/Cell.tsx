@@ -74,6 +74,8 @@ export default class Cell extends React.Component<props, state> {
                 // className={this.className}
                 contentEditable={this.props.isEditable}
                 onMouseDown={this.onMouseDown.bind(this)}
+                onMouseOver={this.onMouseOver.bind(this)}
+                onMouseUp={this.onMouseUp.bind(this)}
             >
                 {this.props.text}
             </th>
@@ -82,6 +84,14 @@ export default class Cell extends React.Component<props, state> {
 
     private onMouseDown() {
         this.props.mouseDownEvent(this.props.cellKey)
+    }
+
+    private onMouseOver() {
+        this.props.mouseOverEvent(this.props.cellKey)
+    }
+
+    private onMouseUp () {
+        this.props.mouseUpEvent(this.props.cellKey)
     }
 
     /**
