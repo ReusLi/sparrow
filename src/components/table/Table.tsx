@@ -31,6 +31,10 @@ interface state {
 export default class Table extends React.Component<props, state> {
     private thCom0: Array<any> = []
 
+    // 是否 mouse down
+    // 只有true时, cell组件的mouse over emit 才会有效
+    private isMouseDown: boolean = false
+
     constructor(props: props, state: state) {
         super(props);
 
@@ -123,9 +127,15 @@ export default class Table extends React.Component<props, state> {
                 }
             }
         })
+
+        this.isMouseDown = true
     }
 
     private mouseOverEvent(cellKey: cellKey) {
+        if (!this.isMouseDown) {
+            return false
+        }
+
         let startPoint_X = this.state.selectInfo.startPoint.X,
             startPoint_Y = this.state.selectInfo.startPoint.Y
 
@@ -159,6 +169,8 @@ export default class Table extends React.Component<props, state> {
                 }
             }
         })
+
+        this.isMouseDown = false
     }
 
     private buildXY(selectInfo: selectInfo) {
