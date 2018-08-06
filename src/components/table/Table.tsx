@@ -30,7 +30,6 @@ interface state {
 
 export default class Table extends React.Component<props, state> {
     private thCom0: Array<any> = []
-    private thCom1: Array<any> = []
 
     constructor(props: props, state: state) {
         super(props);
@@ -120,12 +119,12 @@ export default class Table extends React.Component<props, state> {
         this.setState({
             selectInfo: {
                 startPoint: {
-                    X: 0,
-                    Y: 0
+                    X: cellKey.X,
+                    Y: cellKey.Y
                 },
                 endPoint: {
-                    X: 0,
-                    Y: 0
+                    X: cellKey.X,
+                    Y: cellKey.Y
                 }
             }
         })
