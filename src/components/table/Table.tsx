@@ -25,7 +25,9 @@ interface state {
     isEditable: boolean,
     startPoint: object,
     endPoint: object,
-    selectInfo: selectInfo
+    selectInfo: selectInfo,
+    mouseDownPoint: cellKey,
+    mouseUpPoint: cellKey
 }
 
 export default class Table extends React.Component<props, state> {
@@ -44,14 +46,22 @@ export default class Table extends React.Component<props, state> {
             endPoint: {},
             selectInfo: {
                 startPoint: {
-                    X: 0,
-                    Y: 1
+                    X: -1,
+                    Y: -1
                 },
 
                 endPoint: {
-                    X: 0,
-                    Y: 2
+                    X: -1,
+                    Y: -1
                 }
+            },
+            mouseDownPoint: {
+                X: -1,
+                Y: -1
+            },
+            mouseUpPoint: {
+                X: -1,
+                Y: -1
             }
         }
     }
@@ -125,6 +135,10 @@ export default class Table extends React.Component<props, state> {
                     X: cellKey.X,
                     Y: cellKey.Y
                 }
+            },
+            mouseDownPoint: {
+                X: cellKey.X,
+                Y: cellKey.Y
             }
         })
 
@@ -136,8 +150,18 @@ export default class Table extends React.Component<props, state> {
             return false
         }
 
-        let startPoint_X = this.state.selectInfo.startPoint.X,
-            startPoint_Y = this.state.selectInfo.startPoint.Y
+        this.updateCurKeyRand(cellKey)
+    }
+
+    private mouseUpEvent(cellKey: cellKey) {
+        this.updateCurKeyRand(cellKey)
+
+        this.isMouseDown = false
+    }
+
+    private updateCurKeyRand(cellKey: cellKey) {
+        let startPoint_X = this.state.mouseDownPoint.X,
+            startPoint_Y = this.state.mouseDownPoint.Y
 
         let selectInfo: selectInfo = {
             startPoint: {
@@ -149,7 +173,9 @@ export default class Table extends React.Component<props, state> {
                 Y: cellKey.Y
             }
         }
+
         selectInfo = this.buildXY(selectInfo)
+
         this.setState({
             selectInfo: {
                 startPoint: {
@@ -164,29 +190,7 @@ export default class Table extends React.Component<props, state> {
         })
     }
 
-    private mouseUpEvent(cellKey: cellKey) {
-        let startPoint_X = this.state.selectInfo.startPoint.X,
-            startPoint_Y = this.state.selectInfo.startPoint.Y
-
-        this.setState({
-            selectInfo: {
-                startPoint: {
-                    X: startPoint_X,
-                    Y: startPoint_Y
-                },
-                endPoint: {
-                    X: cellKey.X,
-                    Y: cellKey.Y
-                }
-            }
-        })
-
-        this.isMouseDown = false
-    }
-
     private buildXY(selectInfo: selectInfo) {
-        // let selectInfo: selectInfo = this.state.selectInfo;
-
         let startPoint: cellKey = {
             X: 0,
             Y: 0
