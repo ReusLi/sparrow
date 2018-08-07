@@ -139,15 +139,26 @@ export default class Table extends React.Component<props, state> {
         let startPoint_X = this.state.selectInfo.startPoint.X,
             startPoint_Y = this.state.selectInfo.startPoint.Y
 
+        let selectInfo: selectInfo = {
+            startPoint: {
+                X: startPoint_X,
+                Y: startPoint_Y
+            },
+            endPoint: {
+                X: cellKey.X,
+                Y: cellKey.Y
+            }
+        }
+        selectInfo = this.buildXY(selectInfo)
         this.setState({
             selectInfo: {
                 startPoint: {
-                    X: startPoint_X,
-                    Y: startPoint_Y
+                    X: selectInfo.startPoint.X,
+                    Y: selectInfo.startPoint.Y
                 },
                 endPoint: {
-                    X: cellKey.X,
-                    Y: cellKey.Y
+                    X: selectInfo.endPoint.X,
+                    Y: selectInfo.endPoint.Y
                 }
             }
         })
