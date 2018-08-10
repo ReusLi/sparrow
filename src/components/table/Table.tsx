@@ -41,7 +41,7 @@ export default class Table extends React.Component<props, state> {
         super(props);
 
         this.state = {
-            isEditable: true,
+            isEditable: false,
             startCell: {},
             endCell: {},
             selectInfo: {
@@ -85,11 +85,11 @@ export default class Table extends React.Component<props, state> {
                 cellProps = this.buildCellProps(rowIndex, cellProps, colIndex)
                 colArray.push(
                     <Cell {...cellProps}
-                        selectInfo={this.state.selectInfo} />
+                        />
                 )
             }
             rowArray.push(
-                <tr>
+                <tr key={`row_${rowIndex}`}>
                     {colArray}
                 </tr>
             )
@@ -131,7 +131,7 @@ export default class Table extends React.Component<props, state> {
         cellProps.mouseDownEvent = this.mouseDownEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
         cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
-
+        cellProps.selectInfo = this.state.selectInfo
         cellProps.isEditable = this.state.isEditable
         return cellProps;
     }
@@ -242,7 +242,8 @@ export default class Table extends React.Component<props, state> {
     }
 
     renderCellList() {
-        let row = 10, col = 10;
+        let row = 10,
+            col = 10;
         let tableHeader = this.initTableHeader(row, col)
         return (
             <table>

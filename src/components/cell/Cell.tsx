@@ -101,6 +101,7 @@ export default class Cell extends React.Component<props, state> {
         let className: Array<string> = ['custom-cell']
 
         if (this.isInSideCell(props)) {
+            className.push('inside-cell')
             className = this.isTop(className, props)
             className = this.isRight(className, props)
             className = this.isBottm(className, props)
