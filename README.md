@@ -1,2 +1,2 @@
 # template-builder 
-just wanna to have a own template builder for work
+plan to make a tool which write grid`s header more quickly
