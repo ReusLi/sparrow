@@ -34,8 +34,6 @@ interface state {
 export default class Cell extends React.Component<props, state> {
     public className = ''
 
-    private selectInfo: selectInfo
-
     public focusClass = {
         TOP: 'custom-focus-top',
         RIGHT: 'custom-focus-right',

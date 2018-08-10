@@ -31,8 +31,6 @@ interface state {
 }
 
 export default class Table extends React.Component<props, state> {
-    private cellList: Array<any> = []
-
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
     private isMouseDown: boolean = false
@@ -68,8 +66,8 @@ export default class Table extends React.Component<props, state> {
 
     /**
      * 初始化单元格
-     * @param rowNum 
-     * @param colNum 
+     * @param rowNum 行数
+     * @param colNum 列数
      */
     private initTableHeader(rowNum: number, colNum: number) {
         let rowArray = [],
