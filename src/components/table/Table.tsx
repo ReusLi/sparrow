@@ -41,7 +41,7 @@ export default class Table extends React.Component<props, state> {
         super(props);
 
         this.state = {
-            isEditable: false,
+            isEditable: true,
             startCell: {},
             endCell: {},
             selectInfo: {
@@ -83,9 +83,9 @@ export default class Table extends React.Component<props, state> {
             for (let colIndex = 0; colIndex < colNum; colIndex++) {
                 cellProps = this.getCellProps();
                 cellProps = this.buildCellProps(rowIndex, cellProps, colIndex)
+                
                 colArray.push(
-                    <Cell {...cellProps}
-                        />
+                    <Cell {...cellProps}/>
                 )
             }
             rowArray.push(

@@ -75,6 +75,8 @@ export default class Cell extends React.Component<props, state> {
                 onMouseDown={this.onMouseDown.bind(this)}
                 onMouseOver={this.onMouseOver.bind(this)}
                 onMouseUp={this.onMouseUp.bind(this)}
+                // 不要warning contentEditable效果
+                suppressContentEditableWarning={true}
             >
                 {this.props.text}
             </th>
