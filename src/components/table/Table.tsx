@@ -11,27 +11,27 @@ interface cellKey {
 
 interface selectInfo {
     // 鼠标开始mouse down的cell
-    startPoint: cellKey
+    startCell: cellKey
     // mouse up 的 cell
-    endPoint: cellKey
+    endCell: cellKey
 }
 
 interface props {
-    header: Array<string>
+
 }
 
 interface state {
     // 表头是否可以编辑
     isEditable: boolean,
-    startPoint: object,
-    endPoint: object,
+    startCell: object,
+    endCell: object,
     selectInfo: selectInfo,
     mouseDownPoint: cellKey,
     mouseUpPoint: cellKey
 }
 
 export default class Table extends React.Component<props, state> {
-    private thCom0: Array<any> = []
+    private cellList: Array<any> = []
 
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
@@ -42,15 +42,15 @@ export default class Table extends React.Component<props, state> {
 
         this.state = {
             isEditable: true,
-            startPoint: {},
-            endPoint: {},
+            startCell: {},
+            endCell: {},
             selectInfo: {
-                startPoint: {
+                startCell: {
                     X: -1,
                     Y: -1
                 },
 
-                endPoint: {
+                endCell: {
                     X: -1,
                     Y: -1
                 }
@@ -67,22 +67,35 @@ export default class Table extends React.Component<props, state> {
     }
 
     /**
-     * 初始化表头
+     * 初始化单元格
+     * @param rowNum 
+     * @param colNum 
      */
-    private initTh() {
-        this.thCom0 = [];
+    private initTableHeader(rowNum: number, colNum: number) {
+        let rowArray = [],
+            colArray = [];
         // cell组件props
         let cellProps;
-        this.props.header.forEach((element, index) => {
-            cellProps = this.getCellProps();
-            cellProps = this.buildCellProps('0', cellProps, element, index)
-            this.thCom0.push(
-                <Cell {...cellProps}
-                    selectInfo={this.state.selectInfo} />
-            )
-        });
 
-        return this.thCom0;
+
+        for (let rowIndex = 0; rowIndex < rowNum; rowIndex++) {
+            colArray = []
+            for (let colIndex = 0; colIndex < colNum; colIndex++) {
+                cellProps = this.getCellProps();
+                cellProps = this.buildCellProps(rowIndex, cellProps, colIndex)
+                colArray.push(
+                    <Cell {...cellProps}
+                        selectInfo={this.state.selectInfo} />
+                )
+            }
+            rowArray.push(
+                <tr>
+                    {colArray}
+                </tr>
+            )
+        }
+
+        return rowArray;
     }
 
     /**
@@ -107,15 +120,14 @@ export default class Table extends React.Component<props, state> {
      * 
      * @param lineNum 行号
      * @param cellProps cell组件的props object
-     * @param element 循环的element
      * @param index 循环的下标
      */
-    private buildCellProps(lineNum: string, cellProps: any, element: any, index: number) {
+    private buildCellProps(rowIndex: number, cellProps: any, colIndex: number) {
 
-        cellProps.key = index + lineNum
-        cellProps.text = element + `(${lineNum}, ${index})`
-        cellProps.cellKey.X = Number(lineNum)
-        cellProps.cellKey.Y = index
+        cellProps.key = `${colIndex}_${rowIndex}`
+        cellProps.text = `(${rowIndex}, ${colIndex})`
+        cellProps.cellKey.X = Number(rowIndex)
+        cellProps.cellKey.Y = colIndex
         cellProps.mouseDownEvent = this.mouseDownEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
         cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
@@ -127,11 +139,11 @@ export default class Table extends React.Component<props, state> {
     private mouseDownEvent(cellKey: cellKey) {
         this.setState({
             selectInfo: {
-                startPoint: {
+                startCell: {
                     X: cellKey.X,
                     Y: cellKey.Y
                 },
-                endPoint: {
+                endCell: {
                     X: cellKey.X,
                     Y: cellKey.Y
                 }
@@ -159,16 +171,20 @@ export default class Table extends React.Component<props, state> {
         this.isMouseDown = false
     }
 
+    /**
+     * 更新坐标范围
+     * @param cellKey 
+     */
     private updateCurKeyRand(cellKey: cellKey) {
-        let startPoint_X = this.state.mouseDownPoint.X,
-            startPoint_Y = this.state.mouseDownPoint.Y
+        let startCell_X = this.state.mouseDownPoint.X,
+            startCell_Y = this.state.mouseDownPoint.Y
 
         let selectInfo: selectInfo = {
-            startPoint: {
-                X: startPoint_X,
-                Y: startPoint_Y
+            startCell: {
+                X: startCell_X,
+                Y: startCell_Y
             },
-            endPoint: {
+            endCell: {
                 X: cellKey.X,
                 Y: cellKey.Y
             }
@@ -178,58 +194,60 @@ export default class Table extends React.Component<props, state> {
 
         this.setState({
             selectInfo: {
-                startPoint: {
-                    X: selectInfo.startPoint.X,
-                    Y: selectInfo.startPoint.Y
+                startCell: {
+                    X: selectInfo.startCell.X,
+                    Y: selectInfo.startCell.Y
                 },
-                endPoint: {
-                    X: selectInfo.endPoint.X,
-                    Y: selectInfo.endPoint.Y
+                endCell: {
+                    X: selectInfo.endCell.X,
+                    Y: selectInfo.endCell.Y
                 }
             }
         })
     }
 
+    /**
+     * 构建XY坐标中的两点
+     */
     private buildXY(selectInfo: selectInfo) {
-        let startPoint: cellKey = {
+        let startCell: cellKey = {
             X: 0,
             Y: 0
         }
-        let endPoint: cellKey = {
+        let endCell: cellKey = {
             X: 0,
             Y: 0
         }
 
-        selectInfo.startPoint.X < selectInfo.endPoint.X
-            ? startPoint.X = selectInfo.startPoint.X
-            : startPoint.X = selectInfo.endPoint.X
+        selectInfo.startCell.X < selectInfo.endCell.X
+            ? startCell.X = selectInfo.startCell.X
+            : startCell.X = selectInfo.endCell.X
 
-        selectInfo.startPoint.Y < selectInfo.endPoint.Y
-            ? startPoint.Y = selectInfo.startPoint.Y
-            : startPoint.Y = selectInfo.endPoint.Y
+        selectInfo.startCell.Y < selectInfo.endCell.Y
+            ? startCell.Y = selectInfo.startCell.Y
+            : startCell.Y = selectInfo.endCell.Y
 
-        selectInfo.startPoint.X > selectInfo.endPoint.X
-            ? endPoint.X = selectInfo.startPoint.X
-            : endPoint.X = selectInfo.endPoint.X
+        selectInfo.startCell.X > selectInfo.endCell.X
+            ? endCell.X = selectInfo.startCell.X
+            : endCell.X = selectInfo.endCell.X
 
-        selectInfo.startPoint.Y > selectInfo.endPoint.Y
-            ? endPoint.Y = selectInfo.startPoint.Y
-            : endPoint.Y = selectInfo.endPoint.Y
+        selectInfo.startCell.Y > selectInfo.endCell.Y
+            ? endCell.Y = selectInfo.startCell.Y
+            : endCell.Y = selectInfo.endCell.Y
 
         return {
-            startPoint: startPoint,
-            endPoint: endPoint
+            startCell: startCell,
+            endCell: endCell
         }
     }
 
     renderCellList() {
-        let com = this.initTh()
+        let row = 10, col = 10;
+        let tableHeader = this.initTableHeader(row, col)
         return (
             <table>
                 <thead className="ant-table-thead">
-                    <tr>
-                        {com}
-                    </tr>
+                    {tableHeader}
                 </thead>
             </table>
         )

@@ -9,8 +9,8 @@ interface cellKey {
 }
 
 interface selectInfo {
-    startPoint: cellKey
-    endPoint: cellKey
+    startCell: cellKey
+    endCell: cellKey
 }
 
 interface props {
@@ -71,7 +71,6 @@ export default class Cell extends React.Component<props, state> {
         return (
             <th
                 className={this.state.className.join(' ')}
-                // className={this.className}
                 contentEditable={this.props.isEditable}
                 onMouseDown={this.onMouseDown.bind(this)}
                 onMouseOver={this.onMouseOver.bind(this)}
@@ -115,7 +114,7 @@ export default class Cell extends React.Component<props, state> {
 
     private isTop(className: Array<string>, props: props) {
         var myRow = props.cellKey.X,
-            startRow = props.selectInfo.startPoint.X;
+            startRow = props.selectInfo.startCell.X;
 
         if (myRow === startRow) {
             className.push(this.focusClass.TOP)
@@ -125,7 +124,7 @@ export default class Cell extends React.Component<props, state> {
 
     private isRight(className: Array<string>, props: props) {
         var myCol = props.cellKey.Y,
-            endCol = props.selectInfo.endPoint.Y;
+            endCol = props.selectInfo.endCell.Y;
 
         if (myCol === endCol) {
             className.push(this.focusClass.RIGHT)
@@ -135,7 +134,7 @@ export default class Cell extends React.Component<props, state> {
 
     private isBottm(className: Array<string>, props: props) {
         var myRow = props.cellKey.X,
-            endRow = props.selectInfo.endPoint.X;
+            endRow = props.selectInfo.endCell.X;
         if (myRow === endRow) {
             className.push(this.focusClass.BOTTOM)
         }
@@ -144,7 +143,7 @@ export default class Cell extends React.Component<props, state> {
 
     private isLeft(className: Array<string>, props: props) {
         var myCol = props.cellKey.Y,
-            startCol = props.selectInfo.startPoint.Y;
+            startCol = props.selectInfo.startCell.Y;
 
         if (myCol === startCol) {
             className.push(this.focusClass.LEFT)
@@ -156,10 +155,10 @@ export default class Cell extends React.Component<props, state> {
     private isInSideCell(props: props) {
         let isPass = false
 
-        let x0 = props.selectInfo.startPoint.X,
-            y0 = props.selectInfo.startPoint.Y,
-            x1 = props.selectInfo.endPoint.X,
-            y1 = props.selectInfo.endPoint.Y,
+        let x0 = props.selectInfo.startCell.X,
+            y0 = props.selectInfo.startCell.Y,
+            x1 = props.selectInfo.endCell.X,
+            y1 = props.selectInfo.endCell.Y,
             cX = props.cellKey.X,
             cY = props.cellKey.Y;
 
