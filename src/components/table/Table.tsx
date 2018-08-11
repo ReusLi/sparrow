@@ -75,15 +75,14 @@ export default class Table extends React.Component<props, state> {
         // cell组件props
         let cellProps;
 
-
         for (let rowIndex = 0; rowIndex < rowNum; rowIndex++) {
             colArray = []
             for (let colIndex = 0; colIndex < colNum; colIndex++) {
                 cellProps = this.getCellProps();
                 cellProps = this.buildCellProps(rowIndex, cellProps, colIndex)
-                
+
                 colArray.push(
-                    <Cell {...cellProps}/>
+                    <Cell {...cellProps} />
                 )
             }
             rowArray.push(
