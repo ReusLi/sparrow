@@ -9,7 +9,7 @@ export default class App extends React.Component {
     public render() {
         return (
             <Row>
-                <Row>
+                <Row className="kjax-handle-btn">
                     <ButtonGroup />
                 </Row>
                 <Row>
