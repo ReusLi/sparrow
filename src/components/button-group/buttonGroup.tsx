@@ -6,10 +6,10 @@ export default class ButtonGroup extends React.Component {
     public render() {
         return (
             <Row>
-                <Col span={2}>
+                <Col span={4}>
                     <Button>合并</Button>
                 </Col>
-                <Col span={2}>
+                <Col span={4}>
                     <Button>拆分</Button>
                 </Col>
             </Row>
