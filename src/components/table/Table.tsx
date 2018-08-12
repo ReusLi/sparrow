@@ -23,11 +23,8 @@ interface props {
 interface state {
     // 表头是否可以编辑
     isEditable: boolean,
-    startCell: object,
-    endCell: object,
     selectInfo: selectInfo,
-    mouseDownPoint: cellKey,
-    mouseUpPoint: cellKey
+    mouseDownPoint: cellKey
 }
 
 export default class Table extends React.Component<props, state> {
@@ -40,8 +37,6 @@ export default class Table extends React.Component<props, state> {
 
         this.state = {
             isEditable: true,
-            startCell: {},
-            endCell: {},
             selectInfo: {
                 startCell: {
                     X: -1,
@@ -54,10 +49,6 @@ export default class Table extends React.Component<props, state> {
                 }
             },
             mouseDownPoint: {
-                X: -1,
-                Y: -1
-            },
-            mouseUpPoint: {
                 X: -1,
                 Y: -1
             }
