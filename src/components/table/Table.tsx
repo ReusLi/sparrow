@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Cell from 'components/cell/Cell'
+import Cell from 'components/cell/cell'
 
 interface cellKey {
     // X轴坐标

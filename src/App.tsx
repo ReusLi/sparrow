@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Table from 'components/table/Table';
+import Table from 'components/table/table';
 
 export default class App extends React.Component {
     private header: Array<string> = []
