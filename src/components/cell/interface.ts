@@ -1,13 +1,8 @@
+import { CellKey, SelectInfo } from 'interface/common'
 
-export interface CellKey {
-    X: number,
-    Y: number
-}
+export interface CellKey extends CellKey { }
 
-export interface SelectInfo {
-    startCell: CellKey
-    endCell: CellKey
-}
+export interface SelectInfo extends SelectInfo { }
 
 export interface CellProps {
     text: string,
