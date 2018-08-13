@@ -1,38 +1,17 @@
 import * as React from 'react'
 
+// interface
+import { CellKey, SelectInfo, TableState, TableProps } from './interface'
+
 import Cell from 'components/cell/cell'
 
-interface cellKey {
-    // X轴坐标
-    X: number,
-    // Y轴坐标
-    Y: number
-}
 
-interface selectInfo {
-    // 鼠标开始mouse down的cell
-    startCell: cellKey
-    // mouse up 的 cell
-    endCell: cellKey
-}
-
-interface props {
-
-}
-
-interface state {
-    // 表头是否可以编辑
-    isEditable: boolean,
-    selectInfo: selectInfo,
-    mouseDownPoint: cellKey
-}
-
-export default class Table extends React.Component<props, state> {
+export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
     private isMouseDown: boolean = false
 
-    constructor(props: props, state: state) {
+    constructor(props: TableProps, state: TableState) {
         super(props);
 
         this.state = {
@@ -124,7 +103,7 @@ export default class Table extends React.Component<props, state> {
         return cellProps;
     }
 
-    private mouseDownEvent(cellKey: cellKey) {
+    private mouseDownEvent(cellKey: CellKey) {
         this.setState({
             selectInfo: {
                 startCell: {
@@ -145,7 +124,7 @@ export default class Table extends React.Component<props, state> {
         this.isMouseDown = true
     }
 
-    private mouseOverEvent(cellKey: cellKey) {
+    private mouseOverEvent(cellKey: CellKey) {
         if (!this.isMouseDown) {
             return false
         }
@@ -153,7 +132,7 @@ export default class Table extends React.Component<props, state> {
         this.updateCurKeyRand(cellKey)
     }
 
-    private mouseUpEvent(cellKey: cellKey) {
+    private mouseUpEvent(cellKey: CellKey) {
         this.updateCurKeyRand(cellKey)
 
         this.isMouseDown = false
@@ -163,11 +142,11 @@ export default class Table extends React.Component<props, state> {
      * 更新坐标范围
      * @param cellKey 
      */
-    private updateCurKeyRand(cellKey: cellKey) {
+    private updateCurKeyRand(cellKey: CellKey) {
         let startCell_X = this.state.mouseDownPoint.X,
             startCell_Y = this.state.mouseDownPoint.Y
 
-        let selectInfo: selectInfo = {
+        let selectInfo: SelectInfo = {
             startCell: {
                 X: startCell_X,
                 Y: startCell_Y
@@ -197,12 +176,12 @@ export default class Table extends React.Component<props, state> {
     /**
      * 构建XY坐标中的两点
      */
-    private buildXY(selectInfo: selectInfo) {
-        let startCell: cellKey = {
+    private buildXY(selectInfo: SelectInfo) {
+        let startCell: CellKey = {
             X: 0,
             Y: 0
         }
-        let endCell: cellKey = {
+        let endCell: CellKey = {
             X: 0,
             Y: 0
         }
