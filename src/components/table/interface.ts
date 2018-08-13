@@ -13,7 +13,7 @@ export interface SelectInfo {
 }
 
 export interface TableProps {
-    isEditable: boolean
+
 }
 
 export interface TableState {
