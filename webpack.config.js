@@ -116,7 +116,8 @@ module.exports = {
         alias: {
             'pages': path.resolve(__dirname, 'src/pages'),
             'components': path.resolve(__dirname, 'src/components'),
-            'context': path.resolve(__dirname, 'src/context')
+            'context': path.resolve(__dirname, 'src/context'),
+            'interface': path.resolve(__dirname, 'src/interface')
         },
         extensions: ['.tsx', '.ts', '.js', '.jsx']
     }
