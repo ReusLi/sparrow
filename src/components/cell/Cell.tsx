@@ -1,37 +1,12 @@
 import * as React from 'react'
 
+import { CellProps, CellState } from './interface'
+
 // 样式
 import './cell.css'
 
-interface cellKey {
-    X: number,
-    Y: number
-}
 
-interface selectInfo {
-    startCell: cellKey
-    endCell: cellKey
-}
-
-interface props {
-    text: string,
-    cellKey: cellKey,
-    isEditable: boolean,
-    selectInfo: selectInfo,
-    mouseDownEvent: Function,
-    mouseUpEvent: Function,
-    mouseOverEvent: Function
-}
-
-interface state {
-    // 表头是否可以编辑
-    isEditable: boolean,
-
-    // cell`s class
-    className: Array<string>
-}
-
-export default class Cell extends React.Component<props, state> {
+export default class Cell extends React.Component<CellProps, CellState> {
     public className = ''
 
     public focusClass = {
@@ -41,7 +16,7 @@ export default class Cell extends React.Component<props, state> {
         LEFT: 'custom-focus-left'
     }
 
-    constructor(props: props, state: state) {
+    constructor(props: CellProps, state: CellState) {
         super(props);
 
         this.state = {
@@ -60,7 +35,7 @@ export default class Cell extends React.Component<props, state> {
     /**
      * props变化时触发, 第一次render不会触发
      */
-    componentWillReceiveProps(nextProps: props) {
+    componentWillReceiveProps(nextProps: CellProps) {
         this.setCellStyle(nextProps)
     }
 
@@ -89,7 +64,7 @@ export default class Cell extends React.Component<props, state> {
         this.props.mouseOverEvent(this.props.cellKey)
     }
 
-    private onMouseUp () {
+    private onMouseUp() {
         this.props.mouseUpEvent(this.props.cellKey)
     }
 
@@ -97,7 +72,7 @@ export default class Cell extends React.Component<props, state> {
      * 设置单元格样式
      * @param props
      */
-    private setCellStyle(props: props) {
+    private setCellStyle(props: CellProps) {
         let className: Array<string> = ['custom-cell']
 
         if (this.isInSideCell(props)) {
@@ -113,7 +88,7 @@ export default class Cell extends React.Component<props, state> {
         })
     }
 
-    private isTop(className: Array<string>, props: props) {
+    private isTop(className: Array<string>, props: CellProps) {
         var myRow = props.cellKey.X,
             startRow = props.selectInfo.startCell.X;
 
@@ -123,7 +98,7 @@ export default class Cell extends React.Component<props, state> {
         return className;
     }
 
-    private isRight(className: Array<string>, props: props) {
+    private isRight(className: Array<string>, props: CellProps) {
         var myCol = props.cellKey.Y,
             endCol = props.selectInfo.endCell.Y;
 
@@ -133,7 +108,7 @@ export default class Cell extends React.Component<props, state> {
         return className;
     }
 
-    private isBottm(className: Array<string>, props: props) {
+    private isBottm(className: Array<string>, props: CellProps) {
         var myRow = props.cellKey.X,
             endRow = props.selectInfo.endCell.X;
         if (myRow === endRow) {
@@ -142,7 +117,7 @@ export default class Cell extends React.Component<props, state> {
         return className;
     }
 
-    private isLeft(className: Array<string>, props: props) {
+    private isLeft(className: Array<string>, props: CellProps) {
         var myCol = props.cellKey.Y,
             startCol = props.selectInfo.startCell.Y;
 
@@ -153,7 +128,7 @@ export default class Cell extends React.Component<props, state> {
         return className;
     }
 
-    private isInSideCell(props: props) {
+    private isInSideCell(props: CellProps) {
         let isPass = false
 
         let x0 = props.selectInfo.startCell.X,
