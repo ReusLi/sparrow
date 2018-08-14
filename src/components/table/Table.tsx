@@ -103,6 +103,12 @@ export default class Table extends React.Component<TableProps, TableState> {
         return cellProps;
     }
 
+    /**
+     * 触发mouse down时, 重置 startcell endcell为当前cell, 即变成单选一个cell的状态
+     * 同时设置isMouseDown状态为true 表示当前鼠标被按下
+     * 
+     * @param cellKey mouse down cell
+     */
     private mouseDownEvent(cellKey: CellKey) {
         this.setState({
             selectInfo: {
@@ -124,6 +130,11 @@ export default class Table extends React.Component<TableProps, TableState> {
         this.isMouseDown = true
     }
 
+    /**
+     * 没划过一个cell 就会更新坐标轴的2点 更新新的矩阵
+     * 如果isMouseDown为false, 表示当前没有按下鼠标
+     * @param cellKey mouse over cell
+     */
     private mouseOverEvent(cellKey: CellKey) {
         if (!this.isMouseDown) {
             return false
@@ -132,6 +143,11 @@ export default class Table extends React.Component<TableProps, TableState> {
         this.updateCurKeyRand(cellKey)
     }
 
+    /**
+     * 鼠标放开时 把isMouseDown状态设置为false
+     * 此时继续触发mouse over event也不会继续更新矩阵2点状态
+     * @param cellKey mouse up cell
+     */
     private mouseUpEvent(cellKey: CellKey) {
         this.updateCurKeyRand(cellKey)
 
