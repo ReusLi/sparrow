@@ -26,11 +26,13 @@ describe('cell组件', () => {
         }
     }
     describe('isInSideCell 函数能正确判断cell是否在矩阵内', () => {
-        props.cellKey.X = 8
-        props.cellKey.Y = 0
+        it('it..', () => {
+            props.cellKey.X = 8
+            props.cellKey.Y = 0
 
-        const result = cellComponent.isInSideCell(props)
+            const result = cellComponent.isInSideCell(props)
 
-        expect(result).to.be.equal(false);
+            expect(result).to.be.equal(false);
+        })
     })
 })
