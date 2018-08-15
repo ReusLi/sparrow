@@ -7,6 +7,7 @@ import Cell from 'components/cell/cell'
 
 Enzyme.configure({ adapter: new Adapter() });
 
+// 可能是shallow方法有问题
 const cellComponent = shallow(<Cell />).instance()
 
 describe('cell组件', () => {
