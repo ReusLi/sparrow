@@ -6,6 +6,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function (config) {
     config.set({
+        // 是否启动热部署，且当文件改变时自动进行测试
+        autoWatch: true,
+
+        // 持续积累模式
+        // 若为true捕获浏览器运行测试然后离开
+        singleRun: false,
+
+        autoWatch: true,
+
         frameworks: ['mocha', 'chai'],
 
         files: [
@@ -100,13 +109,10 @@ module.exports = function (config) {
 
         colors: true,
 
-        autoWatch: false,
-
         // browsers: ['PhantomJS'],
         browserify: {
             debug: true // for sourcemaps and easier debugging
         },
-        singleRun: true,
 
         coverageReporter: {
             reporters: [
