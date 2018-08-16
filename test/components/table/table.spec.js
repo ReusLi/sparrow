@@ -9,8 +9,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const tableComponent = shallow(<Table />).instance()
 
-describe('table组件的功能函数', () => {
-    describe('buildXY 函数, 在4种不同情况时均返回正确', () => {
+describe('table组件', () => {
+    describe('buildXY 不同起点,终点,均返回左上角和右下角的2点坐标', () => {
         let selectInfo = {
             startCell: {
                 X: 0,

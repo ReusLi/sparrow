@@ -67,7 +67,7 @@ describe('cell组件', () => {
         }
     }
 
-    describe('isInSideCell 函数能正确判断cell是否在矩阵内', () => {
+    describe('isInSideCell 判断cell是否在矩阵内', () => {
         it('在矩阵内的情况', () => {
             props.cellKey.X = 4
             props.cellKey.Y = 4
