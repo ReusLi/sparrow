@@ -87,7 +87,7 @@ describe('cell组件', () => {
         })
     })
 
-    describe('能否正确判断cell是否处于边界', () => {
+    describe('判断cell是否处于边界', () => {
 
         it('isTop边界', () => {
             props.cellKey.X = 0
