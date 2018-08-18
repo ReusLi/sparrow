@@ -8,6 +8,7 @@
         "target": "es5",
         "jsx": "react",
         "moduleResolution": "node",
+        "strictPropertyInitialization": false,
         "allowJs": true,
         "paths": {
             "*": [

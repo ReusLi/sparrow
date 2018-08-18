@@ -21,7 +21,6 @@ export default class Table extends React.Component<TableProps, TableState> {
                     X: -1,
                     Y: -1
                 },
-
                 endCell: {
                     X: -1,
                     Y: -1
