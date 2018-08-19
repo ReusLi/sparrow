@@ -78,4 +78,12 @@ describe('table组件', () => {
             expect(result.endCell.Y).to.be.equal(7);
         })
     })
+
+    describe('测试正确渲染x行y列', () => {
+        it('initTableHeader方法', () => {
+            let cellList = tableComponent.initTableHeader(3, 3)
+            console.log(cellList)
+            expect(1).to.be.ok
+        })
+    })
 })
