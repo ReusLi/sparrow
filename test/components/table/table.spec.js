@@ -88,7 +88,7 @@ describe('table组件', () => {
 
     describe('测试正确渲染x行y列', () => {
         it('initTableHeader方法', () => {
-            let cellList = tableComponent.initTableHeader()
+            let cellList = tableComponent.initTableHeader(tableConst.tabelProps.cellModels)
             console.log(cellList)
             expect(1).to.be.ok
         })
