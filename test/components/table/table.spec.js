@@ -4,11 +4,18 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai'
 
 import Table from 'components/table/table'
+import tableConst from './const.tsx'
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const tableComponent = shallow(<Table />).instance()
-
+let tableComponent
+try {
+    tableComponent = shallow(<Table cellModels={tableConst.tabelProps.cellModels}/>).instance()
+} catch (e) {
+    console.log(e)
+    console.error('渲染Table组件出错')
+}
+ 
 describe('table组件', () => {
     describe('buildXY 不同起点,终点,均返回左上角和右下角的2点坐标', () => {
         let selectInfo = {
@@ -81,7 +88,7 @@ describe('table组件', () => {
 
     describe('测试正确渲染x行y列', () => {
         it('initTableHeader方法', () => {
-            let cellList = tableComponent.initTableHeader(3, 3)
+            let cellList = tableComponent.initTableHeader()
             console.log(cellList)
             expect(1).to.be.ok
         })
