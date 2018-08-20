@@ -88,6 +88,8 @@ describe('table组件', () => {
 
     describe('测试正确渲染x行y列', () => {
         it('initTableHeader方法', () => {
+            // TypeError: Cannot convert a Symbol value to a string
+            // 好像是karma对es6的语法有兼容问题, 可以试试配置karma.config 或 webpack.config的label ?
             let cellList = tableComponent.initTableHeader(tableConst.tabelProps.cellModels)
             console.log(cellList)
             expect(1).to.be.ok
