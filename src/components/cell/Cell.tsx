@@ -43,6 +43,8 @@ export default class Cell extends React.Component<CellProps, CellState> {
     public render() {
         return (
             <th
+                rowSpan={this.props.cellKey.rowSpan}
+                colSpan={this.props.cellKey.colSpan}
                 className={this.state.className.join(' ')}
                 contentEditable={this.props.isEditable}
                 onMouseDown={this.onMouseDown.bind(this)}

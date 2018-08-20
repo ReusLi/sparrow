@@ -3,7 +3,11 @@ export interface CellKey {
     // x坐标
     X: number,
     // y坐标
-    Y: number
+    Y: number,
+    // colSpan 列长度
+    colSpan?: number,
+    // rowSpan 行长度
+    rowSpan?: number
 }
 
 // 选择的2个单元格坐标信息

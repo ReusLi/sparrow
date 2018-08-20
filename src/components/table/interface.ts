@@ -4,7 +4,9 @@ export interface CellKey extends CellKey { }
 
 export interface SelectInfo extends SelectInfo { }
 
-export interface TableProps { }
+export interface TableProps { 
+    cellModels: Array<Array<CellKey>>
+}
 
 export interface TableState {
     // 表头是否可以编辑

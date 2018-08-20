@@ -35,31 +35,29 @@ export default class Table extends React.Component<TableProps, TableState> {
 
     /**
      * 初始化单元格
-     * @param rowNum 行数
-     * @param colNum 列数
      */
-    private initTableHeader(rowNum: number, colNum: number) {
-        let rowArray = [],
-            colArray = [];
+    private initTableHeader() {
+        let rowArray: any = [],
+            colArray: any = [];
         // cell组件props
-        let cellProps;
+        let cellProps: any;
 
-        for (let rowIndex = 0; rowIndex < rowNum; rowIndex++) {
+        this.props.cellModels.forEach((row: Array<CellKey>, rowIndex: number) => {
             colArray = []
-            for (let colIndex = 0; colIndex < colNum; colIndex++) {
+            row.forEach((cell: CellKey) => {
                 cellProps = this.getCellProps();
-                cellProps = this.buildCellProps(rowIndex, cellProps, colIndex)
+                cellProps = this.buildCellProps(cellProps, cell)
 
                 colArray.push(
                     <Cell {...cellProps} />
                 )
-            }
+            })
             rowArray.push(
                 <tr key={`row_${rowIndex}`}>
                     {colArray}
                 </tr>
             )
-        }
+        })
 
         return rowArray;
     }
@@ -83,17 +81,17 @@ export default class Table extends React.Component<TableProps, TableState> {
 
     /**
      * 构建表格cell组件的props
-     * 
-     * @param lineNum 行号
      * @param cellProps cell组件的props object
-     * @param index 循环的下标
+     * @param cell cell属性
      */
-    private buildCellProps(rowIndex: number, cellProps: any, colIndex: number) {
+    private buildCellProps(cellProps: any, cell: CellKey) {
 
-        cellProps.key = `${colIndex}_${rowIndex}`
-        cellProps.text = `(${rowIndex}, ${colIndex})`
-        cellProps.cellKey.X = Number(rowIndex)
-        cellProps.cellKey.Y = colIndex
+        cellProps.key = `${cell.X}_${cell.Y}`
+        cellProps.text = `(${cell.X}, ${cell.Y})`
+        cellProps.cellKey.X = cell.X
+        cellProps.cellKey.Y = cell.Y
+        cellProps.cellKey.rowSpan = cell.rowSpan || 1
+        cellProps.cellKey.colSpan = cell.colSpan || 1
         cellProps.mouseDownEvent = this.mouseDownEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
         cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
@@ -224,9 +222,7 @@ export default class Table extends React.Component<TableProps, TableState> {
     }
 
     renderCellList() {
-        let row = 10,
-            col = 10;
-        let tableHeader = this.initTableHeader(row, col)
+        let tableHeader = this.initTableHeader()
         return (
             <table>
                 <thead className="ant-table-thead">
