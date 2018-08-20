@@ -8,10 +8,10 @@ import Table from 'components/table/table';
 import { CellKey } from 'cell/interface';
 
 export default class App extends React.Component {
-    private cellList: Array<Array<CellKey>>
+    private cellModels: Array<Array<CellKey>>
 
     private buildCellKey () {
-        this.cellList = [
+        this.cellModels = [
             [
                 {X: 0, Y: 0},
                 {X: 0, Y: 1},
@@ -43,14 +43,14 @@ export default class App extends React.Component {
                 {X: 3, Y: 5}
             ]
         ]
-        return this.cellList;
+        return this.cellModels;
     }
 
     /**
      * 第一次render前触发
      */
     componentWillMount() {
-        this.cellList = this.buildCellKey()
+        this.cellModels = this.buildCellKey()
     }
 
     public render() {
@@ -64,7 +64,7 @@ export default class App extends React.Component {
 
                 {/* cell panel */}
                 <Row>
-                    <Table cellModels={this.cellList} />
+                    <Table cellModels={this.cellModels} />
                 </Row>
 
             </Row>
