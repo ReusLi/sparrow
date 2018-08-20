@@ -36,13 +36,13 @@ export default class Table extends React.Component<TableProps, TableState> {
     /**
      * 初始化单元格
      */
-    private initTableHeader() {
+    private initTableHeader(cellModels: Array<Array<CellKey>>) {
         let rowArray: any = [],
             colArray: any = [];
         // cell组件props
         let cellProps: any;
 
-        this.props.cellModels.forEach((row: Array<CellKey>, rowIndex: number) => {
+        cellModels.forEach((row: Array<CellKey>, rowIndex: number) => {
             colArray = []
             row.forEach((cell: CellKey) => {
                 cellProps = this.getCellProps();
@@ -222,7 +222,7 @@ export default class Table extends React.Component<TableProps, TableState> {
     }
 
     renderCellList() {
-        let tableHeader = this.initTableHeader()
+        let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
             <table>
                 <thead className="ant-table-thead">
