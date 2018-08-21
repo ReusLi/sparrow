@@ -8,11 +8,28 @@ import Table from 'components/table/table';
 import { CellKey } from 'cell/interface';
 import Cell from 'cell/cell';
 
-export default class App extends React.Component {
+interface MatrixState {
+    row: number,
+    col: number
+}
+
+interface MatrixProps {
+
+}
+
+export default class App extends React.Component<MatrixProps, MatrixState> {
     private row: number
     private col: number
     private cellModels: Array<Array<CellKey>>
 
+    constructor(props: MatrixProps, state: MatrixState) {
+        super(props);
+
+        this.state = {
+            row: 10,
+            col: 10
+        }
+    }
     /**
      * 通过2点确定矩阵左上角和右下角的坐标
      */
@@ -35,10 +52,7 @@ export default class App extends React.Component {
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
-                cellKey = {
-                    X: i,
-                    Y: j
-                }
+                cellKey = { X: i, Y: j }
                 matrixModel[i].push(cellKey)
             }
         }
@@ -87,8 +101,7 @@ export default class App extends React.Component {
      * 第一次render前触发
      */
     componentWillMount() {
-        // this.cellModels = this.buildCellKey()
-        this.cellModels = this.buildMatrixModel(10, 10)
+        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col)
     }
 
     public render() {
