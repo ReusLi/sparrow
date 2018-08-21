@@ -81,7 +81,7 @@ export default class Cell extends React.Component<CellProps, CellState> {
             className.push('inside-cell')
             className = this.isTop(className, props)
             className = this.isRight(className, props)
-            className = this.isBottm(className, props)
+            className = this.isBottom(className, props)
             className = this.isLeft(className, props)
         }
 
@@ -110,7 +110,7 @@ export default class Cell extends React.Component<CellProps, CellState> {
         return className;
     }
 
-    private isBottm(className: Array<string>, props: CellProps) {
+    private isBottom(className: Array<string>, props: CellProps) {
         var myRow = props.cellKey.X,
             endRow = props.selectInfo.endCell.X;
         if (myRow === endRow) {

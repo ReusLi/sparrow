@@ -109,10 +109,10 @@ describe('cell组件', () => {
             expect(className).to.be.equal('custom-focus-right');
         })
 
-        it('isBottm边界', () => {
+        it('isBottom边界', () => {
             props.cellKey.X = 7
 
-            let className = cellComponent.isBottm([''], props)
+            let className = cellComponent.isBottom([''], props)
 
             className = className[1]
 
