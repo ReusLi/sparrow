@@ -22,15 +22,17 @@ export default class App extends React.Component {
             ],
             [
                 {X: 1, Y: 0},
-                {X: 1, Y: 1, colSpan: 3},
+                {X: 1, Y: 1, colSpan: 3, rowSpan: 2},
+                // {X: 1, Y: 2},
+                // {X: 1, Y: 3},
                 {X: 1, Y: 4},
                 {X: 1, Y: 5}
             ],
             [
                 {X: 2, Y: 0},
-                {X: 2, Y: 1},
-                {X: 2, Y: 2},
-                {X: 2, Y: 3},
+                // {X: 2, Y: 1},
+                // {X: 2, Y: 2},
+                // {X: 2, Y: 3},
                 {X: 2, Y: 4},
                 {X: 2, Y: 5}
             ],
