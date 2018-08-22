@@ -18,8 +18,6 @@ interface MatrixProps {
 }
 
 export default class App extends React.Component<MatrixProps, MatrixState> {
-    private row: number
-    private col: number
     private cellModels: Array<Array<CellKey>>
 
     constructor(props: MatrixProps, state: MatrixState) {
@@ -36,8 +34,31 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
     /**
      * 通过矩阵的左上角和右下角坐标
-     * 构建出矩阵内所有点的集合
+     * 构建出矩阵内所有要跳过的点集合
+     * @param leftTopKey 
+     * @param rightBottomKey 
+     * 
+     * @return {Array<CellKey>}
      */
+    private getDropCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
+        let xLen: number = rightBottomKey.X - leftTopKey.X + 1,
+            yLen: number = rightBottomKey.Y - leftTopKey.Y + 1,
+            noUseCells: Array<CellKey> = [];
+
+        for (let X = leftTopKey.X, i = 0; i < xLen; i++) {
+            for (let Y = leftTopKey.Y, j = 0; j < yLen; j++) {
+                noUseCells.push({
+                    X: X + i,
+                    Y: Y + j
+                })
+            }
+
+        }
+        // 左上角的点是用来构造colspan rowspan的, 应该shift掉
+        noUseCells.shift();
+
+        return noUseCells;
+    }
 
     /**
      * 构建n*n的矩阵数据模型
@@ -101,6 +122,17 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * 第一次render前触发
      */
     componentWillMount() {
+        let c1 = {
+            X: 1,
+            Y: 2
+        }
+
+        let c2 = {
+            X: 2,
+            Y: 5
+        }
+        let result = this.getDropCellByCellKeys(c1, c2)
+        console.log(result)
         this.cellModels = this.buildMatrixModel(this.state.row, this.state.col)
     }
 
