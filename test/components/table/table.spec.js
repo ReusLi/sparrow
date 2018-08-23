@@ -10,7 +10,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 let tableComponent
 try {
-    tableComponent = shallow(<Table cellModels={tableConst.tabelProps.cellModels}/>).instance()
+    tableComponent = mount(<Table cellModels={tableConst.tabelProps.cellModels}/>).instance()
 } catch (e) {
     console.log(e)
     console.error('渲染Table组件出错')
