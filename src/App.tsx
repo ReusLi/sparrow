@@ -20,6 +20,8 @@ interface MatrixProps {
 export default class App extends React.Component<MatrixProps, MatrixState> {
     private cellModels: Array<Array<CellKey>>
 
+    private kcList: Array<CellKey> = []
+
     constructor(props: MatrixProps, state: MatrixState) {
         super(props);
 
@@ -40,7 +42,7 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * 
      * @return {Array<CellKey>}
      */
-    private getDropCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
+    private getSkipCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
         let xLen: number = rightBottomKey.X - leftTopKey.X + 1,
             yLen: number = rightBottomKey.Y - leftTopKey.Y + 1,
             noUseCells: Array<CellKey> = [];
@@ -55,7 +57,11 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
         }
         // 左上角的点是用来构造colspan rowspan的, 应该shift掉
-        noUseCells.shift();
+        let kc: CellKey = noUseCells.shift()
+        kc.rowSpan = xLen
+        kc.colSpan = yLen
+
+        this.kcList.push(kc)
 
         return noUseCells;
     }
@@ -64,9 +70,10 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * 构建n*n的矩阵数据模型
      * @param row 
      * @param col 
+     * @param kcList 
      * @param noUseCells 
      */
-    private buildMatrixModel(row: number, col: number) {
+    private buildMatrixModel(row: number, col: number,kcList: Array<CellKey>, noUseCells: Array<CellKey>) {
         let matrixModel: Array<Array<CellKey>> = [],
             cellKey: CellKey
 
@@ -74,48 +81,18 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
                 cellKey = { X: i, Y: j }
-                matrixModel[i].push(cellKey)
+
+                // 判断是否是no use cell, 如果是, 不需要push进matrixModel
+                let isNoUseCell = noUseCells.some(cell => cell.X === cellKey.X && cell.Y === cellKey.Y)
+
+                isNoUseCell ? null : matrixModel[i].push(cellKey)
             }
         }
 
+        kcList.forEach((cell) => {
+            matrixModel[cell.X][cell.Y] = cell;
+        })
         return matrixModel;
-    }
-    private buildCellKey() {
-        this.cellModels = [
-            [
-                { X: 0, Y: 0 },
-                { X: 0, Y: 1 },
-                { X: 0, Y: 2 },
-                { X: 0, Y: 3 },
-                { X: 0, Y: 4 },
-                { X: 0, Y: 5 }
-            ],
-            [
-                { X: 1, Y: 0 },
-                { X: 1, Y: 1, colSpan: 3, rowSpan: 2 },
-                // {X: 1, Y: 2},
-                // {X: 1, Y: 3},
-                { X: 1, Y: 4 },
-                { X: 1, Y: 5 }
-            ],
-            [
-                { X: 2, Y: 0 },
-                // {X: 2, Y: 1},
-                // {X: 2, Y: 2},
-                // {X: 2, Y: 3},
-                { X: 2, Y: 4 },
-                { X: 2, Y: 5 }
-            ],
-            [
-                { X: 3, Y: 0 },
-                { X: 3, Y: 1 },
-                { X: 3, Y: 2 },
-                { X: 3, Y: 3 },
-                { X: 3, Y: 4 },
-                { X: 3, Y: 5 }
-            ]
-        ]
-        return this.cellModels;
     }
 
     /**
@@ -123,17 +100,16 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      */
     componentWillMount() {
         let c1 = {
-            X: 1,
-            Y: 2
+            X: 7,
+            Y: 7
         }
 
         let c2 = {
-            X: 2,
-            Y: 5
+            X: 8,
+            Y: 8
         }
-        let result = this.getDropCellByCellKeys(c1, c2)
-        console.log(result)
-        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col)
+        let noUseCells = this.getSkipCellByCellKeys(c1, c2)
+        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
     }
 
     public render() {
