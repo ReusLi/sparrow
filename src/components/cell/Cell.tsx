@@ -1,24 +1,19 @@
-import * as React from 'react'
-
-import { CellProps, CellState } from './interface'
-
 // 样式
 import './cell.css'
 
+import { CellProps, CellState } from './interface'
+
+import * as React from 'react'
+
+import { cellStyleJudge } from 'components/cell/cellStyleJudge'
 
 export default class Cell extends React.Component<CellProps, CellState> {
     public className = ''
 
-    public focusClass = {
-        TOP: 'custom-focus-top',
-        RIGHT: 'custom-focus-right',
-        BOTTOM: 'custom-focus-bottom',
-        LEFT: 'custom-focus-left'
-    }
+    private cellStyleJudge = new cellStyleJudge()
 
     constructor(props: CellProps, state: CellState) {
         super(props);
-
         this.state = {
             isEditable: true,
             className: ['custom-cell']
@@ -79,55 +74,15 @@ export default class Cell extends React.Component<CellProps, CellState> {
 
         if (this.isInSideCell(props)) {
             className.push('inside-cell')
-            className = this.isTop(className, props)
-            className = this.isRight(className, props)
-            className = this.isBottom(className, props)
-            className = this.isLeft(className, props)
+            className = this.cellStyleJudge.isTop(className, props)
+            className = this.cellStyleJudge.isRight(className, props)
+            className = this.cellStyleJudge.isBottom(className, props)
+            className = this.cellStyleJudge.isLeft(className, props)
         }
 
         this.setState({
             className: className
         })
-    }
-
-    private isTop(className: Array<string>, props: CellProps) {
-        var myRow = props.cellKey.X,
-            startRow = props.selectInfo.startCell.X;
-
-        if (myRow === startRow) {
-            className.push(this.focusClass.TOP)
-        }
-        return className;
-    }
-
-    private isRight(className: Array<string>, props: CellProps) {
-        var myCol = props.cellKey.Y,
-            endCol = props.selectInfo.endCell.Y;
-
-        if (myCol === endCol) {
-            className.push(this.focusClass.RIGHT)
-        }
-        return className;
-    }
-
-    private isBottom(className: Array<string>, props: CellProps) {
-        var myRow = props.cellKey.X,
-            endRow = props.selectInfo.endCell.X;
-        if (myRow === endRow) {
-            className.push(this.focusClass.BOTTOM)
-        }
-        return className;
-    }
-
-    private isLeft(className: Array<string>, props: CellProps) {
-        var myCol = props.cellKey.Y,
-            startCol = props.selectInfo.startCell.Y;
-
-        if (myCol === startCol) {
-            className.push(this.focusClass.LEFT)
-        }
-
-        return className;
     }
 
     private isInSideCell(props: CellProps) {
