@@ -6,7 +6,6 @@ import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table';
 
 import { CellKey } from 'cell/interface';
-import Cell from 'cell/cell';
 
 interface MatrixState {
     row: number,
@@ -108,7 +107,19 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
             X: 8,
             Y: 8
         }
-        let noUseCells = this.getSkipCellByCellKeys(c1, c2)
+
+        let c3 = {
+            X: 1,
+            Y: 1
+        }
+
+        let c4 = {
+            X: 3,
+            Y: 4
+        }
+        let noUseCells1 = this.getSkipCellByCellKeys(c1, c2)
+        let noUseCells2 = this.getSkipCellByCellKeys(c3, c4)
+        let noUseCells = [].concat(noUseCells1, noUseCells2)
         this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
     }
 
