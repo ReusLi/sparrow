@@ -7,6 +7,9 @@ import Table from 'components/table/table';
 
 import { CellKey } from 'cell/interface';
 
+// context
+import { MatrixContext } from 'context/matrixContext'
+
 interface MatrixState {
     row: number,
     col: number
@@ -72,7 +75,7 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * @param kcList 
      * @param noUseCells 
      */
-    private buildMatrixModel(row: number, col: number,kcList: Array<CellKey>, noUseCells: Array<CellKey>) {
+    private buildMatrixModel(row: number, col: number, kcList: Array<CellKey>, noUseCells: Array<CellKey>) {
         let matrixModel: Array<Array<CellKey>> = [],
             cellKey: CellKey
 
@@ -123,21 +126,27 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
     }
 
+    private onDataTypeChange() {
+
+    }
+
     public render() {
         return (
-            <Row>
-
-                {/* 操作cell的按钮组 */}
-                <Row className="kjax-handle-btn">
-                    <ButtonGroup />
-                </Row>
-
-                {/* cell panel */}
+            <MatrixContext.Provider value={{ onDataTypeChange: this.onDataTypeChange }}>
                 <Row>
-                    <Table cellModels={this.cellModels} />
-                </Row>
 
-            </Row>
+                    {/* 操作cell的按钮组 */}
+                    <Row className="kjax-handle-btn">
+                        <ButtonGroup />
+                    </Row>
+
+                    {/* cell panel */}
+                    <Row>
+                        <Table cellModels={this.cellModels} />
+                    </Row>
+
+                </Row>
+            </MatrixContext.Provider>
         )
     }
 }

@@ -5,6 +5,8 @@ import { CellKey, SelectInfo, TableState, TableProps } from './interface'
 
 import Cell from 'components/cell/cell'
 
+// context
+import { MatrixContext } from 'context/matrixContext'
 
 export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
@@ -224,11 +226,13 @@ export default class Table extends React.Component<TableProps, TableState> {
     renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
-            <table>
-                <thead className="ant-table-thead">
-                    {tableHeader}
-                </thead>
-            </table>
+            <MatrixContext.Consumer>
+                <table>
+                    <thead className="ant-table-thead">
+                        {tableHeader}
+                    </thead>
+                </table>
+            </MatrixContext.Consumer>
         )
     }
 
