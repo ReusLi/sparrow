@@ -5,9 +5,6 @@ import { CellKey, SelectInfo, TableState, TableProps } from './interface'
 
 import Cell from 'components/cell/cell'
 
-// context
-import { MatrixContext } from 'context/matrixContext'
-
 export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
@@ -226,13 +223,11 @@ export default class Table extends React.Component<TableProps, TableState> {
     renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
-            <MatrixContext.Consumer>
-                <table>
-                    <thead className="ant-table-thead">
-                        {tableHeader}
-                    </thead>
-                </table>
-            </MatrixContext.Consumer>
+            <table>
+                <thead className="ant-table-thead">
+                    {tableHeader}
+                </thead>
+            </table>
         )
     }
 

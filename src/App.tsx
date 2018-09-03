@@ -126,27 +126,38 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
     }
 
-    private onDataTypeChange() {
+    private onCellMouseDown(cellKey: CellKey) {
+        console.log(cellKey)
+    }
 
+    private onCellMouseUp(cellKey: CellKey) {
+        console.log(cellKey)
     }
 
     public render() {
         return (
-            <MatrixContext.Provider value={{ onDataTypeChange: this.onDataTypeChange }}>
-                <Row>
 
-                    {/* 操作cell的按钮组 */}
-                    <Row className="kjax-handle-btn">
-                        <ButtonGroup />
-                    </Row>
+            <Row>
 
-                    {/* cell panel */}
-                    <Row>
-                        <Table cellModels={this.cellModels} />
-                    </Row>
-
+                {/* 操作cell的按钮组 */}
+                <Row className="kjax-handle-btn">
+                    <ButtonGroup />
                 </Row>
-            </MatrixContext.Provider>
+
+                {/* cell panel */}
+                <Row>
+                    <MatrixContext.Provider
+                        value={
+                            {
+                                onCellMouseDown: this.onCellMouseDown.bind(this),
+                                onCellMouseUp: this.onCellMouseUp.bind(this)
+                            }
+                        }>
+                        <Table cellModels={this.cellModels} />
+                    </MatrixContext.Provider>
+                </Row>
+
+            </Row>
         )
     }
 }

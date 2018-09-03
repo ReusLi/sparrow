@@ -7,6 +7,9 @@ import * as React from 'react'
 
 import { cellStyleJudge } from 'components/cell/cellStyleJudge'
 
+// context
+import { MatrixContext } from 'context/matrixContext'
+
 export default class Cell extends React.Component<CellProps, CellState> {
     public className = ''
 
@@ -37,23 +40,31 @@ export default class Cell extends React.Component<CellProps, CellState> {
 
     public render() {
         return (
-            <th
-                rowSpan={this.props.cellKey.rowSpan}
-                colSpan={this.props.cellKey.colSpan}
-                className={this.state.className.join(' ')}
-                contentEditable={this.props.isEditable}
-                onMouseDown={this.onMouseDown.bind(this)}
-                onMouseOver={this.onMouseOver.bind(this)}
-                onMouseUp={this.onMouseUp.bind(this)}
-                // 不要warning contentEditable效果
-                suppressContentEditableWarning={true}
-            >
-                {this.props.text}
-            </th>
+            <MatrixContext.Consumer>
+                {
+                    context =>
+                        <th
+                            rowSpan={this.props.cellKey.rowSpan}
+                            colSpan={this.props.cellKey.colSpan}
+                            className={this.state.className.join(' ')}
+                            contentEditable={this.props.isEditable}
+                            onMouseDown={this.onMouseDown.bind(this, context.onCellMouseDown)}
+                            onMouseOver={this.onMouseOver.bind(this)}
+                            onMouseUp={this.onMouseUp.bind(this, context.onCellMouseUp)}
+                            // 不要warning contentEditable效果
+                            suppressContentEditableWarning={true}
+                        >
+                            {this.props.text}
+                        </th>
+
+                }
+
+            </MatrixContext.Consumer>
         )
     }
 
-    private onMouseDown() {
+    private onMouseDown(onCellMouseDown: Function) {
+        onCellMouseDown(this.props.cellKey)
         this.props.mouseDownEvent(this.props.cellKey)
     }
 
@@ -61,12 +72,13 @@ export default class Cell extends React.Component<CellProps, CellState> {
         this.props.mouseOverEvent(this.props.cellKey)
     }
 
-    private onMouseUp() {
+    private onMouseUp(onCellMouseUp: Function) {
+        onCellMouseUp(this.props.cellKey)
         this.props.mouseUpEvent(this.props.cellKey)
     }
 
     /**
-     * 设置单元格样式
+     * 设置单元格样式      
      * @param props
      */
     private setCellStyle(props: CellProps) {

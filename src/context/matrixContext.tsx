@@ -8,5 +8,6 @@ import * as React from 'react'
  * 更新父组件里的关于 editor 的数据
  */
 export let MatrixContext = React.createContext({
-    onDataTypeChange: () => { },
+    onCellMouseDown: () => { },
+    onCellMouseUp: () => { }
 });
