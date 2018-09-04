@@ -12,7 +12,8 @@ import { MatrixContext } from 'context/matrixContext'
 
 interface MatrixState {
     row: number,
-    col: number
+    col: number,
+    cellModels: any
 }
 
 interface MatrixProps {
@@ -22,7 +23,7 @@ interface MatrixProps {
 export default class App extends React.Component<MatrixProps, MatrixState> {
 
     private cellModels: Array<Array<CellKey>>
-    
+
     private mouseDownCell: CellKey
 
     private mouseUpCell: CellKey
@@ -34,7 +35,8 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
         this.state = {
             row: 10,
-            col: 10
+            col: 10,
+            cellModels: {}
         }
     }
     /**
@@ -106,46 +108,25 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * 第一次render前触发
      */
     componentWillMount() {
-        let c1 = {
-            X: 7,
-            Y: 7
-        }
-
-        let c2 = {
-            X: 8,
-            Y: 8
-        }
-
-        let c3 = {
-            X: 1,
-            Y: 1
-        }
-
-        let c4 = {
-            X: 3,
-            Y: 4
-        }
-        // let noUseCells1 = this.getSkipCellByCellKeys(c1, c2)
-        // let noUseCells2 = this.getSkipCellByCellKeys(c3, c4)
-        let noUseCells:any = []
-        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
-    }
-
-    private mergeCell (mouseDownCell: CellKey, mouseUpCell: CellKey) {
-
+        let noUseCells: Array<CellKey> = []
+        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+        this.setState({
+            cellModels: cellModels
+        })
     }
 
     private onCellMouseDown(cellKey: CellKey) {
-        console.log(cellKey)
         this.mouseDownCell = cellKey
     }
 
     private onCellMouseUp(cellKey: CellKey) {
-        console.log(cellKey)
         this.mouseUpCell = cellKey
-        let noUseCells = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
-        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
-        
+        let noUseCells: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
+        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+        console.log(cellModels)
+        this.setState({
+            cellModels: cellModels
+        })
     }
 
     public render() {
@@ -167,7 +148,7 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
                                 onCellMouseUp: this.onCellMouseUp.bind(this)
                             }
                         }>
-                        <Table cellModels={this.cellModels} />
+                        <Table cellModels={this.state.cellModels} />
                     </MatrixContext.Provider>
                 </Row>
 
