@@ -13,7 +13,7 @@ import { MatrixContext } from 'context/matrixContext'
 interface MatrixState {
     row: number,
     col: number,
-    cellModels: any
+    cellModels: Array<Array<CellKey>>
 }
 
 interface MatrixProps {
@@ -21,8 +21,6 @@ interface MatrixProps {
 }
 
 export default class App extends React.Component<MatrixProps, MatrixState> {
-
-    private cellModels: Array<Array<CellKey>>
 
     private mouseDownCell: CellKey
 
@@ -36,12 +34,9 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.state = {
             row: 10,
             col: 10,
-            cellModels: {}
+            cellModels: []
         }
     }
-    /**
-     * 通过2点确定矩阵左上角和右下角的坐标
-     */
 
     /**
      * 通过矩阵的左上角和右下角坐标
@@ -123,7 +118,6 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.mouseUpCell = cellKey
         let noUseCells: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
         let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
-        console.log(cellModels)
         this.setState({
             cellModels: cellModels
         })
