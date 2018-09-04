@@ -20,7 +20,12 @@ interface MatrixProps {
 }
 
 export default class App extends React.Component<MatrixProps, MatrixState> {
+
     private cellModels: Array<Array<CellKey>>
+    
+    private mouseDownCell: CellKey
+
+    private mouseUpCell: CellKey
 
     private kcList: Array<CellKey> = []
 
@@ -120,18 +125,27 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
             X: 3,
             Y: 4
         }
-        let noUseCells1 = this.getSkipCellByCellKeys(c1, c2)
-        let noUseCells2 = this.getSkipCellByCellKeys(c3, c4)
-        let noUseCells = [].concat(noUseCells1, noUseCells2)
+        // let noUseCells1 = this.getSkipCellByCellKeys(c1, c2)
+        // let noUseCells2 = this.getSkipCellByCellKeys(c3, c4)
+        let noUseCells:any = []
         this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+    }
+
+    private mergeCell (mouseDownCell: CellKey, mouseUpCell: CellKey) {
+
     }
 
     private onCellMouseDown(cellKey: CellKey) {
         console.log(cellKey)
+        this.mouseDownCell = cellKey
     }
 
     private onCellMouseUp(cellKey: CellKey) {
         console.log(cellKey)
+        this.mouseUpCell = cellKey
+        let noUseCells = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
+        this.cellModels = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+        
     }
 
     public render() {

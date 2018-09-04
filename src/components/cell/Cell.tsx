@@ -37,7 +37,6 @@ export default class Cell extends React.Component<CellProps, CellState> {
         this.setCellStyle(nextProps)
     }
 
-
     public render() {
         return (
             <MatrixContext.Consumer>
