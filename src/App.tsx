@@ -67,9 +67,7 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         kc.rowSpan = xLen
         kc.colSpan = yLen
 
-        if (kc.rowSpan !== 1 || kc.colSpan !== 1) {
-            this.mergeCellList.push(kc)
-        }
+        this.mergeCellList.push(kc)
         return hideCellList;
     }
 
@@ -117,6 +115,11 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
     }
 
     private onCellMouseUp(cellKey: CellKey) {
+        // 如果是点击一个单元格 不需要做处理
+        if (this.isSameCellKey(this.mouseDownCell, cellKey)) {
+            return false;
+        }
+        
         this.mouseUpCell = cellKey
         let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
         this.hideCellList = this.hideCellList.concat(hideCellList)
@@ -124,6 +127,10 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.setState({
             cellModels: cellModels
         })
+    }
+
+    private isSameCellKey (ck1: CellKey, ck2: CellKey) {
+        return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
 
     public render() {
