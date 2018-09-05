@@ -67,8 +67,9 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         kc.rowSpan = xLen
         kc.colSpan = yLen
 
-        this.mergeCellList.push(kc)
-        console.log(this.mergeCellList)
+        if (kc.rowSpan !== 1 || kc.colSpan !== 1) {
+            this.mergeCellList.push(kc)
+        }
         return hideCellList;
     }
 
