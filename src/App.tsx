@@ -26,7 +26,9 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
     private mouseUpCell: CellKey
 
-    private kcList: Array<CellKey> = []
+    private mergeCellList: Array<CellKey> = []
+
+    private hideCellList: Array<CellKey> = []
 
     constructor(props: MatrixProps, state: MatrixState) {
         super(props);
@@ -49,11 +51,11 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
     private getSkipCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
         let xLen: number = rightBottomKey.X - leftTopKey.X + 1,
             yLen: number = rightBottomKey.Y - leftTopKey.Y + 1,
-            noUseCells: Array<CellKey> = [];
+            hideCellList: Array<CellKey> = [];
 
         for (let X = leftTopKey.X, i = 0; i < xLen; i++) {
             for (let Y = leftTopKey.Y, j = 0; j < yLen; j++) {
-                noUseCells.push({
+                hideCellList.push({
                     X: X + i,
                     Y: Y + j
                 })
@@ -61,23 +63,23 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
         }
         // 左上角的点是用来构造colspan rowspan的, 应该shift掉
-        let kc: CellKey = noUseCells.shift()
+        let kc: CellKey = hideCellList.shift()
         kc.rowSpan = xLen
         kc.colSpan = yLen
 
-        this.kcList.push(kc)
-
-        return noUseCells;
+        this.mergeCellList.push(kc)
+        console.log(this.mergeCellList)
+        return hideCellList;
     }
 
     /**
      * 构建n*n的矩阵数据模型
      * @param row 
      * @param col 
-     * @param kcList 
-     * @param noUseCells 
+     * @param mergeCellList 
+     * @param hideCellList 
      */
-    private buildMatrixModel(row: number, col: number, kcList: Array<CellKey>, noUseCells: Array<CellKey>) {
+    private buildMatrixModel(row: number, col: number, mergeCellList: Array<CellKey>, hideCellList: Array<CellKey>) {
         let matrixModel: Array<Array<CellKey>> = [],
             cellKey: CellKey
 
@@ -87,13 +89,13 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
                 cellKey = { X: i, Y: j }
 
                 // 判断是否是no use cell, 如果是, 不需要push进matrixModel
-                let isNoUseCell = noUseCells.some(cell => cell.X === cellKey.X && cell.Y === cellKey.Y)
+                let isHideCell = hideCellList.some(cell => cell.X === cellKey.X && cell.Y === cellKey.Y)
 
-                isNoUseCell ? null : matrixModel[i].push(cellKey)
+                isHideCell ? null : matrixModel[i].push(cellKey)
             }
         }
 
-        kcList.forEach((cell) => {
+        mergeCellList.forEach((cell) => {
             matrixModel[cell.X][cell.Y] = cell;
         })
         return matrixModel;
@@ -103,8 +105,7 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * 第一次render前触发
      */
     componentWillMount() {
-        let noUseCells: Array<CellKey> = []
-        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({
             cellModels: cellModels
         })
@@ -116,8 +117,9 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
 
     private onCellMouseUp(cellKey: CellKey) {
         this.mouseUpCell = cellKey
-        let noUseCells: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
-        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.kcList, noUseCells)
+        let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
+        this.hideCellList = this.hideCellList.concat(hideCellList)
+        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({
             cellModels: cellModels
         })
