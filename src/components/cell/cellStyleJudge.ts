@@ -52,5 +52,4 @@ export class cellStyleJudge {
         return className;
     }
 
-    
 }

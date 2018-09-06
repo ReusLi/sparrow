@@ -86,48 +86,5 @@ describe('cell组件', () => {
             expect(result).to.be.equal(false);
         })
     })
-
-    describe('判断cell是否处于边界', () => {
-
-        it('isTop边界', () => {
-            props.cellKey.X = 0
-
-            let className = cellComponent.isTop([''], props)
-
-            className = className[1]
-
-            expect(className).to.be.equal('custom-focus-top');
-        })
-
-        it('isRight边界', () => {
-            props.cellKey.Y = 7
-
-            let className = cellComponent.isRight([''], props)
-
-            className = className[1]
-
-            expect(className).to.be.equal('custom-focus-right');
-        })
-
-        it('isBottom边界', () => {
-            props.cellKey.X = 7
-
-            let className = cellComponent.isBottom([''], props)
-
-            className = className[1]
-
-            expect(className).to.be.equal('custom-focus-bottom');
-        })
-
-        it('isLeft边界', () => {
-            props.cellKey.Y = 0
-
-            let className = cellComponent.isLeft([''], props)
-
-            className = className[1]
-
-            expect(className).to.be.equal('custom-focus-left');
-        })
-
-    })
+    
 })
