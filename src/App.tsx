@@ -79,9 +79,28 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
      * @param hideCellList 
      */
     private buildMatrixModel(row: number, col: number, mergeCellList: Array<CellKey>, hideCellList: Array<CellKey>) {
-        let matrixModel: Array<Array<CellKey>> = [],
-            cellKey: CellKey
+        let matrixModel: Array<Array<CellKey>> = []
 
+        // 获取matrixModel, 且model会满足:
+        // 1. 所有的cell rowspan colspan都是1
+        // 2. 不包含隐藏的cell
+        matrixModel = this.buildMatrixNormalCell(row, col, matrixModel, hideCellList)
+
+        // 按照megeCellList, 把对应的cell设置rowspan colspan
+        matrixModel = this.buildMatrixMergeCell(matrixModel, mergeCellList)
+        
+        return matrixModel;
+    }
+    /**
+     * 
+     * @param row 
+     * @param col 
+     * @param matrixModel 
+     * @param hideCellList 
+     */
+    private buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>,  hideCellList: Array<CellKey>) {
+        let cellKey: CellKey
+         
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
@@ -93,12 +112,25 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
                 isHideCell ? null : matrixModel[i].push(cellKey)
             }
         }
-
-        mergeCellList.forEach((cell) => {
-            matrixModel[cell.X][cell.Y] = cell;
+        return matrixModel;
+    }
+    
+    /**
+     * 
+     * @param matrixModel 
+     * @param mergeCellList 
+     */
+    private buildMatrixMergeCell(matrixModel: Array<Array<CellKey>>, mergeCellList: Array<CellKey>) {
+        mergeCellList.forEach(cell => {
+            matrixModel[cell.X].forEach((rowitem, rowindex) => {
+                if (rowitem.Y === cell.Y) {
+                    matrixModel[cell.X][rowindex] = cell;
+                }
+            })
         })
         return matrixModel;
     }
+
 
     /**
      * 第一次render前触发
@@ -119,17 +151,18 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         if (this.isSameCellKey(this.mouseDownCell, cellKey)) {
             return false;
         }
-        
+
         this.mouseUpCell = cellKey
         let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
         this.hideCellList = this.hideCellList.concat(hideCellList)
+        console.log(this.hideCellList)
         let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({
             cellModels: cellModels
         })
     }
 
-    private isSameCellKey (ck1: CellKey, ck2: CellKey) {
+    private isSameCellKey(ck1: CellKey, ck2: CellKey) {
         return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
 
