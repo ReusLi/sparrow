@@ -92,11 +92,13 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         return matrixModel;
     }
     /**
-     * 
+     * 构建n*n的矩阵二维数组, 并且数组中不需要存在隐藏的cell
      * @param row 
      * @param col 
      * @param matrixModel 
      * @param hideCellList 
+     * 
+     * @return {Array<Array<CellKey>>} matrixModel
      */
     private buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>,  hideCellList: Array<CellKey>) {
         let cellKey: CellKey
@@ -116,9 +118,11 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
     }
     
     /**
-     * 
+     * 把单元格的rowspan colspan赋值
      * @param matrixModel 
      * @param mergeCellList 
+     * 
+     * @return {Array<Array<CellKey>>} matrixModel
      */
     private buildMatrixMergeCell(matrixModel: Array<Array<CellKey>>, mergeCellList: Array<CellKey>) {
         mergeCellList.forEach(cell => {
@@ -155,7 +159,6 @@ export default class App extends React.Component<MatrixProps, MatrixState> {
         this.mouseUpCell = cellKey
         let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
         this.hideCellList = this.hideCellList.concat(hideCellList)
-        console.log(this.hideCellList)
         let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({
             cellModels: cellModels
