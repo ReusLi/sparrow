@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai'
@@ -22,6 +22,7 @@ describe('matrix组件', () => {
             let matrixModel = []
             let mergeCellList = []
             let cellList = matrixComponent.buildMatrixMergeCell(matrixModel, mergeCellList)
+            console.log(cellList )
             expect(1).to.be.ok
         })
     })
