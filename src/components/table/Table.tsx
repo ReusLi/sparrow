@@ -127,7 +127,7 @@ export default class Table extends React.Component<TableProps, TableState> {
     }
 
     /**
-     * 没划过一个cell 就会更新坐标轴的2点 更新新的矩阵
+     * 每划过一个cell 就会更新坐标轴的2点 更新新的矩阵
      * 如果isMouseDown为false, 表示当前没有按下鼠标
      * @param cellKey mouse over cell
      */
