@@ -91,7 +91,8 @@ module.exports = function (config) {
                     'pages': path.resolve(__dirname, 'src/pages'),
                     'components': path.resolve(__dirname, 'src/components'),
                     'context': path.resolve(__dirname, 'src/context'),
-                    'interface': path.resolve(__dirname, 'src/interface')
+                    'interface': path.resolve(__dirname, 'src/interface'),
+                    'utils': path.resolve(__dirname, 'src/utils')
                 },
                 extensions: ['.tsx', '.ts', '.js', '.jsx']
             },

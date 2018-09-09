@@ -16,7 +16,8 @@
                 "pages/*",
                 "components/*",
                 "context/*",
-                "interface/*"
+                "interface/*",
+                "utils/*"
             ]
         }
     },
