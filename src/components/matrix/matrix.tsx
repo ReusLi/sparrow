@@ -165,10 +165,19 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         return matrixModel;
     }
 
+    /**
+     * cell组件触发mouse down事件时, 会通过context通知 matrix组件
+     * 记录下mouse down cell信息
+     * @param cellKey 
+     */
     private onCellMouseDown(cellKey: CellKey) {
         this.mouseDownCell = cellKey
     }
 
+    /**
+     * cell组件mouse up事件时
+     * @param cellKey 
+     */
     private onCellMouseUp(cellKey: CellKey) {
         // 如果是点击一个单元格 不需要做处理
         if (this.isSameCellKey(this.mouseDownCell, cellKey)) {
