@@ -21,7 +21,7 @@ describe('MatrixUtils 矩阵工具类', () => {
             selectInfo.endCell.X = 7
             selectInfo.endCell.Y = 7
 
-            const result = MatrixUtils.buildXY(selectInfo)
+            const result = MatrixUtils.buildXY(selectInfo.startCell, selectInfo.endCell)
             expect(result.startCell.X).to.be.equal(0);
             expect(result.startCell.Y).to.be.equal(0);
 
@@ -35,7 +35,7 @@ describe('MatrixUtils 矩阵工具类', () => {
             selectInfo.endCell.X = 7
             selectInfo.endCell.Y = 7
 
-            const result = MatrixUtils.buildXY(selectInfo)
+            const result = MatrixUtils.buildXY(selectInfo.startCell, selectInfo.endCell)
             expect(result.startCell.X).to.be.equal(0);
             expect(result.startCell.Y).to.be.equal(0);
 
@@ -49,7 +49,7 @@ describe('MatrixUtils 矩阵工具类', () => {
             selectInfo.endCell.X = 7
             selectInfo.endCell.Y = 7
 
-            const result = MatrixUtils.buildXY(selectInfo)
+            const result = MatrixUtils.buildXY(selectInfo.startCell, selectInfo.endCell)
             expect(result.startCell.X).to.be.equal(0);
             expect(result.startCell.Y).to.be.equal(0);
 
@@ -63,7 +63,7 @@ describe('MatrixUtils 矩阵工具类', () => {
             selectInfo.endCell.X = 7
             selectInfo.endCell.Y = 7
 
-            const result = MatrixUtils.buildXY(selectInfo)
+            const result = MatrixUtils.buildXY(selectInfo.startCell, selectInfo.endCell)
             expect(result.startCell.X).to.be.equal(0);
             expect(result.startCell.Y).to.be.equal(0);
 
