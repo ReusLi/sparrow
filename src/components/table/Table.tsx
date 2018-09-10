@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 // interface
-import { CellKey, SelectInfo, TableState, TableProps } from './interface'
+import { CellKey, SelectInfo, TableState, TableProps } from 'table/interface'
 
 import Cell from 'components/cell/cell'
 

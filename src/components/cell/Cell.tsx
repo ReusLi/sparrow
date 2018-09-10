@@ -1,7 +1,7 @@
 // 样式
 import './cell.css'
 
-import { CellProps, CellState } from './interface'
+import { CellProps, CellState } from 'cell/interface'
 
 import * as React from 'react'
 
