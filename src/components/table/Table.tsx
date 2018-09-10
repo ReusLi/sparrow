@@ -13,6 +13,11 @@ export default class Table extends React.Component<TableProps, TableState> {
     // 只有true时, cell组件的mouse over emit 才会有效
     private isMouseDown: boolean = false
 
+    // 最后一个mouse over cell
+    // 当鼠标移出table时, 会把最后一个mouse over cell当成 mouse up cell 
+    // 并更新selectInfo状态
+    private theLastMouseOverCell: CellKey
+
     constructor(props: TableProps, state: TableState) {
         super(props);
 
@@ -138,7 +143,8 @@ export default class Table extends React.Component<TableProps, TableState> {
         if (!this.isMouseDown) {
             return false
         }
-
+        // 记录最后一个mouse over的cell, 用于onMouseLeaveTable方法
+        this.theLastMouseOverCell = cellKey
         this.updateCurKeyRand(cellKey)
     }
 
@@ -188,11 +194,22 @@ export default class Table extends React.Component<TableProps, TableState> {
         })
     }
 
+    /**
+     * 鼠标离开table组件时
+     * 把最后一个
+     * mouse over cell
+     * 变成
+     * mouse up cell
+     */
+    private onMouseLeaveTable() {
+        this.mouseUpEvent(this.theLastMouseOverCell)
+    }
+
     
     renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
-            <table>
+            <table onMouseLeave={this.onMouseLeaveTable.bind(this)}>
                 <thead className="ant-table-thead">
                     {tableHeader}
                 </thead>
