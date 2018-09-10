@@ -10,7 +10,10 @@ import Table from 'components/table/table';
 import { MatrixContext } from 'context/matrixContext'
 
 // interface
-import { MatrixState, MatrixProps, CellKey } from './interface'
+import { MatrixState, MatrixProps, CellKey, SelectInfo } from './interface'
+
+// utils
+import MatrixUtils from 'utils/matrix.utils'
 
 export default class Matrix extends React.Component<MatrixProps, MatrixState> {
     private mouseDownCell: CellKey
@@ -173,7 +176,10 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         }
 
         this.mouseUpCell = cellKey
-        let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(this.mouseDownCell, this.mouseUpCell)
+        
+        let SelectInfo: SelectInfo = MatrixUtils.buildXY(this.mouseDownCell, this.mouseUpCell)
+
+        let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(SelectInfo.startCell, SelectInfo.endCell)
         this.hideCellList = this.hideCellList.concat(hideCellList)
         let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({

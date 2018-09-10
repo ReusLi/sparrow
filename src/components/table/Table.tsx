@@ -5,6 +5,9 @@ import { CellKey, SelectInfo, TableState, TableProps } from 'table/interface'
 
 import Cell from 'components/cell/cell'
 
+// utils
+import MatrixUtils from 'utils/matrix.utils'
+
 export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
@@ -169,7 +172,7 @@ export default class Table extends React.Component<TableProps, TableState> {
             }
         }
 
-        selectInfo = this.buildXY(selectInfo)
+        selectInfo = MatrixUtils.buildXY(selectInfo.startCell, selectInfo.endCell)
 
         this.setState({
             selectInfo: {
@@ -185,41 +188,7 @@ export default class Table extends React.Component<TableProps, TableState> {
         })
     }
 
-    /**
-     * 构建XY坐标中的两点
-     */
-    private buildXY(selectInfo: SelectInfo) {
-        let startCell: CellKey = {
-            X: 0,
-            Y: 0
-        }
-        let endCell: CellKey = {
-            X: 0,
-            Y: 0
-        }
-
-        selectInfo.startCell.X < selectInfo.endCell.X
-            ? startCell.X = selectInfo.startCell.X
-            : startCell.X = selectInfo.endCell.X
-
-        selectInfo.startCell.Y < selectInfo.endCell.Y
-            ? startCell.Y = selectInfo.startCell.Y
-            : startCell.Y = selectInfo.endCell.Y
-
-        selectInfo.startCell.X > selectInfo.endCell.X
-            ? endCell.X = selectInfo.startCell.X
-            : endCell.X = selectInfo.endCell.X
-
-        selectInfo.startCell.Y > selectInfo.endCell.Y
-            ? endCell.Y = selectInfo.startCell.Y
-            : endCell.Y = selectInfo.endCell.Y
-
-        return {
-            startCell: startCell,
-            endCell: endCell
-        }
-    }
-
+    
     renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
