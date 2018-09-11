@@ -183,13 +183,17 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         if (this.isSameCellKey(this.mouseDownCell, cellKey)) {
             return false;
         }
-
-        this.mouseUpCell = cellKey
         
+        this.mouseUpCell = cellKey
         let SelectInfo: SelectInfo = MatrixUtils.buildXY(this.mouseDownCell, this.mouseUpCell)
-
         let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(SelectInfo.startCell, SelectInfo.endCell)
         this.hideCellList = this.hideCellList.concat(hideCellList)
+    }
+
+    /**
+     * 更新矩阵模型
+     */
+    public updateMatrixModel() {
         let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
         this.setState({
             cellModels: cellModels
