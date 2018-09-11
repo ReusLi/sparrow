@@ -58,6 +58,8 @@
     "babel-preset-react": "^6.24.1",
     "karma-chai": "^0.1.0",
     "lodash": "^4.17.10",
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.8",
     "monaco-editor": "^0.13.1",
     "monaco-editor-webpack-plugin": "^1.4.0",
     "parse5": "^5.1.0",
