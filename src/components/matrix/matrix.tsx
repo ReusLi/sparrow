@@ -5,6 +5,8 @@ import { Row } from 'antd';
 import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table';
 
+// import { observable } from 'mobx'
+
 
 // context
 import { MatrixContext } from 'context/matrixContext'
@@ -118,7 +120,7 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
 
         // 按照megeCellList, 把对应的cell设置rowspan colspan
         matrixModel = this.buildMatrixMergeCell(matrixModel, mergeCellList)
-        
+
         return matrixModel;
     }
     /**
@@ -130,9 +132,9 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
      * 
      * @return {Array<Array<CellKey>>} matrixModel
      */
-    private buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>,  hideCellList: Array<CellKey>) {
+    private buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>, hideCellList: Array<CellKey>) {
         let cellKey: CellKey
-         
+
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
@@ -146,7 +148,7 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         }
         return matrixModel;
     }
-    
+
     /**
      * 把单元格的rowspan colspan赋值
      * @param matrixModel 
@@ -183,7 +185,7 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         if (this.isSameCellKey(this.mouseDownCell, cellKey)) {
             return false;
         }
-        
+
         this.mouseUpCell = cellKey
         let SelectInfo: SelectInfo = MatrixUtils.buildXY(this.mouseDownCell, this.mouseUpCell)
         let hideCellList: Array<CellKey> = this.getSkipCellByCellKeys(SelectInfo.startCell, SelectInfo.endCell)
