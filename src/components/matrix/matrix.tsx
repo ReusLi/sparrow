@@ -22,8 +22,14 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
 
     private mouseUpCell: CellKey
 
+    /**
+     * 需要合并的单元格
+     */
     private mergeCellList: Array<CellKey> = []
 
+    /**
+     * 需要隐藏的单元格
+     */
     private hideCellList: Array<CellKey> = []
 
     constructor(props: MatrixProps, state: MatrixState) {
