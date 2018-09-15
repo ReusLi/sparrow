@@ -5,7 +5,7 @@ import { Row } from 'antd';
 import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table';
 
-// import { observable } from 'mobx'
+import { observable } from 'mobx'
 
 
 // context
