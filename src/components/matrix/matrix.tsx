@@ -14,7 +14,7 @@ import { MatrixContext } from 'context/matrixContext'
 // interface
 import { MatrixState, MatrixProps, CellKey, SelectInfo } from './interface'
 
-// utils
+// utils 
 import MatrixUtils from 'utils/matrix.utils'
 
 export default class Matrix extends React.Component<MatrixProps, MatrixState> {
