@@ -208,6 +208,10 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
         })
     }
 
+    /**
+     * 判断开始和结束的cell是不是同一个
+     * 如果是, 不需要计算hideCellList, mergeCellList等
+     */
     private isSameCellKey(ck1: CellKey, ck2: CellKey) {
         return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
