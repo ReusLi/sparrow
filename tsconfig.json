@@ -19,7 +19,9 @@
                 "interface/*",
                 "utils/*"
             ]
-        }
+        },
+        // 编译标志或设置编译配置
+        "experimentalDecorators": true
     },
     "include": [
         "./src/*"
