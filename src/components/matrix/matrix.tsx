@@ -5,8 +5,7 @@ import { Row } from 'antd';
 import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table';
 
-// import { observable } from 'mobx'
-
+import { observer } from 'mobx-react';
 
 // context
 import { MatrixContext } from 'context/matrixContext'
@@ -17,6 +16,10 @@ import { MatrixState, MatrixProps, CellKey, SelectInfo } from './interface'
 // utils 
 import MatrixUtils from 'utils/matrix.utils'
 
+// mobx
+import { MatrixMobx } from 'state/matrix'
+
+@observer
 export default class Matrix extends React.Component<MatrixProps, MatrixState> {
     private mouseDownCell: CellKey
 
