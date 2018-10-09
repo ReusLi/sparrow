@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        // 编译标志或设置编译配置
+        "experimentalDecorators": true,
         "baseUrl": "./src",
         "outDir": "../dist/",
         "sourceMap": true,
@@ -17,11 +19,11 @@
                 "components/*",
                 "context/*",
                 "interface/*",
-                "utils/*"
+                "utils/*",
+                "state/*"
             ]
-        },
-        // 编译标志或设置编译配置
-        "experimentalDecorators": true
+        }
+        
     },
     "include": [
         "./src/*"
