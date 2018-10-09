@@ -12,6 +12,12 @@
         "moduleResolution": "node",
         "strictPropertyInitialization": false,
         "allowJs": true,
+        "lib": [
+            "es5",
+            "dom",
+            "dom.iterable",
+            "es2015"
+        ],
         "paths": {
             "*": [
                 "*",
