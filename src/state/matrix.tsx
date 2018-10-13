@@ -6,4 +6,9 @@ export class MatrixMobx {
     constructor () {
       
     }
+
+    get idVal() {
+      return this.id
+    }
+
   }
