@@ -19,7 +19,6 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
-        // libraryTarget: "amd"
     },
     devtool: 'inline-source-map',
     module: {
@@ -37,7 +36,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                // exclude: /node_modules/,
+                exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
@@ -57,9 +56,6 @@ module.exports = {
                 })
             }
         ]
-        // noParse: function (content) { // content 从入口开始解析的模块路径
-        //   return /no-parser/.test(content); // 返回true则忽略对no-parser.js的解析
-        // }
     },
     optimization: {
         runtimeChunk: true,
