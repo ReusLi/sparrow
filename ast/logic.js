@@ -4,12 +4,20 @@ const path = require('path')
 const parse5 = require('parse5')
 
 class tempClass {
+    /**
+     * 把字符串变成数据结构
+     * @param {*} htmlTempalte 
+     */
     parse(htmlTempalte) {
         const DOM = parse5.parse(htmlTempalte);
 
         return DOM;
     }
 
+    /**
+     * 把数据结构变成字符串
+     * @param {*} DOM 
+     */
     serialize(DOM) {
         // Serializes the <html> element content.
         const htmlTemplate = parse5.serialize(DOM);
@@ -17,6 +25,11 @@ class tempClass {
         return htmlTemplate;
     }
 
+    /**
+     * 遍历节点
+     * @param {*} node 
+     * @param {*} callback 
+     */
     nodeMap(node, callback) {
         node.childNodes.map(child => {
             child = callback(child)
@@ -27,6 +40,10 @@ class tempClass {
         return node;
     }
 
+    /**
+     * 处理标签节点
+     * @param {*} node 
+     */
     nodeHandle(node) {
         if (node.tagName) {
             node = this.modifyStyle(node)
@@ -34,6 +51,10 @@ class tempClass {
         return node;
     }
 
+    /**
+     * 把所有标签加上 style="display: flex"
+     * @param {*} node 
+     */
     modifyStyle(node) {
         let hasStyleAttr = false;
         node.attrs.map(attr => {
