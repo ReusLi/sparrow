@@ -28,15 +28,18 @@ class tempClass {
     }
 
     nodeHandle(node) {
-        if (node.tagName && node.tagName === 'div') {
+        if (node.tagName) {
             node = this.modifyStyle(node)
         }
         return node;
     }
 
     modifyStyle(node) {
+        let hasStyleAttr = false;
         node.attrs.map(attr => {
             if (attr.name === 'style') {
+                hasStyleAttr = true;
+
                 let styleArr = attr.value.split(';')
                 styleArr.push('display: flex')
                 attr.value = styleArr.join(';')
@@ -45,6 +48,13 @@ class tempClass {
             return attr;
         })
 
+        if (node.attrs.length === 0 || !hasStyleAttr) {
+            node.attrs.push({
+                name: 'style',
+                value: 'display: flex'
+            })
+        }
+
         return node;
     }
 
@@ -52,16 +62,10 @@ class tempClass {
      * 测试Parse5模块
      */
     paser5spec() {
-        // 先读取文件, 返回文件内容和路径
-
-        // parse5处理文件内容
-
-        // 判断
-
-        //
         const folderpath = path.join(__dirname, 'html')
         const fileList = fs.readdirSync(folderpath)
 
+        // 先读取文件, 返回文件内容和路径
         fileList.forEach(file => {
             let filepath = path.join(folderpath, file),
                 // 文件内容
@@ -70,36 +74,12 @@ class tempClass {
                 fileCst = parse5.parse(fileContent);
 
             fileCst = this.nodeMap(fileCst, this.nodeHandle.bind(this));
-            
+
             let newFile = parse5.serialize(fileCst),
                 newFilePath = path.join(__dirname, 'new.html');
 
             fs.writeFileSync(newFilePath, newFile, 'utf-8')
         })
-        return ;
-        let cls = new Parse5()
-
-        // 获取dom的树结构
-        let r1 = cls.parse('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>')
-
-        // 替换树结构属性, 在Body标签上新增属性
-        r1.childNodes[1].childNodes[1].attrs = [
-            {
-                name: "data-at",
-                value: "bd"
-            },
-            {
-                name: "style",
-                value: "color: red"
-            }
-        ]
-
-        // 序列号
-        let r2 = cls.serialize(r1)
-
-        // 输出
-        console.log(r1)
-        console.log(r2)
     }
 }
 
