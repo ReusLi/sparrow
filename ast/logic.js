@@ -3,6 +3,8 @@ const path = require('path')
 
 const parse5 = require('parse5')
 
+const UTIL = require('./util')
+
 class tempClass {
     /**
      * 把字符串变成数据结构
@@ -57,7 +59,10 @@ class tempClass {
 
     addchild(node) {
         let child = {
-            attrs: [],
+            attrs: [{
+                name: 'id',
+                value: '新加的div'
+            }],
             childNodes: node.childNodes,
             nodeName: 'div',
             tagName: 'div',
