@@ -16,69 +16,69 @@ Low-level parse5 node manipulation utilities.
 const utils = require('parse5-utils')
 ```
 
-### let document = utils.parse(html, [smart])
+### `let document = utils.parse(html, [smart])`
 
 Parse an HTML string,
 If `smart`, returns a `document` or `documentFragment`, appropriately.
 Otherwise, always parses it as a document.
 
-### let fragment = utils.parseFragment(html)
+### `let fragment = utils.parseFragment(html)`
 
 Parses HTML as a fragment.
 
-### let html = utils.serialize(document || fragment)
+### `let html = utils.serialize(document || fragment)`
 
 Converts an AST into an HTML string.
 
-### let attributes = utils.attributesOf(node)
+### `let attributes = utils.attributesOf(node)`
 
 Get the attributes of a node as an object.
 
-### setAttribute(node, key, value)
+### `setAttribute(node, key, value)`
 
 Set an attribute of a node.
 
-### getAttribute(node, key)
+### `getAttribute(node, key)`
 
 Get the attribute of a node.
 
-### node.attrs = utils.toAttrs(attributes)
+### `node.attrs = utils.toAttrs(attributes)`
 
 Set a node's attributes from an object.
 
-### let node = utils.createNode(tagName)
+### `let node = utils.createNode(tagName)`
 
 Create a node with a specific tag name.
 
-### let textNode = utils.createTextNode(text)
+### `let textNode = utils.createTextNode(text)`
 
 Create a text node.
 
-### node = utils.prepend(parent, node)
+### `node = utils.prepend(parent, node)`
 
 Add a child to a node, making it the first child.
 
-### node = utils.append(parent, node)
+### `node = utils.append(parent, node)`
 
 Add a child to a node, making it the last child.
 
-### node = utils.replace(originalNode, newNode)
+### `node = utils.replace(originalNode, newNode)`
 
 Replace a node with another node.
 
-### node = utils.remove(node)
+### `node = utils.remove(node)`
 
 Remove a node.
 
-### nodes = utils.flatten(node || [nodes])
+### `nodes = utils.flatten(node || [nodes])`
 
 Get all the nodes in a tree as a flat array.
 
-### let text = utils.textOf(node)
+### `let text = utils.textOf(node)`
 
 Get the text of a node.
 
-### utils.setText(node, text)
+### `utils.setText(node, text)`
 
 Set the text of a node.
 
