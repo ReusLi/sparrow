@@ -48,6 +48,30 @@ class tempClass {
         if (node.tagName) {
             node = this.modifyStyle(node)
         }
+
+        if (node.tagName === 'body') {
+            node = this.addchild(node)
+        }
+        return node;
+    }
+
+    addchild(node) {
+        let child = {
+            attrs: [],
+            childNodes: node.childNodes,
+            nodeName: 'div',
+            tagName: 'div',
+            parentNode: node
+        }
+
+        node.childNodes.map(cn => {
+            cn.parentNode = child
+        })
+
+        node.childNodes = [
+            child
+        ]
+
         return node;
     }
 
