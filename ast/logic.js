@@ -122,9 +122,9 @@ class tempClass {
                 fileContent = fs.readFileSync(filepath, 'utf-8'),
                 // 文件parse后的数据结构
                 fileCst = parse5.parse(fileContent);
-
+            console.time('PARSE')
             fileCst = this.nodeMap(fileCst, this.nodeHandle.bind(this));
-
+            console.timeEnd('PARSE')
             let newFile = parse5.serialize(fileCst),
                 newFilePath = path.join(__dirname, 'new.html');
 
