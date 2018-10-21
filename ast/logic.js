@@ -114,14 +114,14 @@ class tempClass {
     paser5spec() {
         const folderpath = path.join(__dirname, 'html')
         const fileList = fs.readdirSync(folderpath)
-
+        
         console.time('PARSE')
         // 先读取文件, 返回文件内容和路径
         fileList.forEach(file => {
             let filepath = path.join(folderpath, file),
-                // 文件内容
-                fileContent = fs.readFileSync(filepath, 'utf-8');
-
+            // 文件内容
+            fileContent = fs.readFileSync(filepath, 'utf-8');
+            
             // 文件parse后的数据结构
             let fileCst = parse5.parse(fileContent);
             fileCst = this.nodeMap(fileCst, this.nodeHandle.bind(this));
