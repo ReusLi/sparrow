@@ -111,7 +111,6 @@ module.exports = function (config) {
 
         colors: true,
 
-        // browsers: ['PhantomJS'],
         browserify: {
             debug: true // for sourcemaps and easier debugging
         },
