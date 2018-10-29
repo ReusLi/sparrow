@@ -21,6 +21,13 @@
             "request": "launch",
             "name": "parse5",
             "program": "${workspaceFolder}\\ast\\logic.js"
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "sepc",
+            "program": "${workspaceFolder}\\ast\\spec\\replace.node.sepc.js"
         }
     ]
 }
