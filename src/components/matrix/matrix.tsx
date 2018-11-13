@@ -11,16 +11,16 @@ import { observer } from 'mobx-react';
 import { MatrixContext } from 'context/matrixContext'
 
 // interface
-import { MatrixState, MatrixProps, CellKey, SelectInfo } from './interface'
+import { MatrixProps, CellKey, SelectInfo } from './interface'
 
 // utils 
 import MatrixUtils from 'utils/matrix.utils'
 
 // mobx
-import MatrixMobx from 'state/matrix'
+import MatrixMobx from 'state/matrix/matrix'
 
 @observer
-export default class Matrix extends React.Component<MatrixProps, MatrixState> {
+export default class Matrix extends React.Component<MatrixProps> {
     private mouseDownCell: CellKey
 
     private mouseUpCell: CellKey
