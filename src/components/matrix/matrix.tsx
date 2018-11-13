@@ -35,16 +35,6 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
      */
     private hideCellList: Array<CellKey> = []
 
-    // constructor(props: MatrixProps, state: MatrixState) {
-    //     super(props);
-
-    //     this.state = {
-    //         row: 10,
-    //         col: 10,
-    //         cellModels: []
-    //     }
-    // }
-
     public render() {
         return (
             <Row>
