@@ -202,10 +202,12 @@ export default class Table extends React.Component<TableProps, TableState> {
      * mouse up cell
      */
     private onMouseLeaveTable() {
-        this.mouseUpEvent(this.theLastMouseOverCell)
+        this.theLastMouseOverCell
+            ? this.mouseUpEvent(this.theLastMouseOverCell)
+            : null
     }
 
-    
+
     renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
