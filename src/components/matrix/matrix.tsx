@@ -17,7 +17,7 @@ import { MatrixState, MatrixProps, CellKey, SelectInfo } from './interface'
 import MatrixUtils from 'utils/matrix.utils'
 
 // mobx
-import { MatrixMobx } from 'state/matrix'
+import MatrixMobx from 'state/matrix'
 
 @observer
 export default class Matrix extends React.Component<MatrixProps, MatrixState> {
@@ -35,15 +35,15 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
      */
     private hideCellList: Array<CellKey> = []
 
-    constructor(props: MatrixProps, state: MatrixState) {
-        super(props);
+    // constructor(props: MatrixProps, state: MatrixState) {
+    //     super(props);
 
-        this.state = {
-            row: 10,
-            col: 10,
-            cellModels: []
-        }
-    }
+    //     this.state = {
+    //         row: 10,
+    //         col: 10,
+    //         cellModels: []
+    //     }
+    // }
 
     public render() {
         return (
@@ -63,7 +63,7 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
                                 onCellMouseUp: this.onCellMouseUp.bind(this)
                             }
                         }>
-                        <Table cellModels={this.state.cellModels} />
+                        <Table cellModels={MatrixMobx.cellModels} />
                     </MatrixContext.Provider>
                 </Row>
 
@@ -75,10 +75,7 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
      * 第一次render前触发
      */
     componentWillMount() {
-        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
-        this.setState({
-            cellModels: cellModels
-        })
+        this.updateMatrixModel()
     }
 
     /**
@@ -205,10 +202,12 @@ export default class Matrix extends React.Component<MatrixProps, MatrixState> {
      * 更新矩阵模型
      */
     public updateMatrixModel() {
-        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(this.state.row, this.state.col, this.mergeCellList, this.hideCellList)
-        this.setState({
-            cellModels: cellModels
-        })
+        const row = MatrixMobx.row,
+            col = MatrixMobx.col;
+
+        let cellModels: Array<Array<CellKey>> = this.buildMatrixModel(row, col, this.mergeCellList, this.hideCellList)
+
+        MatrixMobx.setCellModels(cellModels)
     }
 
     /**

@@ -1,14 +1,17 @@
-import { observable } from 'mobx';
+import { computed, observable, action } from "mobx";
 
-export class MatrixMobx {
-    @observable id:number = 1;
+import { CellKey } from 'interface/common'
+
+class CellModel {
+  @observable row: number = 10
+  @observable col: number = 10
+  @observable cellModels: Array<Array<CellKey>> = []
+
   
-    constructor () {
-      
-    }
-
-    get idVal() {
-      return this.id
-    }
-
+  @action setCellModels(cellModels: Array<Array<CellKey>>) {
+    this.cellModels = cellModels
   }
+
+}
+
+export default new CellModel()
