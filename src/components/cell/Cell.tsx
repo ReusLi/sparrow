@@ -10,8 +10,8 @@ import { cellStyleJudge } from 'components/cell/cellStyleJudge'
 // context
 import { MatrixContext } from 'context/matrixContext'
 
-// mobx
-import MatrixMobx from 'state/matrix/matrix'
+// matrixStore mobx
+import matrixStore from 'store/matrix/matrixStore'
 
 export default class Cell extends React.Component<CellProps, CellState> {
     public className = ''
@@ -67,7 +67,7 @@ export default class Cell extends React.Component<CellProps, CellState> {
 
     private onMouseDown(onCellMouseDown: Function) {
         // onCellMouseDown(this.props.cellKey)
-        MatrixMobx.onCellMouseDown(this.props.cellKey)
+        matrixStore.onCellMouseDown(this.props.cellKey)
         this.props.mouseDownEvent(this.props.cellKey)
     }
 
@@ -77,7 +77,7 @@ export default class Cell extends React.Component<CellProps, CellState> {
 
     private onMouseUp(onCellMouseUp: Function) {
         // onCellMouseUp(this.props.cellKey)
-        MatrixMobx.onCellMouseUp(this.props.cellKey)
+        matrixStore.onCellMouseUp(this.props.cellKey)
         this.props.mouseUpEvent(this.props.cellKey)
     }
 

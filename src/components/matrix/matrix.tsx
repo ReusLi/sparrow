@@ -13,8 +13,8 @@ import { MatrixContext } from 'context/matrixContext'
 // interface
 import { MatrixProps, CellKey, SelectInfo } from './interface'
 
-// mobx
-import MatrixMobx from 'state/matrix/matrix'
+// matrixStore mobx
+import matrixStore from 'store/matrix/matrixStore'
 
 @observer
 export default class Matrix extends React.Component<MatrixProps> {
@@ -33,11 +33,11 @@ export default class Matrix extends React.Component<MatrixProps> {
                     <MatrixContext.Provider
                         value={
                             {
-                                onCellMouseDown: MatrixMobx.onCellMouseDown.bind(MatrixMobx),
-                                onCellMouseUp: MatrixMobx.onCellMouseUp.bind(MatrixMobx)
+                                onCellMouseDown: matrixStore.onCellMouseDown.bind(matrixStore),
+                                onCellMouseUp: matrixStore.onCellMouseUp.bind(matrixStore)
                             }
                         }>
-                        <Table cellModels={MatrixMobx.cellModels} />
+                        <Table cellModels={matrixStore.cellModels} />
                     </MatrixContext.Provider>
                 </Row>
 
@@ -49,6 +49,6 @@ export default class Matrix extends React.Component<MatrixProps> {
      * 第一次render前触发
      */
     componentWillMount() {
-        MatrixMobx.updateMatrixModel()
+        matrixStore.updateMatrixModel()
     }
 }

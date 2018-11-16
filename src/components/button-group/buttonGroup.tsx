@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import { Button, Col, Row } from 'antd';
 
-// mobx
-import MatrixMobx from 'state/matrix/matrix'
+// matrixStore mobx
+import matrixStore from 'store/matrix/matrixStore'
 
 export default class ButtonGroup extends React.Component {
     public render() {
@@ -11,7 +11,7 @@ export default class ButtonGroup extends React.Component {
             <Row>
                 <Col span={4}>
                     <Button
-                        onMouseUp={MatrixMobx.updateMatrixModel.bind(MatrixMobx)}
+                        onMouseUp={matrixStore.updateMatrixModel.bind(matrixStore)}
                     >
                         合并
                     </Button>

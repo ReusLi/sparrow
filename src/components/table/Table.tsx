@@ -8,6 +8,9 @@ import Cell from 'components/cell/cell'
 // utils
 import MatrixUtils from 'utils/matrix.utils'
 
+// matrixStore mobx
+import CellStore from 'store/cell/cellStore'
+
 export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效

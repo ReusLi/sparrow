@@ -7,7 +7,7 @@ import MatrixUtils from 'utils/matrix.utils'
 
 import util from './util'
 
-class MatrixMobx {
+class matrixStore {
   /**
    * 矩阵行数
    */
@@ -89,4 +89,4 @@ class MatrixMobx {
 
 }
 
-export default new MatrixMobx()
+export default new matrixStore()
