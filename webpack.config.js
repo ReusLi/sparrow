@@ -115,7 +115,7 @@ module.exports = {
             'context': path.resolve(__dirname, 'src/context'),
             'interface': path.resolve(__dirname, 'src/interface'),
             'utils': path.resolve(__dirname, 'src/utils'),
-            'state': path.resolve(__dirname, 'src/state')
+            'store': path.resolve(__dirname, 'src/store')
         },
         extensions: ['.tsx', '.ts', '.js', '.jsx']
     }
