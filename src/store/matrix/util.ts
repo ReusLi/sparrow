@@ -23,6 +23,17 @@ class Util {
         return matrixModel;
     }
 
+    /**
+     * 这一步是构建矩阵
+     * 矩阵里面的单元格, 是不包括隐藏单元格的
+     * 也就是如果有合并单元格的话, 这个矩阵构建出来的格数是 < n*n的
+     * 但是这一步构建完成后, 所有的cell的rowspan colspan都还是1
+     * 
+     * @param row 
+     * @param col 
+     * @param matrixModel 
+     * @param hideCellList 
+     */
     buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>, hideCellList: Array<CellKey>) {
         let cellKey: CellKey
 
@@ -40,6 +51,13 @@ class Util {
         return matrixModel;
     }
 
+    /**
+     * 按照merge cell list
+     * 把合并的单元格的 rowspan colspan的值作对应修改
+     * 
+     * @param matrixModel 
+     * @param mergeCellList 
+     */
     buildMatrixMergeCell(matrixModel: Array<Array<CellKey>>, mergeCellList: Array<CellKey>) {
         mergeCellList.forEach(cell => {
             matrixModel[cell.X].forEach((rowitem, rowindex) => {
@@ -51,10 +69,20 @@ class Util {
         return matrixModel;
     }
 
+    /**
+     * no comment
+     * @param ck1 
+     * @param ck2 
+     */
     isSameCellKey(ck1: CellKey, ck2: CellKey) {
         return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
 
+    /**
+     * no comment
+     * @param leftTopKey 
+     * @param rightBottomKey 
+     */
     getSkipCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
         let xLen: number = rightBottomKey.X - leftTopKey.X + 1,
             yLen: number = rightBottomKey.Y - leftTopKey.Y + 1,
