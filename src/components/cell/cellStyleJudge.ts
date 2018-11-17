@@ -1,5 +1,8 @@
 import { CellProps } from './interface'
 
+// matrixStore mobx
+import cellStore from 'store/cell/cellStore'
+
 export class cellStyleJudge {
     public focusClass = {
         TOP: 'custom-focus-top',
@@ -14,7 +17,7 @@ export class cellStyleJudge {
 
     public isTop(className: Array<string>, props: CellProps) {
         var myRow = props.cellKey.X,
-            startRow = props.selectInfo.startCell.X;
+            startRow = cellStore.selectInfo.startCell.X;
 
         if (myRow === startRow) {
             className.push(this.focusClass.TOP)
@@ -24,7 +27,7 @@ export class cellStyleJudge {
 
     public isRight(className: Array<string>, props: CellProps) {
         var myCol = props.cellKey.Y,
-            endCol = props.selectInfo.endCell.Y;
+            endCol = cellStore.selectInfo.endCell.Y;
 
         if (myCol === endCol) {
             className.push(this.focusClass.RIGHT)
@@ -34,7 +37,7 @@ export class cellStyleJudge {
 
     public isBottom(className: Array<string>, props: CellProps) {
         var myRow = props.cellKey.X,
-            endRow = props.selectInfo.endCell.X;
+            endRow = cellStore.selectInfo.endCell.X;
         if (myRow === endRow) {
             className.push(this.focusClass.BOTTOM)
         }
@@ -43,7 +46,7 @@ export class cellStyleJudge {
 
     public isLeft(className: Array<string>, props: CellProps) {
         var myCol = props.cellKey.Y,
-            startCol = props.selectInfo.startCell.Y;
+            startCol = cellStore.selectInfo.startCell.Y;
 
         if (myCol === startCol) {
             className.push(this.focusClass.LEFT)

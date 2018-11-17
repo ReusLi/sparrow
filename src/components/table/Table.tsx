@@ -9,8 +9,11 @@ import Cell from 'components/cell/cell'
 import MatrixUtils from 'utils/matrix.utils'
 
 // matrixStore mobx
-import CellStore from 'store/cell/cellStore'
+import cellStore from 'store/cell/cellStore';
 
+import { observer } from 'mobx-react';
+
+@observer
 export default class Table extends React.Component<TableProps, TableState> {
     // 是否 mouse down
     // 只有true时, cell组件的mouse over emit 才会有效
@@ -82,8 +85,8 @@ export default class Table extends React.Component<TableProps, TableState> {
             cellKey: {
                 X: 0,
                 Y: 0
-            },
-            selectInfo: this.state.selectInfo
+            }
+            // selectInfo: this.state.selectInfo
         }
 
         return cellProps;
@@ -105,7 +108,7 @@ export default class Table extends React.Component<TableProps, TableState> {
         cellProps.mouseDownEvent = this.mouseDownEvent.bind(this)
         cellProps.mouseOverEvent = this.mouseOverEvent.bind(this)
         cellProps.mouseUpEvent = this.mouseUpEvent.bind(this)
-        cellProps.selectInfo = this.state.selectInfo
+        cellProps.selectInfo = cellStore.selectInfo
         cellProps.isEditable = this.state.isEditable
         return cellProps;
     }

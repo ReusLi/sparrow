@@ -13,6 +13,12 @@ import { MatrixContext } from 'context/matrixContext'
 // matrixStore mobx
 import matrixStore from 'store/matrix/matrixStore'
 
+// matrixStore mobx
+import cellStore from 'store/cell/cellStore'
+
+import { observer } from 'mobx-react';
+
+@observer
 export default class Cell extends React.Component<CellProps, CellState> {
     public className = ''
 
@@ -68,17 +74,20 @@ export default class Cell extends React.Component<CellProps, CellState> {
     private onMouseDown(onCellMouseDown: Function) {
         // onCellMouseDown(this.props.cellKey)
         matrixStore.onCellMouseDown(this.props.cellKey)
-        this.props.mouseDownEvent(this.props.cellKey)
+        cellStore.onMouseDown(this.props.cellKey)
+        // this.props.mouseDownEvent(this.props.cellKey)
     }
 
     private onMouseOver() {
-        this.props.mouseOverEvent(this.props.cellKey)
+        cellStore.onMouseOver(this.props.cellKey)
+        // this.props.mouseOverEvent(this.props.cellKey)
     }
 
     private onMouseUp(onCellMouseUp: Function) {
         // onCellMouseUp(this.props.cellKey)
         matrixStore.onCellMouseUp(this.props.cellKey)
-        this.props.mouseUpEvent(this.props.cellKey)
+        cellStore.onMouseUp(this.props.cellKey)
+        // this.props.mouseUpEvent(this.props.cellKey)
     }
 
     /**
@@ -104,10 +113,10 @@ export default class Cell extends React.Component<CellProps, CellState> {
     private isInSideCell(props: CellProps) {
         let isPass = false
 
-        let x0 = props.selectInfo.startCell.X,
-            y0 = props.selectInfo.startCell.Y,
-            x1 = props.selectInfo.endCell.X,
-            y1 = props.selectInfo.endCell.Y,
+        let x0 = cellStore.selectInfo.startCell.X,
+            y0 = cellStore.selectInfo.startCell.Y,
+            x1 = cellStore.selectInfo.endCell.X,
+            y1 = cellStore.selectInfo.endCell.Y,
             cX = props.cellKey.X,
             cY = props.cellKey.Y;
 
