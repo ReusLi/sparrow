@@ -45,31 +45,23 @@ export default class Cell extends React.Component<CellProps, CellState> {
 
     public render() {
         return (
-            <MatrixContext.Consumer>
-                {
-                    context =>
-                        <th
-                            rowSpan={this.props.cellKey.rowSpan}
-                            colSpan={this.props.cellKey.colSpan}
-                            className={this.state.className.join(' ')}
-                            contentEditable={this.props.isEditable}
-                            onMouseDown={this.onMouseDown.bind(this, context.onCellMouseDown)}
-                            onMouseOver={this.onMouseOver.bind(this)}
-                            onMouseUp={this.onMouseUp.bind(this, context.onCellMouseUp)}
-                            // 不要warning contentEditable效果
-                            suppressContentEditableWarning={true}
-                        >
-                            {this.props.text}
-                        </th>
-
-                }
-
-            </MatrixContext.Consumer>
+            <th
+                rowSpan={this.props.cellKey.rowSpan}
+                colSpan={this.props.cellKey.colSpan}
+                className={this.state.className.join(' ')}
+                contentEditable={this.props.isEditable}
+                onMouseDown={this.onMouseDown.bind(this)}
+                onMouseOver={this.onMouseOver.bind(this)}
+                onMouseUp={this.onMouseUp.bind(this)}
+                // 不要warning contentEditable效果
+                suppressContentEditableWarning={true}
+            >
+                {this.props.text}
+            </th>
         )
     }
 
-    private onMouseDown(onCellMouseDown: Function) {
-        matrixStore.onCellMouseDown(this.props.cellKey)
+    private onMouseDown() {
         cellStore.onMouseDown(this.props.cellKey)
     }
 
@@ -77,8 +69,7 @@ export default class Cell extends React.Component<CellProps, CellState> {
         cellStore.onMouseOver(this.props.cellKey)
     }
 
-    private onMouseUp(onCellMouseUp: Function) {
-        matrixStore.onCellMouseUp(this.props.cellKey)
+    private onMouseUp() {
         cellStore.onMouseUp(this.props.cellKey)
     }
 

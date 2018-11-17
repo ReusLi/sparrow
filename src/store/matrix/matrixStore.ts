@@ -7,6 +7,9 @@ import MatrixUtils from 'utils/matrix.utils'
 
 import util from './util'
 
+// matrixStore mobx
+import cellStore from 'store/cell/cellStore'
+
 class matrixStore {
   /**
    * 矩阵行数
@@ -47,26 +50,17 @@ class matrixStore {
   }
 
   /**
-   * cell组件触发mouse down事件时, 会通过context通知 matrix组件
-   * 记录下mouse down cell信息
-   * @param cellKey 
+   * 
    */
-  onCellMouseDown(cellKey: CellKey) {
-    this.mouseDownCell = cellKey
-  }
+  updateCellList(selectInfo: SelectInfo) {
+    const mouseDownCell = selectInfo.startCell,
+          mouseUpCell = selectInfo.endCell
 
-  /**
-   * cell组件mouse up事件时
-   * @param cellKey 
-   */
-  onCellMouseUp(cellKey: CellKey) {
-    // 如果是点击一个单元格 不需要做处理
-    if (util.isSameCellKey(this.mouseDownCell, cellKey)) {
+    if (util.isSameCellKey(mouseDownCell, mouseUpCell)) {
       return false;
     }
 
-    this.mouseUpCell = cellKey
-    let SelectInfo: SelectInfo = MatrixUtils.buildXY(this.mouseDownCell, this.mouseUpCell)
+    let SelectInfo: SelectInfo = MatrixUtils.buildXY(mouseDownCell, mouseUpCell)
 
 
     let { hideCellList, kc }: { hideCellList: Array<CellKey>, kc: CellKey } = util.getSkipCellByCellKeys(SelectInfo.startCell, SelectInfo.endCell)
@@ -82,6 +76,7 @@ class matrixStore {
     const row = this.row,
       col = this.col;
 
+    this.updateCellList(cellStore.selectInfo)
     let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col, this.mergeCellList, this.hideCellList)
 
     this.cellModels = cellModels

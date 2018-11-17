@@ -15,8 +15,8 @@ class cellStore {
 
     @observable selectInfo: SelectInfo = {
         startCell: {
-            X: -11,
-            Y: -11
+            X: -1,
+            Y: -1
         },
         endCell: {
             X: -1,

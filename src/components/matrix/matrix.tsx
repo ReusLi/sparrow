@@ -30,15 +30,7 @@ export default class Matrix extends React.Component<MatrixProps> {
 
                 {/* cell panel */}
                 <Row>
-                    <MatrixContext.Provider
-                        value={
-                            {
-                                onCellMouseDown: matrixStore.onCellMouseDown.bind(matrixStore),
-                                onCellMouseUp: matrixStore.onCellMouseUp.bind(matrixStore)
-                            }
-                        }>
-                        <Table cellModels={matrixStore.cellModels} />
-                    </MatrixContext.Provider>
+                    <Table cellModels={matrixStore.cellModels} />
                 </Row>
 
             </Row>
