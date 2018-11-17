@@ -69,22 +69,17 @@ export default class Cell extends React.Component<CellProps, CellState> {
     }
 
     private onMouseDown(onCellMouseDown: Function) {
-        // onCellMouseDown(this.props.cellKey)
         matrixStore.onCellMouseDown(this.props.cellKey)
         cellStore.onMouseDown(this.props.cellKey)
-        // this.props.mouseDownEvent(this.props.cellKey)
     }
 
     private onMouseOver() {
         cellStore.onMouseOver(this.props.cellKey)
-        // this.props.mouseOverEvent(this.props.cellKey)
     }
 
     private onMouseUp(onCellMouseUp: Function) {
-        // onCellMouseUp(this.props.cellKey)
         matrixStore.onCellMouseUp(this.props.cellKey)
         cellStore.onMouseUp(this.props.cellKey)
-        // this.props.mouseUpEvent(this.props.cellKey)
     }
 
     /**
