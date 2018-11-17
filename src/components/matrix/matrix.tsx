@@ -7,9 +7,6 @@ import Table from 'components/table/table';
 
 import { observer } from 'mobx-react';
 
-// context
-import { MatrixContext } from 'context/matrixContext'
-
 // interface
 import { MatrixProps, CellKey, SelectInfo } from './interface'
 

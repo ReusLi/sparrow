@@ -7,9 +7,6 @@ import * as React from 'react'
 
 import { cellStyleJudge } from 'components/cell/cellStyleJudge'
 
-// context
-import { MatrixContext } from 'context/matrixContext'
-
 // matrixStore mobx
 import matrixStore from 'store/matrix/matrixStore'
 
