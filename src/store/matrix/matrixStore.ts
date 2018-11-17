@@ -50,7 +50,9 @@ class matrixStore {
   }
 
   /**
-   * 
+   * 根据cellStore 的 selectInfo (选择的单元格范围)
+   * 更新cell list
+   * 包括 hide cell list 和 merge cell list
    */
   updateCellList(selectInfo: SelectInfo) {
     const mouseDownCell = selectInfo.startCell,
