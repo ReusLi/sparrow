@@ -72,6 +72,17 @@ class Util {
     }
 
     /**
+     * 检查单元格合法性
+     */
+    isIllegalCell(selectInfo: SelectInfo) {
+        const mouseDownCell = selectInfo.startCell,
+            mouseUpCell = selectInfo.endCell
+
+        // 判断mouse down 和 mouse up是不是同一个单元格
+        return this.isSameCellKey(mouseDownCell, mouseUpCell)
+    }
+
+    /**
      * no comment
      * @param ck1 
      * @param ck2 

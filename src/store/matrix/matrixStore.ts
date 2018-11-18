@@ -67,17 +67,6 @@ class matrixStore {
   }
 
   /**
-   * 检查单元格合法性
-   */
-  isIllegalCell(selectInfo: SelectInfo) {
-    const mouseDownCell = selectInfo.startCell,
-      mouseUpCell = selectInfo.endCell
-
-    // 判断mouse down 和 mouse up是不是同一个单元格
-    return util.isSameCellKey(mouseDownCell, mouseUpCell)
-  }
-
-  /**
    * 初始化n*n的数据模型
    */
   initMatrixModel() {
@@ -93,7 +82,7 @@ class matrixStore {
    * 更新矩阵模型
    */
   updateMatrixModel() {
-    if (this.isIllegalCell(cellStore.selectInfo))
+    if (util.isIllegalCell(cellStore.selectInfo))
       return
 
     const row = this.row
