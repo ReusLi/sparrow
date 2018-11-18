@@ -104,7 +104,7 @@ export default class Table extends React.Component<TableProps, TableState> {
     }
 
 
-    renderCellList() {
+    private renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
             <table onMouseLeave={this.onMouseLeaveTable.bind(this)}>

@@ -1,7 +1,9 @@
 import { CellKey } from 'interface/common'
 
+import { SelectInfo } from 'table/interface'
+
 class Util {
-    
+
     /**
      * 构建n*n的矩阵数据模型
      * @param row 

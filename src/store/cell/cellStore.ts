@@ -82,9 +82,12 @@ class cellStore {
         this.selectInfo = util.updateCurKeyRand(cellKey, this.mouseDownPoint)
     }
 
-
-
-
+    isInitState() {
+        return this.selectInfo.startCell.X === -1
+            && this.selectInfo.startCell.Y === -1
+            && this.selectInfo.endCell.X === -1
+            && this.selectInfo.endCell.Y === -1
+    }
 }
 
 export default new cellStore()
