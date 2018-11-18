@@ -26,7 +26,7 @@ class cellStore {
 
     mouseDownPoint: CellKey
 
-    theLastMouseOverCell: CellKey
+    lastMouseOverCell: CellKey
 
     @action onMouseUp(cellKey: CellKey) {
         this.updateCurKeyRand(cellKey)
@@ -58,8 +58,20 @@ class cellStore {
             return false
         }
         // 记录最后一个mouse over的cell, 用于onMouseLeaveTable方法
-        this.theLastMouseOverCell = cellKey
+        this.lastMouseOverCell = cellKey
         this.updateCurKeyRand(cellKey)
+    }
+
+    /**
+     * 鼠标离开table组件时
+     * 把最后一个
+     * mouse over cell
+     * 变成
+     * mouse up cell
+     */
+    @action onMouseUpWithLastCell() {
+        if (this.isMouseDown)
+            this.onMouseUp(this.lastMouseOverCell)
     }
 
     /**
@@ -69,6 +81,8 @@ class cellStore {
     updateCurKeyRand(cellKey: CellKey) {
         this.selectInfo = util.updateCurKeyRand(cellKey, this.mouseDownPoint)
     }
+
+
 
 
 }
