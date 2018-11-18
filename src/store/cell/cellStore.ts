@@ -82,6 +82,9 @@ class cellStore {
         this.selectInfo = util.updateCurKeyRand(cellKey, this.mouseDownPoint)
     }
 
+    /**
+     * 判断selectInfo是否为初始状态
+     */
     isInitState() {
         return this.selectInfo.startCell.X === -1
             && this.selectInfo.startCell.Y === -1

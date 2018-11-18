@@ -38,6 +38,6 @@ export default class Matrix extends React.Component<MatrixProps> {
      * 第一次render前触发
      */
     componentWillMount() {
-        matrixStore.updateMatrixModel()
+        matrixStore.initMatrixModel()
     }
 }

@@ -78,18 +78,29 @@ class matrixStore {
   }
 
   /**
+   * 初始化n*n的数据模型
+   */
+  initMatrixModel() {
+    const row = this.row
+    const col = this.col
+
+    let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col, [], [])
+
+    this.cellModels = cellModels
+  }
+
+  /**
    * 更新矩阵模型
    */
   updateMatrixModel() {
-    if (!cellStore.isInitState() && this.isIllegalCell(cellStore.selectInfo))
+    if (this.isIllegalCell(cellStore.selectInfo))
       return
 
     const row = this.row
     const col = this.col
 
-    if (!cellStore.isInitState()) {
-      this.updateCellList(cellStore.selectInfo)
-    }
+    this.updateCellList(cellStore.selectInfo)
+
     let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col, this.mergeCellList, this.hideCellList)
 
     this.cellModels = cellModels
