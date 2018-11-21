@@ -107,23 +107,36 @@ class Util {
      */
     mergeCellBySelectInfo(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
         let xLen: number = cellModels.length,
-            yLen: number = cellModels[0].length;
+            yLen: number = cellModels[0].length,
+            cellList: Array<CellKey> = [];
 
         for (let i = 0; i < xLen; i++) {
             for (let j = 0; j < yLen; j++) {
                 let cell: CellKey = cellModels[i][j]
 
-                // 判断是否在隐藏区域范围内
+                // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
                 if (MatrixUtils.isInSideCell(selectInfo, cell)) {
-                    cell.isHide = true
+                    cellList.push(cell)
                 }
             }
         }
-        // 解放左上角的单元格
-        let firstCell =  cellModels[selectInfo.startCell.X][selectInfo.startCell.Y]
+
+        // 选择区域中是否有合并过的单元格
+        const hasMergeCell = cellList.some(cell => cell.isHide)
+        
+        // 如果有, 不进行二次合并, 直接返回cellModels
+        if (hasMergeCell) {
+            return cellModels
+        }
+
+        // 第一个是左上角的单元格, 需要拿出来设置rowspan colspan等数据
+        let firstCell =  cellList.shift()
         firstCell.rowSpan = selectInfo.endCell.X - selectInfo.startCell.X + 1
         firstCell.colSpan = selectInfo.endCell.Y - selectInfo.startCell.Y + 1
-        firstCell.isHide = false
+
+        // 把其余的单元格设置isHide=true, 隐藏起来
+        cellList.map(cell => cell.isHide = true)
+
         return cellModels
     }
 }
