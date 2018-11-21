@@ -11,7 +11,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // editor webpack plugin
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -105,8 +105,8 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: "[name].[hash].css"
-        }),
-        new MonacoWebpackPlugin(webpack)
+        })
+        // new MonacoWebpackPlugin(webpack)
     ],
     resolve: {
         alias: {
