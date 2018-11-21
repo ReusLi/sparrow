@@ -1,4 +1,4 @@
-import { CellKey } from 'interface/common'
+import { CellKey, SelectInfo } from 'interface/common'
 
 /**
  * 矩阵工具类
@@ -41,6 +41,23 @@ class MatrixUtils {
             startCell: sc,
             endCell: ec
         }
+    }
+
+    public isInSideCell(selectInfo: SelectInfo, cellKey: CellKey) {
+        let isInSide = false
+
+        let x0 = selectInfo.startCell.X,
+            y0 = selectInfo.startCell.Y,
+            x1 = selectInfo.endCell.X,
+            y1 = selectInfo.endCell.Y,
+            cX = cellKey.X,
+            cY = cellKey.Y;
+
+        if (x0 <= cX && cX <= x1 && y0 <= cY && cY <= y1) {
+            isInSide = true;
+        }
+
+        return isInSide;
     }
 }
 

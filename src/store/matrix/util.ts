@@ -2,6 +2,10 @@ import { CellKey } from 'interface/common'
 
 import { SelectInfo } from 'table/interface'
 
+// utils 
+import MatrixUtils from 'utils/matrix.utils'
+import { debug } from 'util';
+
 class Util {
 
     /**
@@ -42,8 +46,8 @@ class Util {
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
-                cellModel = { 
-                    X: i, 
+                cellModel = {
+                    X: i,
                     Y: j,
                     rowSpan: 1,
                     colSpan: 1,
@@ -96,38 +100,31 @@ class Util {
     isSameCellKey(ck1: CellKey, ck2: CellKey) {
         return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
-
     /**
-     * no comment
-     * @param startCell 
-     * @param rightBottomKey 
+     * 
+     * @param cellModels 
+     * @param selectInfo 
      */
-    getSkipCellByCellKeys(cellModels: Array<Array<CellKey>>, startCell: CellKey, endCell: CellKey) {
-        let xLen: number = endCell.X - startCell.X + 1,
-            yLen: number = endCell.Y - startCell.Y + 1,
-            hideCellList: Array<CellKey> = [];
+    getSkipCellByCellKeys(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+        let xLen: number = cellModels.length,
+            yLen: number = cellModels[0].length;
 
-        for (let X = startCell.X, i = 0; i < xLen; i++) {
-            for (let Y = startCell.Y, j = 0; j < yLen; j++) {
-                // hideCellList.push({
-                //     X: X + i,
-                //     Y: Y + j
-                // })
-                const cell = cellModels[X+i][Y+j]
-                hideCellList.push(cell)
+        for (let i = 0; i < xLen; i++) {
+            for (let j = 0; j < yLen; j++) {
+                let cell: CellKey = cellModels[i][j]
+
+                // 判断是否在隐藏区域范围内
+                if (MatrixUtils.isInSideCell(selectInfo, cell)) {
+                    cell.isHide = true
+                }
             }
-
         }
-        // 左上角的点是用来构造colspan rowspan的, 应该shift掉
-        let kc: CellKey = hideCellList.shift()
-        kc.rowSpan = xLen
-        kc.colSpan = yLen
-        console.log(hideCellList)
-        debugger
-        return {
-            hideCellList: hideCellList,
-            kc: kc
-        }
+        // 解放左上角的单元格
+        let firstCell =  cellModels[selectInfo.startCell.X][selectInfo.startCell.Y]
+        firstCell.rowSpan = selectInfo.endCell.X - selectInfo.startCell.X + 1
+        firstCell.colSpan = selectInfo.endCell.Y - selectInfo.startCell.Y + 1
+        firstCell.isHide = false
+        return cellModels
     }
 }
 

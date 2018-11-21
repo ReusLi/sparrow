@@ -40,12 +40,14 @@ export default class Table extends React.Component<TableProps, TableState> {
         cellModels.forEach((row: Array<CellKey>, rowIndex: number) => {
             colArray = []
             row.forEach((cell: CellKey) => {
-                cellProps = this.getCellProps();
-                cellProps = this.buildCellProps(cellProps, cell)
-
-                colArray.push(
-                    <Cell {...cellProps} />
-                )
+                if (!cell.isHide) {
+                    cellProps = this.getCellProps();
+                    cellProps = this.buildCellProps(cellProps, cell)
+                    
+                    colArray.push(
+                        <Cell {...cellProps} />
+                        )
+                }
             })
             rowArray.push(
                 <tr key={`row_${rowIndex}`}>

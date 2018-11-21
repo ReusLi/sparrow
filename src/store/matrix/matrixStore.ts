@@ -60,10 +60,7 @@ class matrixStore {
 
     let SelectInfo: SelectInfo = MatrixUtils.buildXY(mouseDownCell, mouseUpCell)
 
-    let { hideCellList, kc }: { hideCellList: Array<CellKey>, kc: CellKey } = util.getSkipCellByCellKeys(this.cellModels, SelectInfo.startCell, SelectInfo.endCell)
-
-    this.mergeCellList.push(kc)
-    this.hideCellList = this.hideCellList.concat(hideCellList)
+    return util.getSkipCellByCellKeys(this.cellModels, SelectInfo)
   }
 
   /**
@@ -85,14 +82,7 @@ class matrixStore {
     if (util.isIllegalCell(cellStore.selectInfo))
       return
 
-    const row = this.row
-    const col = this.col
-
-    this.updateCellList(cellStore.selectInfo)
-
-    let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col, this.mergeCellList, this.hideCellList)
-
-    this.cellModels = cellModels
+    this.cellModels = this.updateCellList(cellStore.selectInfo)
   }
 
 }

@@ -9,7 +9,9 @@ export interface CellKey {
     // rowSpan 行长度
     rowSpan?: number,
     // 单元格文字
-    text?: string
+    text?: string,
+    // 是否隐藏单元格
+    isHide?: boolean
 }
 
 // 选择的2个单元格坐标信息
