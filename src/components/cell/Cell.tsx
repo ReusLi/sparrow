@@ -52,10 +52,18 @@ export default class Cell extends React.Component<CellProps, CellState> {
                 onMouseUp={this.onMouseUp.bind(this)}
                 // 不要warning contentEditable效果
                 suppressContentEditableWarning={true}
+                // 输入事件
+                onInput={this.onInputHandle.bind(this)}
             >
                 {this.props.text}
             </th>
         )
+    }
+
+    private onInputHandle() {
+        console.log(this.props)
+        // 通知matrix store更新模型
+        // matrixStore.updateCell(this.props)
     }
 
     private onMouseDown() {

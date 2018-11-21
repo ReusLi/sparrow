@@ -82,11 +82,11 @@ export default class Table extends React.Component<TableProps, TableState> {
     private buildCellProps(cellProps: any, cell: CellKey) {
 
         cellProps.key = `${cell.X}_${cell.Y}`
-        cellProps.text = `(${cell.X}, ${cell.Y})`
         cellProps.cellKey.X = cell.X
         cellProps.cellKey.Y = cell.Y
-        cellProps.cellKey.rowSpan = cell.rowSpan || 1
-        cellProps.cellKey.colSpan = cell.colSpan || 1
+        cellProps.cellKey.rowSpan = cell.rowSpan
+        cellProps.cellKey.colSpan = cell.colSpan
+        cellProps.text = cell.text
         cellProps.selectInfo = cellStore.selectInfo
         cellProps.isEditable = true
         return cellProps;

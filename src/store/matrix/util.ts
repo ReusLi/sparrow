@@ -37,17 +37,23 @@ class Util {
      * @param hideCellList 
      */
     buildMatrixNormalCell(row: number, col: number, matrixModel: Array<Array<CellKey>>, hideCellList: Array<CellKey>) {
-        let cellKey: CellKey
+        let cellModel: CellKey
 
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
             for (let j = 0; j < col; j++) {
-                cellKey = { X: i, Y: j }
+                cellModel = { 
+                    X: i, 
+                    Y: j,
+                    rowSpan: 1,
+                    colSpan: 1,
+                    text: `(${i}, ${j})`
+                }
 
                 // 判断是否是no use cell, 如果是, 不需要push进matrixModel
-                let isHideCell = hideCellList.some(cell => cell.X === cellKey.X && cell.Y === cellKey.Y)
+                let isHideCell = hideCellList.some(cell => cell.X === cellModel.X && cell.Y === cellModel.Y)
 
-                isHideCell ? null : matrixModel[i].push(cellKey)
+                isHideCell ? null : matrixModel[i].push(cellModel)
             }
         }
         return matrixModel;
@@ -93,16 +99,16 @@ class Util {
 
     /**
      * no comment
-     * @param leftTopKey 
+     * @param startCell 
      * @param rightBottomKey 
      */
-    getSkipCellByCellKeys(leftTopKey: CellKey, rightBottomKey: CellKey) {
-        let xLen: number = rightBottomKey.X - leftTopKey.X + 1,
-            yLen: number = rightBottomKey.Y - leftTopKey.Y + 1,
+    getSkipCellByCellKeys(startCell: CellKey, endCell: CellKey) {
+        let xLen: number = endCell.X - startCell.X + 1,
+            yLen: number = endCell.Y - startCell.Y + 1,
             hideCellList: Array<CellKey> = [];
 
-        for (let X = leftTopKey.X, i = 0; i < xLen; i++) {
-            for (let Y = leftTopKey.Y, j = 0; j < yLen; j++) {
+        for (let X = startCell.X, i = 0; i < xLen; i++) {
+            for (let Y = startCell.Y, j = 0; j < yLen; j++) {
                 hideCellList.push({
                     X: X + i,
                     Y: Y + j

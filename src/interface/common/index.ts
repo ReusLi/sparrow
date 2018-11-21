@@ -7,7 +7,9 @@ export interface CellKey {
     // colSpan 列长度
     colSpan?: number,
     // rowSpan 行长度
-    rowSpan?: number
+    rowSpan?: number,
+    // 单元格文字
+    text?: string
 }
 
 // 选择的2个单元格坐标信息
