@@ -102,17 +102,19 @@ class Util {
      * @param startCell 
      * @param rightBottomKey 
      */
-    getSkipCellByCellKeys(startCell: CellKey, endCell: CellKey) {
+    getSkipCellByCellKeys(cellModels: Array<Array<CellKey>>, startCell: CellKey, endCell: CellKey) {
         let xLen: number = endCell.X - startCell.X + 1,
             yLen: number = endCell.Y - startCell.Y + 1,
             hideCellList: Array<CellKey> = [];
 
         for (let X = startCell.X, i = 0; i < xLen; i++) {
             for (let Y = startCell.Y, j = 0; j < yLen; j++) {
-                hideCellList.push({
-                    X: X + i,
-                    Y: Y + j
-                })
+                // hideCellList.push({
+                //     X: X + i,
+                //     Y: Y + j
+                // })
+                const cell = cellModels[X+i][Y+j]
+                hideCellList.push(cell)
             }
 
         }
@@ -120,7 +122,8 @@ class Util {
         let kc: CellKey = hideCellList.shift()
         kc.rowSpan = xLen
         kc.colSpan = yLen
-
+        console.log(hideCellList)
+        debugger
         return {
             hideCellList: hideCellList,
             kc: kc

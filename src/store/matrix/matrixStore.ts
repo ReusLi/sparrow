@@ -60,7 +60,7 @@ class matrixStore {
 
     let SelectInfo: SelectInfo = MatrixUtils.buildXY(mouseDownCell, mouseUpCell)
 
-    let { hideCellList, kc }: { hideCellList: Array<CellKey>, kc: CellKey } = util.getSkipCellByCellKeys(SelectInfo.startCell, SelectInfo.endCell)
+    let { hideCellList, kc }: { hideCellList: Array<CellKey>, kc: CellKey } = util.getSkipCellByCellKeys(this.cellModels, SelectInfo.startCell, SelectInfo.endCell)
 
     this.mergeCellList.push(kc)
     this.hideCellList = this.hideCellList.concat(hideCellList)
