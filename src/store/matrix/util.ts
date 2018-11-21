@@ -6,7 +6,12 @@ import { SelectInfo } from 'table/interface'
 import MatrixUtils from 'utils/matrix.utils'
 import { debug } from 'util';
 
+import { message } from 'antd';
+
 class Util {
+    tips (msg: string) {
+        message.info(msg);
+    }
 
     /**
      * 构建n*n的矩阵数据模型
@@ -122,10 +127,16 @@ class Util {
         }
 
         // 选择区域中是否有合并过的单元格
-        const hasMergeCell = cellList.some(cell => cell.isHide)
+        const hasMergeCell = cellList.some(cell => {
+            const isHide = cell.isHide
+            const isFirstCell = cell.rowSpan !== 1 || cell.colSpan !== 1
+
+            return isHide || isFirstCell
+        })
         
         // 如果有, 不进行二次合并, 直接返回cellModels
         if (hasMergeCell) {
+            this.tips(`已经合并的单元格不能进行二次合并`)
             return cellModels
         }
 
