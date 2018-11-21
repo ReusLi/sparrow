@@ -40,6 +40,7 @@ export default class Table extends React.Component<TableProps, TableState> {
         cellModels.forEach((row: Array<CellKey>, rowIndex: number) => {
             colArray = []
             row.forEach((cell: CellKey) => {
+                // 只对isHide !== true 的单元格处理
                 if (!cell.isHide) {
                     cellProps = this.getCellProps();
                     cellProps = this.buildCellProps(cellProps, cell)
