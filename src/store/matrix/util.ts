@@ -10,7 +10,7 @@ import { message } from 'antd';
 
 class Util {
     tips (msg: string) {
-        message.info(msg);
+        message.warning(msg);
     }
 
     /**
