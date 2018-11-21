@@ -101,11 +101,11 @@ class Util {
         return ck1.X === ck2.X && ck1.Y === ck2.Y;
     }
     /**
-     * 
+     * 根据选择区域, 合并单元格
      * @param cellModels 
      * @param selectInfo 
      */
-    getSkipCellByCellKeys(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+    mergeCellBySelectInfo(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
         let xLen: number = cellModels.length,
             yLen: number = cellModels[0].length;
 

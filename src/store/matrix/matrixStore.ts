@@ -60,7 +60,7 @@ class matrixStore {
 
     let SelectInfo: SelectInfo = MatrixUtils.buildXY(mouseDownCell, mouseUpCell)
 
-    return util.getSkipCellByCellKeys(this.cellModels, SelectInfo)
+    return util.mergeCellBySelectInfo(this.cellModels, SelectInfo)
   }
 
   /**
