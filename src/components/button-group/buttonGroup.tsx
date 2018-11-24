@@ -27,8 +27,4 @@ export default class ButtonGroup extends React.Component {
             </Row>
         )
     }
-
-    private disMerge() {
-        cellStore
-    }
 }
