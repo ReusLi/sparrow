@@ -8,8 +8,34 @@ import { debug } from 'util';
 
 import { message } from 'antd';
 
+class mapUtil {
+    /**
+     * 找出矩阵中目前被选中的单元格
+     * 
+     * @param cellModels 
+     * @param selectInfo 
+     */
+    mapCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+        let xLen: number = cellModels.length,
+            yLen: number = cellModels[0].length,
+            cellList: Array<CellKey> = [];
+
+        for (let i = 0; i < xLen; i++) {
+            for (let j = 0; j < yLen; j++) {
+                let cell: CellKey = cellModels[i][j]
+
+                // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
+                if (MatrixUtils.isInSideCell(selectInfo, cell)) {
+                    cellList.push(cell)
+                }
+            }
+        }
+        return cellList
+    }
+}
+
 class Util {
-    tips (msg: string) {
+    tips(msg: string) {
         message.warning(msg);
     }
 
@@ -110,21 +136,9 @@ class Util {
      * @param cellModels 
      * @param selectInfo 
      */
-    mergeCellBySelectInfo(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
-        let xLen: number = cellModels.length,
-            yLen: number = cellModels[0].length,
-            cellList: Array<CellKey> = [];
-
-        for (let i = 0; i < xLen; i++) {
-            for (let j = 0; j < yLen; j++) {
-                let cell: CellKey = cellModels[i][j]
-
-                // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
-                if (MatrixUtils.isInSideCell(selectInfo, cell)) {
-                    cellList.push(cell)
-                }
-            }
-        }
+    mergeCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+        // 获取选中的cell list
+        let cellList = new mapUtil().mapCells(cellModels, selectInfo)
 
         // 选择区域中是否有合并过的单元格
         const hasMergeCell = cellList.some(cell => {
@@ -133,7 +147,7 @@ class Util {
 
             return isHide || isFirstCell
         })
-        
+
         // 如果有, 不进行二次合并, 直接返回cellModels
         if (hasMergeCell) {
             this.tips(`已经合并的单元格不能进行二次合并`)
@@ -141,7 +155,7 @@ class Util {
         }
 
         // 第一个是左上角的单元格, 需要拿出来设置rowspan colspan等数据
-        let firstCell =  cellList.shift()
+        let firstCell = cellList.shift()
         firstCell.rowSpan = selectInfo.endCell.X - selectInfo.startCell.X + 1
         firstCell.colSpan = selectInfo.endCell.Y - selectInfo.startCell.Y + 1
 
@@ -149,6 +163,15 @@ class Util {
         cellList.map(cell => cell.isHide = true)
 
         return cellModels
+    }
+
+    /**
+     * 根据选择单元格, 拆分
+     * @param cellModels 
+     * @param selectInfo 
+     */
+    disMergeCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+        debugger
     }
 }
 
