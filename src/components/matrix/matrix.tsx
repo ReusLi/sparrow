@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Row } from 'antd';
+import { Row, Input } from 'antd';
 
 import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table';
@@ -19,7 +19,16 @@ export default class Matrix extends React.Component<MatrixProps> {
     public render() {
         return (
             <Row>
-
+                {/* debug数据显示 */}
+                <Row className="kjax-handle-btn">
+                    <Input 
+                        type='textarea' 
+                        size='large'
+                        // disabled={true}
+                        onChange={this.onChange}
+                    />
+                </Row>
+                {matrixStore.testV}
                 {/* 操作cell的按钮组 */}
                 <Row className="kjax-handle-btn">
                     <ButtonGroup />
@@ -39,5 +48,9 @@ export default class Matrix extends React.Component<MatrixProps> {
      */
     componentWillMount() {
         matrixStore.initMatrixModel()
+    }
+
+    private onChange(e: any) {
+        matrixStore.updateTestV(e.target.value)
     }
 }

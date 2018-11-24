@@ -34,16 +34,21 @@ class matrixStore {
   /**
    * 需要隐藏的单元格
    */
-  hideCellList: Array<CellKey> = []
+  @observable hideCellList: Array<CellKey> = []
   /**
    * 矩阵单元格模型
    */
   @observable cellModels: Array<Array<CellKey>> = []
 
+  @observable testV: string = ''
+  
   constructor() {
 
   }
 
+  @action updateTestV(value: string) {
+    this.testV  = value
+  }
 
   @action setCellModels(cellModels: Array<Array<CellKey>>) {
     this.cellModels = cellModels
