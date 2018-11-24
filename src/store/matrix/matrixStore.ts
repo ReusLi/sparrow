@@ -84,6 +84,31 @@ class matrixStore {
 
     this.cellModels = this.updateCellList(cellStore.selectInfo)
   }
+  /**
+  * 更新矩阵模型
+  */
+  mergeCells() {
+    let selectInfo = cellStore.selectInfo
+    if (util.isIllegalCell(selectInfo))
+      return
+
+    const mouseDownCell = selectInfo.startCell,
+      mouseUpCell = selectInfo.endCell
+
+    selectInfo = MatrixUtils.buildXY(mouseDownCell, mouseUpCell)
+
+    this.cellModels = util.mergeCells(this.cellModels, selectInfo)
+  }
+
+  disMergeCell() {
+    let selectInfo = cellStore.selectInfo
+    console.log(selectInfo.startCell.X)
+    console.log(selectInfo.startCell.Y)
+    console.log(selectInfo.endCell.X)
+    console.log(selectInfo.endCell.Y)
+
+    this.cellModels = util.disMergeCell(this.cellModels, selectInfo)
+  }
 
 }
 

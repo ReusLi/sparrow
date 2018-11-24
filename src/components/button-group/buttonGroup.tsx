@@ -14,13 +14,15 @@ export default class ButtonGroup extends React.Component {
             <Row>
                 <Col span={4}>
                     <Button
-                        onMouseUp={matrixStore.updateMatrixModel.bind(matrixStore)}
+                        onMouseUp={matrixStore.mergeCells.bind(matrixStore)}
                     >
                         合并
                     </Button>
                 </Col>
                 <Col span={4}>
-                    <Button>拆分</Button>
+                    <Button
+                        onMouseUp={matrixStore.disMergeCell.bind(matrixStore)}
+                    >拆分</Button>
                 </Col>
             </Row>
         )

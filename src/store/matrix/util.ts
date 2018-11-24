@@ -7,15 +7,16 @@ import MatrixUtils from 'utils/matrix.utils'
 import { debug } from 'util';
 
 import { message } from 'antd';
+import Cell from 'components/cell/cell';
 
 class mapUtil {
     /**
      * 找出矩阵中目前被选中的单元格
      * 
      * @param cellModels 
-     * @param selectInfo 
+     * @param callback 
      */
-    mapCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+    mapCells(cellModels: Array<Array<CellKey>>, callback: Function) {
         let xLen: number = cellModels.length,
             yLen: number = cellModels[0].length,
             cellList: Array<CellKey> = [];
@@ -24,10 +25,7 @@ class mapUtil {
             for (let j = 0; j < yLen; j++) {
                 let cell: CellKey = cellModels[i][j]
 
-                // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
-                if (MatrixUtils.isInSideCell(selectInfo, cell)) {
-                    cellList.push(cell)
-                }
+                callback(cell)
             }
         }
         return cellList
@@ -138,7 +136,14 @@ class Util {
      */
     mergeCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
         // 获取选中的cell list
-        let cellList = new mapUtil().mapCells(cellModels, selectInfo)
+        let cellList: Array<CellKey> = []
+
+        new mapUtil().mapCells(cellModels, (cell: CellKey) => {
+            // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
+            if (MatrixUtils.isInSideCell(selectInfo, cell)) {
+                cellList.push(cell)
+            }
+        })
 
         // 选择区域中是否有合并过的单元格
         const hasMergeCell = cellList.some(cell => {
@@ -170,8 +175,37 @@ class Util {
      * @param cellModels 
      * @param selectInfo 
      */
-    disMergeCells(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
-        debugger
+    disMergeCell(cellModels: Array<Array<CellKey>>, selectInfo: SelectInfo) {
+        // 获取选中的cell list
+        let cellList: Array<CellKey> = []
+
+        // 根据当前选中的单元格找到cellModel里面的cell (curSelectCell)
+        // 根据curSelectCell里面的rowSpan, colSpan计算出原来的selectInfo
+        const X = selectInfo.startCell.X,
+            Y = selectInfo.startCell.Y,
+            curSelectCell = cellModels[X][Y],
+            rowSpan = curSelectCell.rowSpan,
+            colSpan = curSelectCell.colSpan;
+
+        selectInfo.endCell.X = selectInfo.startCell.X + rowSpan - 1
+        selectInfo.endCell.Y = selectInfo.startCell.Y + colSpan - 1
+
+        new mapUtil().mapCells(cellModels, (cell: CellKey) => {
+            // 判断是否在隐藏区域范围内, 如果在区域内, 放入cellList
+            if (MatrixUtils.isInSideCell(selectInfo, cell)) {
+                cellList.push(cell)
+            }
+        })
+
+        // 第一个是左上角的单元格, 需要拿出来设置rowspan colspan等数据
+        let firstCell = cellList.shift()
+        firstCell.rowSpan = 1
+        firstCell.colSpan = 1
+
+        // 把其余的单元格设置isHide=true, 隐藏起来
+        cellList.map(cell => cell.isHide = false)
+
+        return cellModels
     }
 }
 
