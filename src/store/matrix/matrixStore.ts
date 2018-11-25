@@ -79,7 +79,7 @@ class matrixStore {
     const row = this.row
     const col = this.col
 
-    let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col, [], [])
+    let cellModels: Array<Array<CellKey>> = util.buildMatrixModel(row, col)
 
     this.cellModels = cellModels
   }
