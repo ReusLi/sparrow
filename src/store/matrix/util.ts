@@ -44,8 +44,6 @@ class Util {
      * 
      * @param row 
      * @param col 
-     * @param mergeCellList 
-     * @param hideCellList 
      */
     buildMatrixModel(row: number, col: number) {
         let matrixModel: Array<Array<CellKey>> = [],

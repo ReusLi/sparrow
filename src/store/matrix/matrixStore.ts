@@ -28,31 +28,13 @@ class matrixStore {
    */
   mouseUpCell: CellKey
   /**
-   * 需要合并的单元格
-   */
-  mergeCellList: Array<CellKey> = []
-  /**
-   * 需要隐藏的单元格
-   */
-  // @observable hideCellList: Array<CellKey> = []
-  /**
    * 矩阵单元格模型
    */
   @observable cellModels: Array<Array<CellKey>> = []
 
-  @observable testV: string = ''
-  
   constructor() {
 
   }
-
-  @action updateTestV(value: string) {
-    this.testV  = value
-  }
-
-  // @computed get hideCellList() { 
-  //   return this.hideCellList
-  // }
 
   @action setCellModels(cellModels: Array<Array<CellKey>>) {
     this.cellModels = cellModels
