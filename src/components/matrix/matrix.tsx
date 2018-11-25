@@ -28,7 +28,7 @@ export default class Matrix extends React.Component<MatrixProps> {
                         onChange={this.onChange}
                     />
                 </Row>
-                {matrixStore.testV}
+                {/* {matrixStore.hideCellList.length} */}
                 {/* 操作cell的按钮组 */}
                 <Row className="kjax-handle-btn">
                     <ButtonGroup />

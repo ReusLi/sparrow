@@ -1,4 +1,4 @@
-import { computed, observable, action } from "mobx";
+import { computed, observable, action, trace } from "mobx";
 
 import { CellKey, SelectInfo } from 'interface/common'
 
@@ -34,7 +34,7 @@ class matrixStore {
   /**
    * 需要隐藏的单元格
    */
-  @observable hideCellList: Array<CellKey> = []
+  // @observable hideCellList: Array<CellKey> = []
   /**
    * 矩阵单元格模型
    */
@@ -49,6 +49,10 @@ class matrixStore {
   @action updateTestV(value: string) {
     this.testV  = value
   }
+
+  // @computed get hideCellList() { 
+  //   return this.hideCellList
+  // }
 
   @action setCellModels(cellModels: Array<Array<CellKey>>) {
     this.cellModels = cellModels
@@ -107,12 +111,9 @@ class matrixStore {
 
   disMergeCell() {
     let selectInfo = cellStore.selectInfo
-    console.log(selectInfo.startCell.X)
-    console.log(selectInfo.startCell.Y)
-    console.log(selectInfo.endCell.X)
-    console.log(selectInfo.endCell.Y)
 
     this.cellModels = util.disMergeCell(this.cellModels, selectInfo)
+    // console.log(toJS(this.cellModels))
   }
 
 }
