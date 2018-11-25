@@ -40,6 +40,9 @@ class matrixStore {
     this.cellModels = cellModels
   }
 
+  /**
+   * 隐藏的单元格
+   */
   @computed get hideCells() {
     let hideCells: Array<CellKey> = []
     util.mapUtil.mapCells(this.cellModels, (cell: CellKey) => {
