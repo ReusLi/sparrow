@@ -33,6 +33,11 @@ class mapUtil {
 }
 
 class Util {
+    public mapUtil: any
+
+    constructor () {
+        this.mapUtil = new mapUtil()
+    }
     tips(msg: string) {
         message.warning(msg);
     }

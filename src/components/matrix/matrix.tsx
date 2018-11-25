@@ -28,7 +28,10 @@ export default class Matrix extends React.Component<MatrixProps> {
                         onChange={this.onChange}
                     />
                 </Row>
-                {/* {matrixStore.hideCellList.length} */}
+                <Row className="kjax-handle-btn">
+                    <span>当前隐藏的单元格数量: </span>
+                    {matrixStore.hideCells.length}
+                </Row>
                 {/* 操作cell的按钮组 */}
                 <Row className="kjax-handle-btn">
                     <ButtonGroup />
@@ -51,6 +54,6 @@ export default class Matrix extends React.Component<MatrixProps> {
     }
 
     private onChange(e: any) {
-        matrixStore.updateTestV(e.target.value)
+
     }
 }
