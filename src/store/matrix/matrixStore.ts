@@ -83,18 +83,8 @@ class matrixStore {
 
     this.cellModels = cellModels
   }
-
   /**
-   * 更新矩阵模型
-   */
-  updateMatrixModel() {
-    if (util.isIllegalCell(cellStore.selectInfo))
-      return
-
-    this.cellModels = this.updateCellList(cellStore.selectInfo)
-  }
-  /**
-  * 更新矩阵模型
+  * 合并单元格
   */
   mergeCells() {
     let selectInfo = cellStore.selectInfo
@@ -108,12 +98,13 @@ class matrixStore {
 
     this.cellModels = util.mergeCells(this.cellModels, selectInfo)
   }
-
+  /**
+   * 拆分单元格
+   */
   disMergeCell() {
     let selectInfo = cellStore.selectInfo
 
     this.cellModels = util.disMergeCell(this.cellModels, selectInfo)
-    // console.log(toJS(this.cellModels))
   }
 
 }
