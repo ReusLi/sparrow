@@ -2,27 +2,22 @@ import * as React from 'react'
 
 import Matrix from 'components/matrix/matrix'
 
-interface AppState {
+import AntdTable from 'components/antd-table'
 
-}
+import { Row, Col } from 'antd'
 
-interface AppProps {
-
-}
-
-export default class App extends React.Component<AppProps, AppState> {
-
-    constructor(props: AppProps, state: AppState) {
-        super(props);
-    }
-
-    componentWillMount() {
-
-    }
+export default class App extends React.Component {
 
     public render() {
         return (
-            <Matrix />
+            <Row gutter={20}>
+                <Col span={12}>
+                    <Matrix />
+                </Col>
+                <Col span={12}>
+                    <AntdTable />
+                </Col>
+            </Row>
         )
     }
 }

@@ -52,7 +52,8 @@ class Util {
      */
     buildMatrixModel(row: number, col: number) {
         let matrixModel: Array<Array<CellKey>> = [],
-            cellModel: CellKey
+            cellModel: CellKey,
+            index = 0;
 
         for (let i = 0; i < row; i++) {
             matrixModel.push([])
@@ -62,7 +63,7 @@ class Util {
                     Y: j,
                     rowSpan: 1,
                     colSpan: 1,
-                    text: `(${i}, ${j})`
+                    text: `列${++index}`
                 }
 
                 matrixModel[i].push(cellModel)
