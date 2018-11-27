@@ -1,34 +1,18 @@
 import * as React from 'react'
 
-import { Table } from 'antd';
+import { Table } from 'antd'
 
-const columns: any = [
-    {
-        title: '列1',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: '列2',
-        children: [
-            {
-                title: '列2-1',
-                dataIndex: 'companyAddress',
-                key: 'companyAddress'
-            },
-            {
-                title: '列2-2',
-                dataIndex: 'companyName',
-                key: 'companyName'
-            }]
-    }]
+// antd table store
+import antdTableStore from 'store/antdTableStore'
 
+import { observer } from 'mobx-react'
 
+@observer
 export default class AntdTable extends React.Component {
     public render() {
         return (
             <Table
-                columns={columns}
+                columns={antdTableStore.columns}
                 bordered
             />
         )
