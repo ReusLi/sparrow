@@ -28,8 +28,8 @@ class antdTableStore {
                 }]
         }]
 
-    updateTableCols() {
-        matrixStore.cellModels
+    @action updateTableCols() {
+        this.columns = []
     }
 }
 
