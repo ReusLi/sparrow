@@ -14,11 +14,11 @@ class matrixStore {
   /**
    * 矩阵行数
    */
-  row: number = 1
+  row: number = 2
   /**
    * 矩阵列数
    */
-  col: number = 5
+  col: number = 3
   /**
    * mouse down cell
    */
