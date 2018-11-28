@@ -14,7 +14,7 @@ class matrixStore {
   /**
    * 矩阵行数
    */
-  row: number = 2
+  row: number = 3
   /**
    * 矩阵列数
    */
