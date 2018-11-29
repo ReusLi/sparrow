@@ -86,6 +86,7 @@ class antdTableStore {
                 const minY = col.Y,
                     maxY = col.Y + col.colSpan;
                 // 
+                const isZero = cell.Y === 0 && col.Y === 0
                 if (minY <= cell.Y < maxY) {
                     col.children.push(cell)
                     this.findChildren(cellModels, cell, ++rowIndex)
