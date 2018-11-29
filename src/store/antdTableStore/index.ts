@@ -12,42 +12,30 @@ class antdTableStore {
     @observable columns: any = [
         {
             title: '列1',
-            dataIndex: 'name',
-            key: 'name',
+            key: '1',
             children: [
                 {
-                    title: 'col-1',
-                    dataIndex: '121',
-                    key: '12',
+                    title: '列4',
+                    key: '4',
                 }
             ]
         },
         {
             title: '列2',
+            key: '2',
             children: [
                 {
-                    title: '列2-1',
-                    dataIndex: 'companyAddress',
-                    key: 'companyAddress',
-                    children: [
-                        {
-                            title: 'col',
-                            dataIndex: '3',
-                            key: '3',
-                        }
-                    ]
-                },
+                    title: '列5',
+                    key: '5'
+                }]
+        },
+        {
+            title: '列3',
+            key: '3',
+            children: [
                 {
-                    title: '列2-2',
-                    dataIndex: 'companyName',
-                    key: 'companyName',
-                    children: [
-                        {
-                            title: 'col',
-                            dataIndex: '4',
-                            key: '4',
-                        }
-                    ]
+                    title: '列6',
+                    key: '6'
                 }]
         }]
 
