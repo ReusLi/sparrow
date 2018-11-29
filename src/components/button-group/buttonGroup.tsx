@@ -25,7 +25,7 @@ export default class ButtonGroup extends React.Component {
                 </Col>
                 <Col span={4}>
                     <Button
-                        onMouseUp={antdTableStore.updateTableCols.bind(antdTableStore)}
+                        onMouseUp={antdTableStore.syncTableColumns.bind(antdTableStore)}
                     >生成</Button>
                 </Col>
             </Row>

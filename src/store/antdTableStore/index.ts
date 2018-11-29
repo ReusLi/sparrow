@@ -110,7 +110,10 @@ class antdTableStore {
                 }]
         }]
 
-    @action updateTableCols() {
+    /**
+     * 同步表格列信息
+     */
+    @action syncTableColumns() {
         let columns: any = matrixStore.cellModels.shift().filter(cell => !cell.isHide)
 
         matrixStore.cellModels.forEach((row) => {
