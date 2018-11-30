@@ -21,3 +21,14 @@ export interface SelectInfo {
     // 结束的单元格
     endCell: CellKey
 }
+
+export interface AntdColumn extends CellKey {
+    // 列的子代
+    children?: Array<any>
+    // 列名称
+    title?: string
+    // column key
+    key?: string
+    // 是否有父节点, 用于table转columns的时候
+    hasParent?: boolean
+}
