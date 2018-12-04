@@ -1,10 +1,20 @@
 
 class clipboard {
+    /**
+     * 复制的内容
+     */
+    private pasteData: Array<Array<string>>
+
     bindClipEvent(dom: HTMLElement) {
         dom.addEventListener('paste', (event: any) => {
-            console.log(event)
-            let items = event.clipboardData && event.clipboardData.items;
-            debugger
+            let data = event.clipboardData.getData('text')
+            data = data.split('\n')
+            data = data.map((item: string) => {
+                return item.split(/\s+/)
+            })
+
+            this.pasteData = data
+            console.log(this.pasteData)
         })
     }
 }

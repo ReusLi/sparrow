@@ -5,6 +5,7 @@ import { CellKey, SelectInfo, TableState, TableProps } from 'table/interface'
 
 import Cell from 'components/cell/cell'
 
+// 剪切板类
 import clipboard from 'components/table/clipboard'
 
 // matrixStore mobx
@@ -98,11 +99,22 @@ export default class Table extends React.Component<TableProps, TableState> {
         cellStore.onMouseUpWithLastCell()
     }
 
+    componentDidMount() {
+        clipboard.bindClipEvent(this.table)
+    }
+
+    private table: HTMLElement
+
 
     private renderCellList() {
         let tableHeader = this.initTableHeader(this.props.cellModels)
         return (
-            <table onMouseLeave={this.onMouseLeaveTable.bind(this)}>
+            <table 
+                onMouseLeave={this.onMouseLeaveTable.bind(this)}
+                ref={(dom) => 
+                    this.table = dom
+                }
+                >
                 <thead className="ant-table-thead">
                     {tableHeader}
                 </thead>
