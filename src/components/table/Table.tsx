@@ -5,24 +5,16 @@ import { CellKey, SelectInfo, TableState, TableProps } from 'table/interface'
 
 import Cell from 'components/cell/cell'
 
-// utils
-import MatrixUtils from 'utils/matrix.utils'
+import cilpboard from 'components/table/cilpboard'
 
 // matrixStore mobx
 import cellStore from 'store/cell/cellStore';
 
 import { observer } from 'mobx-react';
 
+
 @observer
 export default class Table extends React.Component<TableProps, TableState> {
-    // 是否 mouse down
-    // 只有true时, cell组件的mouse over emit 才会有效
-    private isMouseDown: boolean = false
-
-    // 最后一个mouse over cell
-    // 当鼠标移出table时, 会把最后一个mouse over cell当成 mouse up cell 
-    // 并更新selectInfo状态
-    private theLastMouseOverCell: CellKey
 
     constructor(props: TableProps, state: TableState) {
         super(props);
