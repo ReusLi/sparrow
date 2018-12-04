@@ -5,7 +5,7 @@ import { CellKey, SelectInfo, TableState, TableProps } from 'table/interface'
 
 import Cell from 'components/cell/cell'
 
-import cilpboard from 'components/table/cilpboard'
+import clipboard from 'components/table/clipboard'
 
 // matrixStore mobx
 import cellStore from 'store/cell/cellStore';
