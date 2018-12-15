@@ -15,15 +15,15 @@ try {
     console.error('渲染matrix组件出错')
 }
  
-describe('matrix组件', () => {
+// describe('matrix组件', () => {
 
-    describe('测试构建n*n矩阵的方法', () => {
-        it('buildMatrixMergeCell方法', () => {
-            let matrixModel = []
-            let mergeCellList = []
-            let cellList = matrixComponent.buildMatrixMergeCell(matrixModel, mergeCellList)
-            console.log(cellList )
-            expect(1).to.be.ok
-        })
-    })
-})
+//     describe('测试构建n*n矩阵的方法', () => {
+//         it('buildMatrixMergeCell方法', () => {
+//             let matrixModel = []
+//             let mergeCellList = []
+//             let cellList = matrixComponent.buildMatrixMergeCell(matrixModel, mergeCellList)
+//             console.log(cellList )
+//             expect(1).to.be.ok
+//         })
+//     })
+// })
