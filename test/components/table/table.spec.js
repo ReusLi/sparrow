@@ -23,7 +23,8 @@ describe('table组件', () => {
             // 就会报错: 
             // TypeError: Cannot convert a Symbol value to a string
             // 这里应该写成 console.log(JSON.stringify(cellList)) 的形式
-            let cellList = tableComponent.initTableHeader(tableConst.tabelProps.cellModels)
+
+            const cellList = tableComponent.initTableHeader(tableConst.tabelProps.cellModels)
             expect(cellList.length).to.be.equal(4)
         })
     })
