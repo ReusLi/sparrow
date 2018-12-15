@@ -27,7 +27,7 @@ class clipboard {
      * 因为paste后正则得出的数据并不是规则的 n*n 数组
      * 规则: 
      * 1. 如果pasteData最后一个是一个 [""] 的数组, 把它删掉
-     * 2. 如果剩下的数组长度都一样, 统一 pop() 一位
+     * 2. 如果剩下的数组长度都一样, 且每个数组最后一个元素都是'', 则统一 pop() 一位
      * 3. 如果剩下的数组长度不一, 把最长的数组 pop() 一位
      * 
      * @param pasteData 
@@ -51,10 +51,16 @@ class clipboard {
 
         // 规则2.
         if (isEveryLenEqual) {
-            pasteData = pasteData.map(element => {
-                element.pop()
-                return element
+            // 每个数组最后一个元素都是'', 则统一 pop() 一位
+            const lastElementIsEmptyStr = pasteData.every(element => {
+                return element[firstElementLen] === ''
             })
+            if (lastElementIsEmptyStr) {
+                pasteData = pasteData.map(element => {
+                    element.pop()
+                    return element
+                })
+            }
         }
         // 规则3.
         else {
