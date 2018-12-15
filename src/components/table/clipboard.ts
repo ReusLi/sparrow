@@ -9,6 +9,8 @@ class clipboard {
      * @param dom 需要监听paste事件的dom
      */
     bindClipEvent(dom: HTMLElement) {
+        if (!dom)
+            return false
         dom.addEventListener('paste', (event: any) => {
             let data = event.clipboardData.getData('text')
             data = data.split('\n')
