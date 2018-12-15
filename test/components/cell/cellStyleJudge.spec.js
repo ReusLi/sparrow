@@ -1,5 +1,3 @@
-console.log('------------aaa')
-
 import { expect } from 'chai'
 
 import { cellStyleJudge } from 'components/cell/cellStyleJudge'
