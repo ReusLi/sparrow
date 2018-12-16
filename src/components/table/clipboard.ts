@@ -1,3 +1,8 @@
+import { CellKey, SelectInfo } from 'interface/common'
+
+// matrixStore mobx
+import matrixStore from 'store/matrix/matrixStore';
+
 class clipboard {
     /**
      * 复制的内容
@@ -12,16 +17,35 @@ class clipboard {
         if (!dom)
             return false
         dom.addEventListener('paste', (event: any) => {
-            let data = event.clipboardData.getData('text')
-            data = data.split('\n')
-            data = data.map((item: string) => {
-                return item.split(/\s+/)
-            })
+            // 获取剪切的数据
+            const data = this.getPasteData(event)
 
+            // 正确过滤出n*n数组
             this.pasteData = this.filterPasteData(data)
 
-            console.log(this.pasteData)
+            // 把n*n数组转化为矩阵模型
+            const cellModels = this.makeMatrix(this.pasteData)
+
+            // 更新矩阵模型
+            matrixStore.setCellModels(cellModels)
+
+            // 阻止paste事件
+            event.preventDefault()
         })
+    }
+
+    /**
+     * 获取paste事件中剪切板的值
+     * @param event paste event
+     * @return 剪切板的值
+     */
+    getPasteData(event: any) {
+        let data = event.clipboardData.getData('text')
+        data = data.split('\n')
+        data = data.map((item: string) => {
+            return item.split(/\s+/)
+        })
+        return data
     }
 
     /**
@@ -55,7 +79,7 @@ class clipboard {
         if (isEveryLenEqual) {
             // 每个数组最后一个元素都是'', 则统一 pop() 一位
             const lastElementIsEmptyStr = pasteData.every(element => {
-                return element[firstElementLen] === ''
+                return element[firstElementLen - 1] === ''
             })
             if (lastElementIsEmptyStr) {
                 pasteData = pasteData.map(element => {
@@ -79,6 +103,31 @@ class clipboard {
         }
 
         return pasteData
+    }
+
+    /**
+     * 把过滤后的剪切板值, 变成矩阵cellModels的数据结构
+     * @param pasteData 剪切板的值(数组形式)
+     * 
+     * @return cellModels矩阵模型
+     */
+    makeMatrix(pasteData: Array<Array<string>>) {
+        let cellModels: Array<Array<CellKey>> = [],
+            row: Array<CellKey> = [];
+        pasteData.forEach((rowItem, rowIndex) => {
+            row = []
+            rowItem.forEach((element, index) => {
+                row.push({
+                    X: rowIndex,
+                    Y: index,
+                    colSpan: 1,
+                    rowSpan: 1,
+                    text: element
+                })
+            })
+            cellModels.push(row)
+        })
+        return cellModels;
     }
 }
 
