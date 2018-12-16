@@ -101,6 +101,22 @@ describe('clipboard 剪切板工具类', () => {
 
             expect(result.length).to.be.equal(CONST.RESULT_LEN)
         })
+
+        it('paste场景7', () => {
+            const paste7 = [
+                ['1', '2', '3', ''],
+                ['4', '5', '6', ''],
+                ['']
+            ]
+
+            const result = clipboard.filterPasteData(paste7)
+
+            const isSameLen = result.every(item => item.length === CONST.ITEM_LEN)
+
+            expect(isSameLen).to.be.equal(true)
+
+            expect(result.length).to.be.equal(CONST.RESULT_LEN)
+        })
     })
 
     describe('getPasteData 方法正确拿到剪切板的值', () => {
