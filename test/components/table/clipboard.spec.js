@@ -130,4 +130,22 @@ describe('clipboard 剪切板工具类', () => {
             expect(false).to.be.equal(true)
         })
     })
+
+    describe('resetSpan方法, 根据paste的""值, 正确设置colSpan, rowSpan', () => {
+        it ('resetSpan场景1', () => {
+            expect(false).to.be.equal(true)
+        })
+    })
+
+    describe('setColSpan 找到左侧距离最近的isHide = false的cell, 并使cell.colSpan + 1', () => {
+        it ('场景1', () => {
+            expect(false).to.be.equal(true)
+        })
+    })
+
+    describe('setRowSpan 找到上方距离最近的isHide = false的cell, 并使cell.rowSpan + 1', () => {
+        it ('场景1', () => {
+            expect(false).to.be.equal(true)
+        })
+    })
 })
