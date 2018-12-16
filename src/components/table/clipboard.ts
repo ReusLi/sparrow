@@ -2,6 +2,7 @@ import { CellKey, SelectInfo } from 'interface/common'
 
 // matrixStore mobx
 import matrixStore from 'store/matrix/matrixStore';
+import Cell from 'components/cell/cell';
 
 class clipboard {
     /**
@@ -24,7 +25,9 @@ class clipboard {
             this.pasteData = this.filterPasteData(data)
 
             // 把n*n数组转化为矩阵模型
-            const cellModels = this.makeMatrix(this.pasteData)
+            let cellModels = this.makeMatrix(this.pasteData)
+
+            cellModels = this.resetSpan(cellModels)
 
             // 更新矩阵模型
             matrixStore.setCellModels(cellModels)
@@ -122,12 +125,91 @@ class clipboard {
                     Y: index,
                     colSpan: 1,
                     rowSpan: 1,
-                    text: element
+                    text: element,
+                    isHide: element === '' ? true : false
                 })
             })
             cellModels.push(row)
         })
         return cellModels;
+    }
+
+    /**
+     * 重新设置colSpan, rowSpan等信息
+     * 规则:
+     * 1. 优先设置上方cell的rowSpan + 1
+     * 2. 如果上方cell.isHide = true, 才考虑左侧cell的colSpan + 1
+     * 3. 如果没有上方cell, 考虑左侧cell的colSpan + 1
+     * 
+     * @param cellModels 
+     * 
+     * @return cellModels
+     */
+    resetSpan(cellModels: Array<Array<CellKey>>) {
+        cellModels.forEach((rowItem, X) => {
+            rowItem.forEach((element, Y) => {
+                if (X === 0 && Y === 0) {
+                    // nothing
+                }
+                else if (element.isHide) {
+                    // 规则3.
+                    if (X === 0) {
+                        this.setColSpan(cellModels, element)
+                    }
+                    // 规则2.
+                    else if (cellModels[X - 1][Y].isHide === true) {
+                        this.setColSpan(cellModels, element)
+                    }
+                    // 规则1.
+                    else if (cellModels[X - 1][Y].isHide === false) {
+                        this.setRowSpan(cellModels, element)
+                    }
+                }
+            })
+        })
+        return cellModels
+    }
+    /**
+     * 找到左侧距离最近的isHide = false的cell, 并使cell.colSpan + 1
+     * @param cellModels 
+     * @param cell 
+     */
+    setColSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
+        let X = cell.X,
+            Y = cell.Y - 1,
+            stop = false;
+
+        while(Y !== -1 && stop === false) {
+            let targetCell = cellModels[X][Y]
+
+            if (targetCell.isHide === false) {
+                targetCell.colSpan += 1
+                stop = true
+            } else {
+                Y -= 1
+            }
+        }
+    }
+    /**
+     * 找到上方距离最近的isHide = false的cell, 并使cell.rowSpan + 1
+     * @param cellModels 
+     * @param cell 
+     */
+    setRowSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
+        let X = cell.X - 1,
+            Y = cell.Y,
+            stop = false;
+
+        while(X !== -1 && stop === false) {
+            let targetCell = cellModels[X][Y]
+
+            if (!targetCell.isHide) {
+                targetCell.rowSpan += 1
+                stop = true
+            } else {
+                X -= 1
+            }
+        }
     }
 }
 
