@@ -102,4 +102,16 @@ describe('clipboard 剪切板工具类', () => {
             expect(result.length).to.be.equal(CONST.RESULT_LEN)
         })
     })
+
+    describe('getPasteData 方法正确拿到剪切板的值', () => {
+        it ('paste数据结构1', () => {
+            expect(false).to.be.equal(true)
+        })
+    })
+
+    describe('makeMatrix 方法正确构建矩阵的cellModels', () => {
+        it ('构建场景1', () => {
+            expect(false).to.be.equal(true)
+        })
+    })
 })
