@@ -177,6 +177,10 @@ class clipboard {
      * @param cell 
      */
     setColSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
+        if (cell.Y === 0 || cell.isHide === false) {
+            return;
+        }
+
         let X = cell.X,
             Y = cell.Y - 1,
             stop = false;
@@ -184,7 +188,7 @@ class clipboard {
         while(Y !== -1 && stop === false) {
             let targetCell = cellModels[X][Y]
 
-            if (!targetCell.isHide) {
+            if (targetCell.isHide === false) {
                 targetCell.colSpan += 1
                 stop = true
             } else {
@@ -198,6 +202,10 @@ class clipboard {
      * @param cell 
      */
     setRowSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
+        if (cell.X === 0 || cell.isHide === false) {
+            return;
+        }
+
         let X = cell.X - 1,
             Y = cell.Y,
             stop = false;
@@ -205,7 +213,7 @@ class clipboard {
         while(X !== -1 && stop === false) {
             let targetCell = cellModels[X][Y]
 
-            if (!targetCell.isHide) {
+            if (targetCell.isHide === false) {
                 targetCell.rowSpan += 1
                 stop = true
             } else {
