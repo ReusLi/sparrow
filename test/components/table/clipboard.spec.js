@@ -219,17 +219,23 @@ describe('clipboard 剪切板工具类', () => {
         it('场景1', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, colSpan: 1 },
-                    { X: 0, Y: 1, colSpan: 1 },
-                    { X: 0, Y: 2, colSpan: 1 }
+                    { X: 0, Y: 0, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, colSpan: 1, isHide: false }
                 ],
                 [
-                    { X: 1, Y: 0, colSpan: 1 },
-                    { X: 1, Y: 1, colSpan: 1 },
+                    { X: 1, Y: 0, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, colSpan: 1, isHide: false },
                     { X: 1, Y: 2, colSpan: 1, isHide: true }
                 ]
             ]
 
+            clipboard.setColSpan(cellModels, cellModels[0][0])
+            clipboard.setColSpan(cellModels, cellModels[0][1])
+            clipboard.setColSpan(cellModels, cellModels[0][2])
+
+            clipboard.setColSpan(cellModels, cellModels[1][0])
+            clipboard.setColSpan(cellModels, cellModels[1][1])
             clipboard.setColSpan(cellModels, cellModels[1][2])
 
             // 期望[1][1]的cell.colSpan = 2, 因为距离它旁边有一个隐藏cell
@@ -245,17 +251,22 @@ describe('clipboard 剪切板工具类', () => {
         it('场景2', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, colSpan: 1 },
-                    { X: 0, Y: 1, colSpan: 1 },
-                    { X: 0, Y: 2, colSpan: 1 }
+                    { X: 0, Y: 0, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, colSpan: 1, isHide: false }
                 ],
                 [
-                    { X: 1, Y: 0, colSpan: 1 },
+                    { X: 1, Y: 0, colSpan: 1, isHide: false },
                     { X: 1, Y: 1, colSpan: 1, isHide: true },
                     { X: 1, Y: 2, colSpan: 1, isHide: true }
                 ]
             ]
 
+            clipboard.setColSpan(cellModels, cellModels[0][0])
+            clipboard.setColSpan(cellModels, cellModels[0][1])
+            clipboard.setColSpan(cellModels, cellModels[0][2])
+
+            clipboard.setColSpan(cellModels, cellModels[1][0])
             clipboard.setColSpan(cellModels, cellModels[1][1])
             clipboard.setColSpan(cellModels, cellModels[1][2])
 
@@ -265,6 +276,70 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[0][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
 
             expect(cellModels[1][0].colSpan).to.be.equal(CONST.COL_SPAN___THREE)
+            expect(cellModels[1][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+        })
+
+        it('场景3', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, colSpan: 1, isHide: true },
+                    { X: 0, Y: 2, colSpan: 1, isHide: true }
+                ],
+                [
+                    { X: 1, Y: 0, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, colSpan: 1, isHide: true },
+                    { X: 1, Y: 2, colSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setColSpan(cellModels, cellModels[0][0])
+            clipboard.setColSpan(cellModels, cellModels[0][1])
+            clipboard.setColSpan(cellModels, cellModels[0][2])
+
+            clipboard.setColSpan(cellModels, cellModels[1][0])
+            clipboard.setColSpan(cellModels, cellModels[1][1])
+            clipboard.setColSpan(cellModels, cellModels[1][2])
+
+            // 期望[1][0]的cell.colSpan = 3, 因为距离它最近的有2个隐藏cell
+            expect(cellModels[0][0].colSpan).to.be.equal(CONST.COL_SPAN___THREE)
+            expect(cellModels[0][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+
+            expect(cellModels[1][0].colSpan).to.be.equal(CONST.COL_SPAN___THREE)
+            expect(cellModels[1][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+        })
+
+        it('场景4', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, colSpan: 1, isHide: true },
+                    { X: 0, Y: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, colSpan: 1, isHide: false }
+                ],
+                [
+                    { X: 1, Y: 0, colSpan: 1, isHide: true },
+                    { X: 1, Y: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 2, colSpan: 1, isHide: false }
+                ]
+            ]
+
+            clipboard.setColSpan(cellModels, cellModels[0][0])
+            clipboard.setColSpan(cellModels, cellModels[0][1])
+            clipboard.setColSpan(cellModels, cellModels[0][2])
+
+            clipboard.setColSpan(cellModels, cellModels[1][0])
+            clipboard.setColSpan(cellModels, cellModels[1][1])
+            clipboard.setColSpan(cellModels, cellModels[1][2])
+
+            // 全部colSpan不变
+            expect(cellModels[0][0].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+
+            expect(cellModels[1][0].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
             expect(cellModels[1][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
             expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
         })
@@ -279,17 +354,23 @@ describe('clipboard 剪切板工具类', () => {
         it('场景1', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, rowSpan: 1 },
-                    { X: 0, Y: 1, rowSpan: 1 },
-                    { X: 0, Y: 2, rowSpan: 1 }
+                    { X: 0, Y: 0, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, isHide: false }
                 ],
                 [
-                    { X: 1, Y: 0, rowSpan: 1 },
-                    { X: 1, Y: 1, rowSpan: 1 },
+                    { X: 1, Y: 0, rowSpan: 1, isHide: false },
+                    { X: 1, Y: 1, rowSpan: 1, isHide: false },
                     { X: 1, Y: 2, rowSpan: 1, isHide: true }
                 ]
             ]
 
+            clipboard.setRowSpan(cellModels, cellModels[0][0])
+            clipboard.setRowSpan(cellModels, cellModels[0][1])
+            clipboard.setRowSpan(cellModels, cellModels[0][2])
+
+            clipboard.setRowSpan(cellModels, cellModels[1][0])
+            clipboard.setRowSpan(cellModels, cellModels[1][1])
             clipboard.setRowSpan(cellModels, cellModels[1][2])
 
             // 期望第一排的最后一个cell.rowSpan等于2, 因为它下方的cell是隐藏的
@@ -305,9 +386,9 @@ describe('clipboard 剪切板工具类', () => {
         it('场景2', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, rowSpan: 1 },
-                    { X: 0, Y: 1, rowSpan: 1 },
-                    { X: 0, Y: 2, rowSpan: 1 }
+                    { X: 0, Y: 0, rowSpan: 1, isHide: false},
+                    { X: 0, Y: 1, rowSpan: 1, isHide: false},
+                    { X: 0, Y: 2, rowSpan: 1, isHide: false}
                 ],
                 [
                     { X: 1, Y: 0, rowSpan: 1, isHide: true },
@@ -315,6 +396,10 @@ describe('clipboard 剪切板工具类', () => {
                     { X: 1, Y: 2, rowSpan: 1, isHide: true }
                 ]
             ]
+
+            clipboard.setRowSpan(cellModels, cellModels[0][0])
+            clipboard.setRowSpan(cellModels, cellModels[0][1])
+            clipboard.setRowSpan(cellModels, cellModels[0][2])
 
             clipboard.setRowSpan(cellModels, cellModels[1][0])
             clipboard.setRowSpan(cellModels, cellModels[1][1])
@@ -334,9 +419,9 @@ describe('clipboard 剪切板工具类', () => {
         it('场景3', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, rowSpan: 1 },
-                    { X: 0, Y: 1, rowSpan: 1 },
-                    { X: 0, Y: 2, rowSpan: 1 }
+                    { X: 0, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 0, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 0, Y: 2, rowSpan: 1, isHide: true }
                 ],
                 [
                     { X: 1, Y: 0, rowSpan: 1, isHide: true },
@@ -349,6 +434,10 @@ describe('clipboard 剪切板工具类', () => {
                     { X: 2, Y: 2, rowSpan: 1, isHide: true }
                 ]
             ]
+
+            clipboard.setRowSpan(cellModels, cellModels[0][0])
+            clipboard.setRowSpan(cellModels, cellModels[0][1])
+            clipboard.setRowSpan(cellModels, cellModels[0][2])
 
             clipboard.setRowSpan(cellModels, cellModels[1][0])
             clipboard.setRowSpan(cellModels, cellModels[1][1])
@@ -381,11 +470,15 @@ describe('clipboard 剪切板工具类', () => {
                     { X: 0, Y: 2, rowSpan: 1, isHide: true }
                 ],
                 [
-                    { X: 1, Y: 0, rowSpan: 1 },
-                    { X: 1, Y: 1, rowSpan: 1 },
-                    { X: 1, Y: 2, rowSpan: 1 }
+                    { X: 1, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 2, rowSpan: 1, isHide: true }
                 ]
             ]
+
+            clipboard.setRowSpan(cellModels, cellModels[0][0])
+            clipboard.setRowSpan(cellModels, cellModels[0][1])
+            clipboard.setRowSpan(cellModels, cellModels[0][2])
 
             clipboard.setRowSpan(cellModels, cellModels[1][0])
             clipboard.setRowSpan(cellModels, cellModels[1][1])
