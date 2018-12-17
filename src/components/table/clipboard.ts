@@ -177,8 +177,9 @@ class clipboard {
      * @param cell 
      */
     setColSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
-        if (cell.Y === 0 || cell.isHide === false) {
-            return;
+        // 第一列的cell和isHide !== true的视为不满足条件, 不往下执行
+        if (cell.Y === 0 || cell.isHide !== true) {
+            return false;
         }
 
         let X = cell.X,
@@ -202,8 +203,9 @@ class clipboard {
      * @param cell 
      */
     setRowSpan(cellModels: Array<Array<CellKey>>, cell: CellKey) {
-        if (cell.X === 0 || cell.isHide === false) {
-            return;
+        // 第一行的cell和isHide !== true的视为不满足条件, 不往下执行
+        if (cell.X === 0 || cell.isHide !== true) {
+            return false;
         }
 
         let X = cell.X - 1,
