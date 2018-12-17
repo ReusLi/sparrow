@@ -121,13 +121,85 @@ describe('clipboard 剪切板工具类', () => {
 
     describe('getPasteData 方法正确拿到剪切板的值', () => {
         it ('paste数据结构1', () => {
-            expect(false).to.be.equal(true)
+            const pasteStr1 = 
+                  `1	2	3
+                        4	5`
+
+            /**
+             * result应该等于:
+             *  [
+             *      ['1', '2', '3']
+             *      ['', '4', '5']
+             *  ]
+             */
+            const result = clipboard.getPasteData(pasteStr1)
+
+            expect(result.length).to.be.equal(2)
+
+            expect(result[0][0]).to.be.equal('1')
+            expect(result[0][1]).to.be.equal('2')
+            expect(result[0][2]).to.be.equal('3')
+
+            expect(result[1][0]).to.be.equal('')
+            expect(result[1][1]).to.be.equal('4')
+            expect(result[1][2]).to.be.equal('5')
         })
     })
 
     describe('makeMatrix 方法正确构建矩阵的cellModels', () => {
+        const checkAttr = (cell) => {
+            return cell.X !== undefined
+                && cell.Y !== undefined
+                && cell.colSpan !== undefined
+                && cell.rowSpan !== undefined
+                && cell.text !== undefined
+                && cell.isHide !== undefined
+        }
+
         it ('构建场景1', () => {
-            expect(false).to.be.equal(true)
+            const pasteData1 = [
+                ['1', '2'],
+                ['3', '4']
+            ]
+
+            const result = clipboard.makeMatrix(pasteData1)
+
+            // 检查属性是否齐全
+            expect(checkAttr(result[0][0])).to.be.equal(true)
+            expect(checkAttr(result[0][1])).to.be.equal(true)
+            expect(checkAttr(result[1][0])).to.be.equal(true)
+            expect(checkAttr(result[1][1])).to.be.equal(true)
+
+            // 检查建构后是不是还是 2*2的矩阵
+            expect(result.length).to.be.equal(2)
+            expect(result[0].length).to.be.equal(2)
+            expect(result[1].length).to.be.equal(2)
+        })
+
+        it ('构建场景2', () => {
+            const pasteData2 = [
+                ['', '2'],
+                ['3', '']
+            ]
+
+            const result = clipboard.makeMatrix(pasteData2)
+
+            // 检查属性是否齐全
+            expect(checkAttr(result[0][0])).to.be.equal(true)
+            expect(checkAttr(result[0][1])).to.be.equal(true)
+            expect(checkAttr(result[1][0])).to.be.equal(true)
+            expect(checkAttr(result[1][1])).to.be.equal(true)
+
+            // 检查isHide属性有没有正确设置
+            expect(result[0][0].isHide).to.be.equal(true)
+            expect(result[0][1].isHide).to.be.equal(false)
+            expect(result[1][0].isHide).to.be.equal(false)
+            expect(result[1][1].isHide).to.be.equal(true)
+
+            // 检查建构后是不是还是 2*2的矩阵
+            expect(result.length).to.be.equal(2)
+            expect(result[0].length).to.be.equal(2)
+            expect(result[1].length).to.be.equal(2)
         })
     })
 
