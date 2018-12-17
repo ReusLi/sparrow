@@ -184,7 +184,7 @@ class clipboard {
         while(Y !== -1 && stop === false) {
             let targetCell = cellModels[X][Y]
 
-            if (targetCell.isHide === false) {
+            if (!targetCell.isHide) {
                 targetCell.colSpan += 1
                 stop = true
             } else {
