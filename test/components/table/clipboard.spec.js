@@ -2,13 +2,13 @@ import { expect } from 'chai'
 
 import clipboard from 'components/table/clipboard'
 
-const CONST = {
-    RESULT_LEN: 2,
-    ITEM_LEN: 3
-}
-
 describe('clipboard 剪切板工具类', () => {
     describe('filterPasteData 方法正确过滤出n*n矩阵', () => {
+        const CONST = {
+            RESULT_LEN: 2,
+            ITEM_LEN: 3
+        }
+
         it('paste场景1', () => {
             const paste1 = [
                 ['1', '2', '3'],
@@ -120,9 +120,9 @@ describe('clipboard 剪切板工具类', () => {
     })
 
     describe('getPasteData 方法正确拿到剪切板的值', () => {
-        it ('paste数据结构1', () => {
-            const pasteStr1 = 
-                  `1	2	3
+        it('paste数据结构1', () => {
+            const pasteStr1 =
+                `1	2	3
                         4	5`
 
             /**
@@ -156,7 +156,7 @@ describe('clipboard 剪切板工具类', () => {
                 && cell.isHide !== undefined
         }
 
-        it ('构建场景1', () => {
+        it('构建场景1', () => {
             const pasteData1 = [
                 ['1', '2'],
                 ['3', '4']
@@ -176,7 +176,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(result[1].length).to.be.equal(2)
         })
 
-        it ('构建场景2', () => {
+        it('构建场景2', () => {
             const pasteData2 = [
                 ['', '2'],
                 ['3', '']
@@ -204,20 +204,201 @@ describe('clipboard 剪切板工具类', () => {
     })
 
     describe('resetSpan方法, 根据paste的""值, 正确设置colSpan, rowSpan', () => {
-        it ('resetSpan场景1', () => {
+        it('resetSpan场景1', () => {
             expect(false).to.be.equal(true)
         })
     })
 
     describe('setColSpan 找到左侧距离最近的isHide = false的cell, 并使cell.colSpan + 1', () => {
-        it ('场景1', () => {
-            expect(false).to.be.equal(true)
+        const CONST = {
+            COL_SPAN_ONE: 1,
+            COL_SPAN__TWO: 2,
+            COL_SPAN___THREE: 3
+        }
+
+        it('场景1', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, colSpan: 1 },
+                    { X: 0, Y: 1, colSpan: 1 },
+                    { X: 0, Y: 2, colSpan: 1 }
+                ],
+                [
+                    { X: 1, Y: 0, colSpan: 1 },
+                    { X: 1, Y: 1, colSpan: 1 },
+                    { X: 1, Y: 2, colSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setColSpan(cellModels, cellModels[1][2])
+
+            // 期望[1][1]的cell.colSpan = 2, 因为距离它旁边有一个隐藏cell
+            expect(cellModels[0][0].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+
+            expect(cellModels[1][0].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[1][1].colSpan).to.be.equal(CONST.COL_SPAN__TWO)
+            expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+        })
+
+        it('场景2', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, colSpan: 1 },
+                    { X: 0, Y: 1, colSpan: 1 },
+                    { X: 0, Y: 2, colSpan: 1 }
+                ],
+                [
+                    { X: 1, Y: 0, colSpan: 1 },
+                    { X: 1, Y: 1, colSpan: 1, isHide: true },
+                    { X: 1, Y: 2, colSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setColSpan(cellModels, cellModels[1][1])
+            clipboard.setColSpan(cellModels, cellModels[1][2])
+
+            // 期望[1][0]的cell.colSpan = 3, 因为距离它最近的有2个隐藏cell
+            expect(cellModels[0][0].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[0][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+
+            expect(cellModels[1][0].colSpan).to.be.equal(CONST.COL_SPAN___THREE)
+            expect(cellModels[1][1].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
+            expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
         })
     })
 
     describe('setRowSpan 找到上方距离最近的isHide = false的cell, 并使cell.rowSpan + 1', () => {
-        it ('场景1', () => {
-            expect(false).to.be.equal(true)
+        const CONST = {
+            ROW_SPAN_ONE: 1,
+            ROW_SPAN__TWO: 2,
+            ROW_SPAN___THREE: 3
+        }
+        it('场景1', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, rowSpan: 1 },
+                    { X: 0, Y: 1, rowSpan: 1 },
+                    { X: 0, Y: 2, rowSpan: 1 }
+                ],
+                [
+                    { X: 1, Y: 0, rowSpan: 1 },
+                    { X: 1, Y: 1, rowSpan: 1 },
+                    { X: 1, Y: 2, rowSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setRowSpan(cellModels, cellModels[1][2])
+
+            // 期望第一排的最后一个cell.rowSpan等于2, 因为它下方的cell是隐藏的
+            expect(cellModels[0][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[0][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[0][2].rowSpan).to.be.equal(CONST.ROW_SPAN__TWO)
+
+            expect(cellModels[1][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+        })
+
+        it('场景2', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, rowSpan: 1 },
+                    { X: 0, Y: 1, rowSpan: 1 },
+                    { X: 0, Y: 2, rowSpan: 1 }
+                ],
+                [
+                    { X: 1, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 2, rowSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setRowSpan(cellModels, cellModels[1][0])
+            clipboard.setRowSpan(cellModels, cellModels[1][1])
+            clipboard.setRowSpan(cellModels, cellModels[1][2])
+
+            // 期望第一排的3个cell.rowSpan都等于2
+            // 因为它们下方的cell都是隐藏的
+            expect(cellModels[0][0].rowSpan).to.be.equal(CONST.ROW_SPAN__TWO)
+            expect(cellModels[0][1].rowSpan).to.be.equal(CONST.ROW_SPAN__TWO)
+            expect(cellModels[0][2].rowSpan).to.be.equal(CONST.ROW_SPAN__TWO)
+
+            expect(cellModels[1][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+        })
+
+        it('场景3', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, rowSpan: 1 },
+                    { X: 0, Y: 1, rowSpan: 1 },
+                    { X: 0, Y: 2, rowSpan: 1 }
+                ],
+                [
+                    { X: 1, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 1, Y: 2, rowSpan: 1, isHide: true }
+                ],
+                [
+                    { X: 2, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 2, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 2, Y: 2, rowSpan: 1, isHide: true }
+                ]
+            ]
+
+            clipboard.setRowSpan(cellModels, cellModels[1][0])
+            clipboard.setRowSpan(cellModels, cellModels[1][1])
+            clipboard.setRowSpan(cellModels, cellModels[1][2])
+
+            clipboard.setRowSpan(cellModels, cellModels[2][0])
+            clipboard.setRowSpan(cellModels, cellModels[2][1])
+            clipboard.setRowSpan(cellModels, cellModels[2][2])
+
+            // 期望第一排的3个cell.rowSpan都等于3
+            // 因为它们下方2排的cell都是隐藏的
+            expect(cellModels[0][0].rowSpan).to.be.equal(CONST.ROW_SPAN___THREE)
+            expect(cellModels[0][1].rowSpan).to.be.equal(CONST.ROW_SPAN___THREE)
+            expect(cellModels[0][2].rowSpan).to.be.equal(CONST.ROW_SPAN___THREE)
+
+            expect(cellModels[1][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+
+            expect(cellModels[2][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[2][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[2][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+        })
+
+        it('场景4', () => {
+            let cellModels = [
+                [
+                    { X: 0, Y: 0, rowSpan: 1, isHide: true },
+                    { X: 0, Y: 1, rowSpan: 1, isHide: true },
+                    { X: 0, Y: 2, rowSpan: 1, isHide: true }
+                ],
+                [
+                    { X: 1, Y: 0, rowSpan: 1 },
+                    { X: 1, Y: 1, rowSpan: 1 },
+                    { X: 1, Y: 2, rowSpan: 1 }
+                ]
+            ]
+
+            clipboard.setRowSpan(cellModels, cellModels[1][0])
+            clipboard.setRowSpan(cellModels, cellModels[1][1])
+            clipboard.setRowSpan(cellModels, cellModels[1][2])
+
+            // 第一排的isHide往上找不到cell, 所以应该全部cell的rowSpan都不变
+            expect(cellModels[0][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[0][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[0][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+
+            expect(cellModels[1][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+            expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
         })
     })
 })
