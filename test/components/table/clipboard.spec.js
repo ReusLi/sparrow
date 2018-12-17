@@ -419,9 +419,9 @@ describe('clipboard 剪切板工具类', () => {
         it('场景3', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, rowSpan: 1, isHide: true },
-                    { X: 0, Y: 1, rowSpan: 1, isHide: true },
-                    { X: 0, Y: 2, rowSpan: 1, isHide: true }
+                    { X: 0, Y: 0, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, isHide: false }
                 ],
                 [
                     { X: 1, Y: 0, rowSpan: 1, isHide: true },
