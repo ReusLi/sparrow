@@ -19,7 +19,7 @@ class clipboard {
             return false
         dom.addEventListener('paste', (event: any) => {
             // 获取剪切的数据
-            const data = this.getPasteData(event)
+            const data = this.getPasteData(event.clipboardData.getData('text'))
 
             // 正确过滤出n*n数组
             this.pasteData = this.filterPasteData(data)
@@ -39,16 +39,18 @@ class clipboard {
 
     /**
      * 获取paste事件中剪切板的值
-     * @param event paste event
-     * @return 剪切板的值
+     * @param pasteStr 剪切板的内容
+     * @return 剪切板的值(数组形式)
      */
-    getPasteData(event: any) {
-        let data = event.clipboardData.getData('text')
-        data = data.split('\n')
-        data = data.map((item: string) => {
+    getPasteData(pasteStr: string) {
+        let data: Array<string>,
+            pasteData: Array<Array<string>>;
+
+        data = pasteStr.split('\n')
+        pasteData = data.map((item: string) => {
             return item.split(/\s+/)
         })
-        return data
+        return pasteData
     }
 
     /**
