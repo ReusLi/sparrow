@@ -12,35 +12,55 @@ export default class ButtonGroup extends React.Component {
     public render() {
         return (
             <Row>
-                <Col span={4}>
-                    <Button
-                        onMouseUp={matrixStore.mergeCells.bind(matrixStore)}
-                    >
-                        合并
+                <Row>
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={matrixStore.mergeCells.bind(matrixStore)}
+                        >
+                            合并
                     </Button>
-                </Col>
-                <Col span={4}>
-                    <Button
-                        onMouseUp={matrixStore.disMergeCell.bind(matrixStore)}
-                    >拆分</Button>
-                </Col>
+                    </Col>
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={matrixStore.disMergeCell.bind(matrixStore)}
+                        >拆分</Button>
+                    </Col>
 
-                <Col span={4}>
-                    <Button
-                        onMouseUp={this.addRow.bind(this)}
-                    >加行</Button>
-                </Col>
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={antdTableStore.syncTableColumns.bind(antdTableStore)}
+                        >生成</Button>
+                    </Col>
 
-                <Col span={4}>
-                    <Button
-                        onMouseUp={this.addCol.bind(this)}
-                    >加列</Button>
-                </Col>
-                <Col span={4}>
-                    <Button
-                        onMouseUp={antdTableStore.syncTableColumns.bind(antdTableStore)}
-                    >生成</Button>
-                </Col>
+
+
+                </Row>
+
+                <Row style={{marginTop: '20px'}}>
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={this.addRow.bind(this)}
+                        >加行</Button>
+                    </Col>
+
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={this.addCol.bind(this)}
+                        >加列</Button>
+                    </Col>
+
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={this.addRow.bind(this)}
+                        >删行</Button>
+                    </Col>
+
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={this.addCol.bind(this)}
+                        >删列</Button>
+                    </Col>
+                </Row>
             </Row>
         )
     }
