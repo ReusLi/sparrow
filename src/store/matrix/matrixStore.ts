@@ -37,7 +37,8 @@ class matrixStore {
   }
 
   @action setCellModels(cellModels: Array<Array<CellKey>>) {
-    // console.log(toJS(cellModels))
+    console.log(`----setCellModels----`)
+    console.log(toJS(cellModels))
     this.cellModels = cellModels
   }
 
