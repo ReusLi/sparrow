@@ -5,8 +5,12 @@ import { Button, Col, Row } from 'antd';
 // matrixStore mobx
 import matrixStore from 'store/matrix/matrixStore'
 
+// cellStore mobx
+import cellStore from 'store/cell/cellStore'
+
 import antdTableStore from 'store/antdTableStore'
 import { CellKey } from 'components/matrix/interface';
+import Cell from 'components/cell/cell';
 
 export default class ButtonGroup extends React.Component {
     public render() {
@@ -36,7 +40,7 @@ export default class ButtonGroup extends React.Component {
 
                 </Row>
 
-                <Row style={{marginTop: '20px'}}>
+                <Row style={{ marginTop: '20px' }}>
                     <Col span={4}>
                         <Button
                             onMouseUp={this.addRow.bind(this)}
@@ -51,13 +55,13 @@ export default class ButtonGroup extends React.Component {
 
                     <Col span={4}>
                         <Button
-                            onMouseUp={this.addRow.bind(this)}
+                            onMouseUp={this.delRow.bind(this)}
                         >删行</Button>
                     </Col>
 
                     <Col span={4}>
                         <Button
-                            onMouseUp={this.addCol.bind(this)}
+                            onMouseUp={this.delCol.bind(this)}
                         >删列</Button>
                     </Col>
                 </Row>
@@ -69,7 +73,7 @@ export default class ButtonGroup extends React.Component {
         let cellModels = matrixStore.cellModels,
             newRow: Array<CellKey> = []
 
-        const X = cellModels[0].length - 1
+        const X = cellModels.length
 
         cellModels[0].forEach((item, index) => {
             const cell: CellKey = {
@@ -104,5 +108,49 @@ export default class ButtonGroup extends React.Component {
         })
 
         matrixStore.setCellModels(cellModels)
+    }
+
+    private delRow() {
+        let cellModels = matrixStore.cellModels
+
+        const selectInfo = cellStore.selectInfo
+
+        if (this.isSelectSingleCell(selectInfo.startCell, selectInfo.endCell)) {
+            const delRowIndex = selectInfo.startCell.X
+            cellModels = cellModels.filter((row, rowIndex) => {
+                return rowIndex !== delRowIndex
+            })
+
+            matrixStore.setCellModels(cellModels)
+        }
+
+    }
+
+    private delCol() {
+        let cellModels = matrixStore.cellModels
+
+        const selectInfo = cellStore.selectInfo
+
+        if (this.isSelectSingleCell(selectInfo.startCell, selectInfo.endCell)) {
+            const delColIndex = selectInfo.startCell.Y
+
+            cellModels.map(row => {
+                row.splice(delColIndex, 1)
+            })
+
+            matrixStore.setCellModels(cellModels)
+        }
+    }
+
+    /**
+     * 判断是否只选中一个单元格
+     * @param startCell 
+     * @param endCell 
+     */
+    private isSelectSingleCell(startCell: CellKey, endCell: CellKey) {
+        return startCell.X === endCell.X
+            && startCell.Y === endCell.Y
+            && startCell.X >= 0
+            && startCell.Y >= 0
     }
 }
