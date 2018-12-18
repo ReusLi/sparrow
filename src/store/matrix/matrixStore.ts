@@ -1,4 +1,4 @@
-import { computed, observable, action, trace } from "mobx";
+import { computed, observable, action, trace, toJS } from "mobx";
 
 import { CellKey, SelectInfo } from 'interface/common'
 
@@ -37,6 +37,7 @@ class matrixStore {
   }
 
   @action setCellModels(cellModels: Array<Array<CellKey>>) {
+    // console.log(toJS(cellModels))
     this.cellModels = cellModels
   }
 
