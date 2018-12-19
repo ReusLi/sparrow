@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import { Row, Input } from 'antd';
+import { Row, Input, Modal } from 'antd'
 
 import ButtonGroup from 'components/button-group/buttonGroup'
-import Table from 'components/table/table';
+import Table from 'components/table/table'
+import Code from 'components/code/code'
 
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
 
 // interface
 import { MatrixProps, CellKey, SelectInfo } from './interface'
@@ -19,19 +20,6 @@ export default class Matrix extends React.Component<MatrixProps> {
     public render() {
         return (
             <Row>
-                {/* debug数据显示 */}
-                <Row className="kjax-handle-btn">
-                    <Input 
-                        type='textarea' 
-                        size='large'
-                        // disabled={true}
-                        onChange={this.onChange}
-                    />
-                </Row>
-                <Row className="kjax-handle-btn">
-                    <span>当前隐藏的单元格数量: </span>
-                    {matrixStore.hideCells.length}
-                </Row>
                 {/* 操作cell的按钮组 */}
                 <Row className="kjax-handle-btn">
                     <ButtonGroup />
@@ -42,6 +30,8 @@ export default class Matrix extends React.Component<MatrixProps> {
                     <Table cellModels={matrixStore.cellModels} />
                 </Row>
 
+                {/* 代码模块 */}
+                <Code></Code>
             </Row>
         )
     }
@@ -51,9 +41,5 @@ export default class Matrix extends React.Component<MatrixProps> {
      */
     componentWillMount() {
         matrixStore.initMatrixModel()
-    }
-
-    private onChange(e: any) {
-
     }
 }

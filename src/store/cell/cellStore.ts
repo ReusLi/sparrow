@@ -1,12 +1,12 @@
-import { computed, observable, action } from "mobx"
+import { computed, observable, action } from 'mobx'
 
 import { CellKey, SelectInfo } from 'interface/common'
 
-import util from "./util";
+import util from './util';
 
 // utils
 import MatrixUtils from 'utils/matrix.utils'
-import Cell from "components/cell/cell";
+import Cell from 'components/cell/cell';
 
 class cellStore {
     isEditable: boolean = true

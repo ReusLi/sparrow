@@ -8,7 +8,12 @@ import matrixStore from 'store/matrix/matrixStore'
 // cellStore mobx
 import cellStore from 'store/cell/cellStore'
 
+// antd table store
 import antdTableStore from 'store/antdTableStore'
+
+// code store
+import codeStore from 'store/codeStore'
+
 import { CellKey } from 'components/matrix/interface';
 import Cell from 'components/cell/cell';
 
@@ -20,9 +25,7 @@ export default class ButtonGroup extends React.Component {
                     <Col span={4}>
                         <Button
                             onMouseUp={matrixStore.mergeCells.bind(matrixStore)}
-                        >
-                            合并
-                    </Button>
+                        >合并</Button>
                     </Col>
                     <Col span={4}>
                         <Button
@@ -36,7 +39,13 @@ export default class ButtonGroup extends React.Component {
                         >生成</Button>
                     </Col>
 
-
+                    <Col span={4}>
+                        <Button
+                            onMouseUp={() => {
+                                codeStore.setVisible(true)
+                            }}
+                        >代码</Button>
+                    </Col>
 
                 </Row>
 
