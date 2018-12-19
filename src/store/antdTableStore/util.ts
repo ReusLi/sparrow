@@ -1,6 +1,6 @@
 import { CellKey, AntdColumn } from 'interface/common'
 
-import { toJS } from "mobx";
+import { toJS } from 'mobx';
 
 class Util {
     /**

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Row, Input, Modal } from 'antd'
+import { Row } from 'antd'
 
 import ButtonGroup from 'components/button-group/buttonGroup'
 import Table from 'components/table/table'
@@ -21,7 +21,7 @@ export default class Matrix extends React.Component<MatrixProps> {
         return (
             <Row>
                 {/* 操作cell的按钮组 */}
-                <Row className="kjax-handle-btn">
+                <Row className='kjax-handle-btn'>
                     <ButtonGroup />
                 </Row>
 

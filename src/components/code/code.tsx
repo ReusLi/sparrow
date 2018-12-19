@@ -16,7 +16,7 @@ const { TextArea } = Input
 export default class Code extends React.Component<{}> {
     public render() {
         return (
-            <Modal title="antd table column config"
+            <Modal title='antd table column config'
                 visible={codeStore.visible}
                 footer={null}
                 onCancel={() => {

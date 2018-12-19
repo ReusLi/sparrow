@@ -115,7 +115,7 @@ export default class Table extends React.Component<TableProps, TableState> {
                     this.table = dom
                 }
                 >
-                <thead className="ant-table-thead">
+                <thead className='ant-table-thead'>
                     {tableHeader}
                 </thead>
             </table>

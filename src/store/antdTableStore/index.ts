@@ -1,4 +1,4 @@
-import { computed, observable, action, trace, toJS } from "mobx";
+import { computed, observable, action, trace, toJS } from 'mobx';
 
 import matrixStore from 'store/matrix/matrixStore'
 
