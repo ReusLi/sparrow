@@ -104,6 +104,19 @@ class matrixStore {
     this.cellModels = util.disMergeCell(this.cellModels, selectInfo)
   }
 
+  /**
+   * 
+   * @param cell 要更新的cell
+   * @param text 更新的text值
+   */
+  updateCellText(cell: CellKey, text: string) {
+    util.mapUtil.mapCells(this.cellModels, (cellItem: CellKey) => {
+      if (util.isSameCellKey(cellItem, cell)) {
+        cellItem.text = text
+      }
+    })
+  }
+
 }
 
 export default new matrixStore()

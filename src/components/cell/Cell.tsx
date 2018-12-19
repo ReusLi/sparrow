@@ -60,10 +60,15 @@ export default class Cell extends React.Component<CellProps, CellState> {
         )
     }
 
-    private onInputHandle() {
-        console.log(this.props)
+    private serachtimer: any
+
+    private onInputHandle(event: any) {
+        const text = event.target.innerText
+        clearTimeout(this.serachtimer);
         // 通知matrix store更新模型
-        // matrixStore.updateCell(this.props)
+        this.serachtimer = setTimeout(() => {
+            matrixStore.updateCellText(this.props.cellKey, text)
+        }, 1000)
     }
 
     private onMouseDown() {
