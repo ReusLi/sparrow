@@ -1,4 +1,4 @@
-import { computed, observable, action, trace, toJS } from "mobx";
+import { computed, observable, action, trace, toJS } from 'mobx';
 
 import { CellKey, SelectInfo } from 'interface/common'
 
