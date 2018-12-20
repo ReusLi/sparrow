@@ -154,7 +154,6 @@ class clipboard {
                     // nothing
                 }
                 else if (element.isHide) {
-                    debugger
                     // 规则3.
                     if (X === 0) {
                         this.setColSpan(cellModels, element)
@@ -234,7 +233,7 @@ class clipboard {
     isAllHideOfTop(cellModels: Array<Array<CellKey>>, cell: CellKey) {
         let X = cell.X - 1,
             Y = cell.Y,
-            isAllHide = false;
+            isAllHide = true;
 
         while(X >= 0) {
             isAllHide === false
