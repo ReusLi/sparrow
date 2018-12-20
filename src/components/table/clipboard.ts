@@ -154,16 +154,17 @@ class clipboard {
                     // nothing
                 }
                 else if (element.isHide) {
+                    debugger
                     // 规则3.
                     if (X === 0) {
                         this.setColSpan(cellModels, element)
                     }
                     // 规则2.
-                    else if (cellModels[X - 1][Y].isHide === true) {
+                    else if (this.isAllHideOfTop(cellModels, element)) {
                         this.setColSpan(cellModels, element)
                     }
                     // 规则1.
-                    else if (cellModels[X - 1][Y].isHide === false) {
+                    else if (!this.isAllHideOfTop(cellModels, element)) {
                         this.setRowSpan(cellModels, element)
                     }
                 }
@@ -222,6 +223,26 @@ class clipboard {
                 X -= 1
             }
         }
+    }
+    /**
+     * 找单元格上方的所以单元格的isHide是不是都等于true
+     * @param cellModels 
+     * @param cell 
+     * 
+     * @return {boolean}
+     */
+    isAllHideOfTop(cellModels: Array<Array<CellKey>>, cell: CellKey) {
+        let X = cell.X - 1,
+            Y = cell.Y,
+            isAllHide = false;
+
+        while(X >= 0) {
+            isAllHide === false
+                ? null
+                : isAllHide = cellModels[X][Y].isHide
+            X--
+        }
+        return isAllHide;
     }
 }
 
