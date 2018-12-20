@@ -204,8 +204,44 @@ describe('clipboard 剪切板工具类', () => {
     })
 
     describe('resetSpan方法, 根据paste的""值, 正确设置colSpan, rowSpan', () => {
-        it('resetSpan场景1', () => {
-            expect(false).to.be.equal(true)
+        const CONST = {
+            SPAN_ONE: 1,
+            SPAN__TWO: 2,
+            SPAN___THREE: 3
+        }
+        it.only('resetSpan场景1', () => {
+            let cellModels = [
+                [
+                    {X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
+                    {X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
+                    {X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false}
+                ],
+                [
+                    {X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
+                    {X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
+                    {X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                ]
+            ]
+
+            cellModels = clipboard.resetSpan(cellModels)
+
+            expect(cellModels[0][0].rowSpan).to.be.equal(CONST.SPAN_ONE)
+            expect(cellModels[0][0].colSpan).to.be.equal(CONST.SPAN_ONE)
+
+            expect(cellModels[0][1].rowSpan).to.be.equal(CONST.SPAN_ONE)
+            expect(cellModels[0][1].colSpan).to.be.equal(CONST.SPAN_ONE)
+
+            expect(cellModels[0][2].rowSpan).to.be.equal(CONST.SPAN__TWO)
+            expect(cellModels[0][2].colSpan).to.be.equal(CONST.SPAN_ONE)
+
+            expect(cellModels[1][0].rowSpan).to.be.equal(CONST.SPAN_ONE)
+            expect(cellModels[1][0].colSpan).to.be.equal(CONST.SPAN_ONE)
+
+            expect(cellModels[1][1].rowSpan).to.be.equal(CONST.SPAN_ONE)
+            expect(cellModels[1][1].colSpan).to.be.equal(CONST.SPAN_ONE)
+
+            expect(cellModels[1][2].rowSpan).to.be.equal(CONST.SPAN_ONE)
+            expect(cellModels[1][2].colSpan).to.be.equal(CONST.SPAN_ONE)
         })
     })
 
