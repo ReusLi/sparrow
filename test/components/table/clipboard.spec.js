@@ -212,14 +212,14 @@ describe('clipboard 剪切板工具类', () => {
         it('resetSpan场景1', () => {
             let cellModels = [
                 [
-                    {X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false}
+                    { X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false }
                 ],
                 [
-                    {X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                    { X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true }
                 ]
             ]
 
@@ -247,14 +247,14 @@ describe('clipboard 剪切板工具类', () => {
         it('resetSpan场景2', () => {
             let cellModels = [
                 [
-                    {X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: true},
-                    {X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false}
+                    { X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: true },
+                    { X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false }
                 ],
                 [
-                    {X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: false}
+                    { X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: false }
                 ]
             ]
 
@@ -282,14 +282,14 @@ describe('clipboard 剪切板工具类', () => {
         it('resetSpan场景3', () => {
             let cellModels = [
                 [
-                    {X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                    { X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: true }
                 ],
                 [
-                    {X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                    { X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true }
                 ]
             ]
 
@@ -317,19 +317,19 @@ describe('clipboard 剪切板工具类', () => {
         it('resetSpan场景4', () => {
             let cellModels = [
                 [
-                    {X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false}
+                    { X: 0, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, colSpan: 1, isHide: false }
                 ],
                 [
-                    {X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                    { X: 1, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 1, Y: 2, rowSpan: 1, colSpan: 1, isHide: true }
                 ],
                 [
-                    {X: 2, Y: 0, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 2, Y: 1, rowSpan: 1, colSpan: 1, isHide: false},
-                    {X: 2, Y: 2, rowSpan: 1, colSpan: 1, isHide: true}
+                    { X: 2, Y: 0, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 2, Y: 1, rowSpan: 1, colSpan: 1, isHide: false },
+                    { X: 2, Y: 2, rowSpan: 1, colSpan: 1, isHide: true }
                 ]
             ]
 
@@ -371,7 +371,7 @@ describe('clipboard 剪切板工具类', () => {
             COL_SPAN___THREE: 3
         }
 
-        it('场景1', () => {
+        it('setColSpan场景1', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, colSpan: 1, isHide: false },
@@ -403,7 +403,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
         })
 
-        it('场景2', () => {
+        it('setColSpan场景2', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, colSpan: 1, isHide: false },
@@ -435,7 +435,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
         })
 
-        it('场景3', () => {
+        it('setColSpan场景3', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, colSpan: 1, isHide: false },
@@ -467,7 +467,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][2].colSpan).to.be.equal(CONST.COL_SPAN_ONE)
         })
 
-        it('场景4', () => {
+        it('setColSpan场景4', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, colSpan: 1, isHide: true },
@@ -506,7 +506,7 @@ describe('clipboard 剪切板工具类', () => {
             ROW_SPAN__TWO: 2,
             ROW_SPAN___THREE: 3
         }
-        it('场景1', () => {
+        it('setRowSpan场景1', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, rowSpan: 1, isHide: false },
@@ -538,12 +538,12 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
         })
 
-        it('场景2', () => {
+        it('setRowSpan场景2', () => {
             let cellModels = [
                 [
-                    { X: 0, Y: 0, rowSpan: 1, isHide: false},
-                    { X: 0, Y: 1, rowSpan: 1, isHide: false},
-                    { X: 0, Y: 2, rowSpan: 1, isHide: false}
+                    { X: 0, Y: 0, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 1, rowSpan: 1, isHide: false },
+                    { X: 0, Y: 2, rowSpan: 1, isHide: false }
                 ],
                 [
                     { X: 1, Y: 0, rowSpan: 1, isHide: true },
@@ -571,7 +571,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
         })
 
-        it('场景3', () => {
+        it('setRowSpan场景3', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, rowSpan: 1, isHide: false },
@@ -617,7 +617,7 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[2][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
         })
 
-        it('场景4', () => {
+        it('setRowSpan场景4', () => {
             let cellModels = [
                 [
                     { X: 0, Y: 0, rowSpan: 1, isHide: true },
@@ -647,6 +647,112 @@ describe('clipboard 剪切板工具类', () => {
             expect(cellModels[1][0].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
             expect(cellModels[1][1].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
             expect(cellModels[1][2].rowSpan).to.be.equal(CONST.ROW_SPAN_ONE)
+        })
+    })
+
+    describe('isAllHideOfTop 方法', () => {
+        it('isAllHideOfTop场景1', () => {
+            const cellModels = [
+                [
+                    { X: 0, Y: 0, isHide: false },
+                    { X: 0, Y: 1, isHide: false },
+                    { X: 0, Y: 2, isHide: true }
+                ],
+                [
+                    { X: 1, Y: 0, isHide: false },
+                    { X: 1, Y: 1, isHide: false },
+                    { X: 1, Y: 2, isHide: true }
+                ],
+                [
+                    { X: 2, Y: 0, isHide: false },
+                    { X: 2, Y: 1, isHide: false },
+                    { X: 2, Y: 2, isHide: false }
+                ]
+            ]
+
+            const cell = { X: 2, Y: 2 }
+
+            const isAllHide = clipboard.isAllHideOfTop(cellModels, cell)
+
+            expect(isAllHide).to.be.equal(true)
+        })
+
+        it('isAllHideOfTop场景2', () => {
+            const cellModels = [
+                [
+                    { X: 0, Y: 0, isHide: false },
+                    { X: 0, Y: 1, isHide: false },
+                    { X: 0, Y: 2, isHide: true }
+                ],
+                [
+                    { X: 1, Y: 0, isHide: false },
+                    { X: 1, Y: 1, isHide: false },
+                    { X: 1, Y: 2, isHide: false }
+                ],
+                [
+                    { X: 2, Y: 0, isHide: false },
+                    { X: 2, Y: 1, isHide: false },
+                    { X: 2, Y: 2, isHide: false }
+                ]
+            ]
+
+            const cell = { X: 2, Y: 2 }
+
+            const isAllHide = clipboard.isAllHideOfTop(cellModels, cell)
+
+            expect(isAllHide).to.be.equal(false)
+        })
+
+        it('isAllHideOfTop场景3', () => {
+            const cellModels = [
+                [
+                    { X: 0, Y: 0, isHide: false },
+                    { X: 0, Y: 1, isHide: false },
+                    { X: 0, Y: 2, isHide: false }
+                ],
+                [
+                    { X: 1, Y: 0, isHide: false },
+                    { X: 1, Y: 1, isHide: false },
+                    { X: 1, Y: 2, isHide: true }
+                ],
+                [
+                    { X: 2, Y: 0, isHide: false },
+                    { X: 2, Y: 1, isHide: false },
+                    { X: 2, Y: 2, isHide: false }
+                ]
+            ]
+
+            const cell = { X: 2, Y: 2 }
+
+            const isAllHide = clipboard.isAllHideOfTop(cellModels, cell)
+
+            expect(isAllHide).to.be.equal(false)
+        })
+
+        it('isAllHideOfTop场景4', () => {
+            const cellModels = [
+                [
+                    { X: 0, Y: 0, isHide: false },
+                    { X: 0, Y: 1, isHide: false },
+                    { X: 0, Y: 2, isHide: false }
+                ],
+                [
+                    { X: 1, Y: 0, isHide: false },
+                    { X: 1, Y: 1, isHide: false },
+                    { X: 1, Y: 2, isHide: false }
+                ],
+                [
+                    { X: 2, Y: 0, isHide: false },
+                    { X: 2, Y: 1, isHide: false },
+                    { X: 2, Y: 2, isHide: false }
+                ]
+            ]
+
+            const cell = { X: 2, Y: 2 }
+
+            const isAllHide = clipboard.isAllHideOfTop(cellModels, cell)
+
+            expect(isAllHide).to.be.equal(false)
         })
     })
 })
