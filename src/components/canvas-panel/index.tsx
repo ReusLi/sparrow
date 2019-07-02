@@ -13,32 +13,7 @@ const { Header, Content, Footer } = Layout;
 export default class CanvasPanel extends React.Component {
     public render () {
         return (
-            // <Layout className="layout" onMouseDown={this.onmousedown.bind(this)}>
-            //     <Header>
-            //         <div className="logo" />
-            //         <Menu
-            //             theme="dark"
-            //             mode="horizontal"
-            //             defaultSelectedKeys={['1']}
-            //             style={{ lineHeight: '64px' }}
-            //         >
-            //             <Menu.Item key="1">nav 1</Menu.Item>
-            //             <Menu.Item key="2">nav 2</Menu.Item>
-            //             <Menu.Item key="3">nav 3</Menu.Item>
-            //         </Menu>
-            //     </Header>
-            //     <Content style={{ padding: '0 50px' }}>
-            //         <Breadcrumb style={{ margin: '16px 0' }}>
-            //             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            //             <Breadcrumb.Item>List</Breadcrumb.Item>
-            //             <Breadcrumb.Item>App</Breadcrumb.Item>
-            //         </Breadcrumb>
-            //         <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
-            //     </Content>
-            //     <Footer style={{ textAlign: 'center' }}>Test For Mini-Map</Footer>
-            // </Layout>
-            
-            <div data-candrop="rect" className="ant-col-12" style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+            <div data-candrop="rect" className="ant-col-12" style={{ paddingLeft: '10px', paddingRight: '10px' }} onMouseDown={this.onmousedown.bind(this)}>
                 <div data-candrop="rect" className="layout ant-layout">
                     <div data-candrop="rect" className="ant-layout-header">
                         <div className="logo">
@@ -77,6 +52,7 @@ export default class CanvasPanel extends React.Component {
     }
 
     private onmousedown (e: MouseEvent) {
-        console.log(e.target)
+        let list = document.querySelectorAll('[data-candrop="rect"]')
+        const newNode = e.currentTarget.cloneNode(true)
     }
 }
