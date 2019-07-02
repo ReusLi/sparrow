@@ -58,6 +58,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "karma-chai": "^0.1.0",
+    "less": "^3.9.0",
     "lodash": "^4.17.10",
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.8",
