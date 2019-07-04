@@ -53,6 +53,7 @@ export default class CanvasPanel extends React.Component {
 
     private onmousedown (e: MouseEvent | any) {
         let list = document.querySelectorAll('[data-candrop="rect"]')
-        const newNode = e.currentTarget.cloneNode(true)
+        const curNode = e.currentTarget.cloneNode(true)
+        canvasStore.UPDATE_CURNODE(curNode)
     }
 }
