@@ -1,19 +1,32 @@
-import { computed, observable, action, trace, toJS } from 'mobx';
+import { observable, action, observe } from 'mobx';
 
 
-class canvasStore {
+class CanvasStore {
     constructor() {
 
     }
-    // 画布当前选择的节点
-    @observable curNode: any = null
+    // 画布当前选择的节点信息
+    @observable nodeInfo: any = {
+        node: {}
+    }
 
     /**
      * 同步节点信息
      */
-    @action updateCurNode(curNode: any) {
-        this.curNode = curNode
+    @action updateCurNode (curNode: any) {
+        this.nodeInfo.node = curNode
     }
+
 }
 
-export default new canvasStore()
+const canvasStore = new CanvasStore()
+
+/**
+ * 监听nodeInfo
+ */
+observe(canvasStore.nodeInfo, change => {
+    return undefined
+})
+
+
+export default canvasStore
