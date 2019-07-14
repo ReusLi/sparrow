@@ -1,5 +1,6 @@
 import { observable, action, observe } from 'mobx';
 
+import mapUtils from "./mapUtils";
 
 class CanvasStore {
     constructor() {
@@ -7,29 +8,22 @@ class CanvasStore {
     }
     // 画布当前选择的节点信息
     @observable nodeInfo: any = {
-        node: {}
+        node: []
     }
 
     /**
      * 同步节点信息
      */
-    @action updateCurNode (domNode: any) {
+    @action updateCurNode (domNode: Element) {
         this.nodeInfo.node = domNode
+        // mapUtils.mapNode(domNode)
     }
 
 }
 
 const canvasStore = new CanvasStore()
 
-/**
- * 监听nodeInfo
- */
-observe(canvasStore.nodeInfo, change => {
-    // 递归遍历所有带 data-candrop="rect" 的标签
-    let dom = change.newValue
-    
-    return undefined
-})
+
 
 
 export default canvasStore
