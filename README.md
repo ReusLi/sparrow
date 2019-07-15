@@ -1,2 +1,3 @@
-# kjax
-A tool which write grid`s header more quickly
+# mq
+
+a web plugin for map the mini web page
