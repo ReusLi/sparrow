@@ -25,10 +25,28 @@ export default class MiniMap extends React.Component {
          */
         observe(canvasStore.nodeInfo, (change: any) => {
             // 递归遍历所有带 data-candrop="rect" 的标签
-            let dom: Node = change.newValue
+            let dom = change.newValue
+
+            dom = this.findParentDom(dom);
+
+            const newNode: any = dom.cloneNode(true)
             document.querySelector('#copyBody').innerHTML = ''
-            document.querySelector('#copyBody').append(dom)
-            return undefined
+            document.querySelector('#copyBody').append(newNode)
+            return undefined;
         })
+    }
+
+    private findParentDom (dom: Element) {
+        let i = 0,
+            pdom: any = dom.parentNode;
+        while (i < 1 && pdom !== null && pdom.tagName !== 'body') {
+            const dataCandrop = dom.getAttribute('data-candrop')
+            if (dataCandrop === 'rect') {
+                pdom = dom.parentNode;
+                i++;
+            }
+        }
+
+        return pdom;
     }
 }

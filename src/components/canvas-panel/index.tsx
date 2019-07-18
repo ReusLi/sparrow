@@ -55,7 +55,8 @@ export default class CanvasPanel extends React.Component {
         let list = document.querySelectorAll('[data-candrop="rect"]')
         // e.target
         // const curNode = e.currentTarget.cloneNode(true)
-        const curNode = e.target.cloneNode(true)
+        // const curNode = e.target.cloneNode(true)
+        const curNode = e.target;
         canvasStore.updateCurNode(curNode)
     }
 }
