@@ -39,12 +39,13 @@ export default class MiniMap extends React.Component {
     private findParentDom (dom: Element) {
         let i = 0,
             pdom: any = dom.parentNode;
-        while (i < 1 && pdom !== null && pdom.tagName !== 'body') {
-            const dataCandrop = dom.getAttribute('data-candrop')
+
+        while (i < 2 && pdom !== null && pdom.tagName !== 'body') {
+            const dataCandrop = pdom.getAttribute('data-candrop')
             if (dataCandrop === 'rect') {
-                pdom = dom.parentNode;
                 i++;
             }
+            pdom = pdom.parentNode;
         }
 
         return pdom;
