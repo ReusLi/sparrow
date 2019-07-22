@@ -1,19 +1,19 @@
 import * as React from 'react'
 
-import { Row, Col } from 'antd'
+import { Layout } from 'antd'
 
 import { observer } from 'mobx-react'
+
+import PageScroll from 'components/page-scroll'
 
 @observer
 export default class Home extends React.Component {
     public render () {
+        const { children } = this.props;
         return (
-            <Row gutter={20}>
-                <Col span={12}>
-                </Col>
-                <Col span={12}>
-                </Col>
-            </Row>
+            <PageScroll>
+                <div>test</div>
+            </PageScroll>
         )
     }
 }
