@@ -1,3 +1,3 @@
-# mq
+# sparrow
 
-a web plugin for map the mini web page
+The project named `sparrow` which small but complete in chinese means
