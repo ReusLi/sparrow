@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import DragArea from 'pages/drag-area'
+import Home from 'pages/home'
 
 export default class App extends React.Component {
 
     public render () {
         return (
-            <DragArea></DragArea>
+            <Home></Home>
         )
     }
 }
