@@ -14,3 +14,16 @@ interface Foo {
   age?: number
 }
 ```
+
+
+```js
+function f(a, b, c, d, e) { 
+  // a = -1
+  // b = 0
+  // c = 1
+  // d = 2
+  // e = 3
+}
+var args = [0, 1];
+f(-1, ...args, 2, ...[3]);
+```
