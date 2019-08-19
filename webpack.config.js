@@ -17,7 +17,7 @@ module.exports = {
     mode: 'development',
     entry: './src/index.tsx',
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     },
     devtool: 'source-map',
