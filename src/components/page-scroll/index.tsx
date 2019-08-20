@@ -24,6 +24,11 @@ export function PageScroll () {
     // 声明一个新的叫做 “count” 的 state 变量
     const [count, setCount] = React.useState(0);
 
+    React.useEffect(() => {
+        // Update the document title using the browser API
+        document.title = `You clicked ${count} times`;
+    });
+
     return (
         <Layout>
             <Header>Header</Header>
