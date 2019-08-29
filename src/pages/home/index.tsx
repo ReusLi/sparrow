@@ -6,6 +6,7 @@ import { observer } from 'mobx-react'
 
 import { Nav } from 'components/nav'
 
+import { TableGroup } from 'components/table-radio-group'
 
 const subMenu = [
     {
@@ -19,12 +20,25 @@ const subMenu = [
         text: '帮助'
     }
 ]
+
+const tableList = [
+    {
+        shcme: 'shcme1',
+        table: 'table1'
+    }, {
+        shcme: 'shcme1',
+        table: 'table2'
+    }, {
+        shcme: 'shcme1',
+        table: 'table3'
+    }
+]
 @observer
 export default class Home extends React.Component {
     public render () {
-        const { children } = this.props;
         return (
-            <Nav subMenu={subMenu} />
+            // <Nav subMenu={subMenu} />
+            <TableGroup tableList={tableList} />
         )
     }
 }
