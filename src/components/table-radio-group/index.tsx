@@ -29,11 +29,9 @@ const buildTemplate = (tableList: Array<table>) => {
         }
     })
 
-    return tableList.map(table => {
-        return (
-            <Radio.Group options={radioOpt} />
-        )
-    })
+    return (
+        <Radio.Group options={radioOpt} />
+    )
 }
 
 export function TableGroup ({ tableList }: PropTypes.InferProps<props>) {
