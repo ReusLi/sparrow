@@ -37,8 +37,8 @@ const tableList = [
 export default class Home extends React.Component {
     public render () {
         return (
-            // <Nav subMenu={subMenu} />
-            <TableGroup tableList={tableList} />
+            <Nav subMenu={subMenu} />
+            // <TableGroup tableList={tableList} />
         )
     }
 }

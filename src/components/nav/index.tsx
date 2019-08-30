@@ -1,9 +1,11 @@
 import * as React from 'react'
 import './index.less';
 
-import { Menu, Icon, Alert } from 'antd';
+import { Layout, Menu, Icon, Alert } from 'antd';
+
 import * as PropTypes from "prop-types";
 
+const { Header, Footer, Sider, Content } = Layout;
 
 const buildSubMenu = function (subMenu: Array<subMenu>) {
     return subMenu.map(menu => {
@@ -31,9 +33,11 @@ export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
     }
 
     return (
-        <Menu mode="horizontal" onClick={handleClick}>
-            {SubMenu}
-        </Menu>
+        <Header className="spr-nav">
+            <Menu className="spr-menu" mode="horizontal" onClick={handleClick}>
+                {SubMenu}
+            </Menu>
+        </Header>
     )
 }
 
