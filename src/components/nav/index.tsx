@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './index.less';
 
-import { Layout, Menu, Icon, Alert } from 'antd';
+import { Layout, Menu, Row } from 'antd';
 
 import * as PropTypes from "prop-types";
 
@@ -16,6 +16,9 @@ const buildSubMenu = function (subMenu: Array<subMenu>) {
         )
     })
 }
+
+
+var logosrc = require('../../asstes/images/logo.png');
 
 export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
     const SubMenu = buildSubMenu(subMenu)
@@ -34,9 +37,12 @@ export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
 
     return (
         <Header className="spr-nav">
-            <Menu className="spr-menu" mode="horizontal" onClick={handleClick}>
-                {SubMenu}
-            </Menu>
+            <Row className="content"type="flex" align="middle">
+                <img src={logosrc} className=""/>
+                <Menu className="spr-menu" mode="horizontal" onClick={handleClick}>
+                    {SubMenu}
+                </Menu>
+            </Row>
         </Header>
     )
 }
