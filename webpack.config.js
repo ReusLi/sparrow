@@ -17,10 +17,10 @@ module.exports = {
     mode: 'development',
     entry: './src/index.tsx',
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     },
-    devtool: 'cheap-eval-source-map',
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -51,9 +51,28 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        { loader: "less-loader" }
+                        { loader: "css-loader" },
+                        {
+                            loader: "less-loader",
+                            options: {
+                                javascriptEnabled: true
+                            }
+                        }
                     ]
                 })
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true, // webpack@1.x
+                            disable: true, // webpack@2.x and newer
+                        },
+                    },
+                ],
             }
         ]
     },
@@ -110,12 +129,14 @@ module.exports = {
     ],
     resolve: {
         alias: {
+            '@': path.resolve(__dirname, 'src'),
             'pages': path.resolve(__dirname, 'src/pages'),
             'components': path.resolve(__dirname, 'src/components'),
             'context': path.resolve(__dirname, 'src/context'),
             'interface': path.resolve(__dirname, 'src/interface'),
             'utils': path.resolve(__dirname, 'src/utils'),
-            'store': path.resolve(__dirname, 'src/store')
+            'store': path.resolve(__dirname, 'src/store'),
+            'theme': path.resolve(__dirname, 'src/theme')
         },
         extensions: ['.tsx', '.ts', '.js', '.jsx']
     }

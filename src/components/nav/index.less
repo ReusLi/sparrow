@@ -1,0 +1,33 @@
+@import '@/less/index.less';
+
+.spr-nav {
+    background-color: #427292;
+
+    .content {
+        max-width: 1400px;
+        margin: 0 auto;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .spr-menu {
+            background-color: #427292;
+            border-bottom: none;
+            height: 100%;
+            line-height: 64px;
+            color: #ffffff;
+        }
+    }
+}
+
+.ant-menu-horizontal>.ant-menu-item-selected {
+    border-bottom: 2px solid #ffffff;
+    color: #ffffff;
+
+    &:hover {
+        border-bottom: 2px solid #ffffff;
+        color: @--color-1;
+    }
+}
