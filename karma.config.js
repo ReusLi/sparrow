@@ -18,11 +18,11 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai'],
 
         files: [
-            'test/**/*.js'
+            'spec/**/*.js'
         ],
 
         preprocessors: {
-            'test/**/*.spec.js': ['webpack', 'sourcemap']
+            'spec/**/*.spec.js': ['webpack', 'sourcemap']
         },
 
         reporters: ['mocha', 'coverage'],
