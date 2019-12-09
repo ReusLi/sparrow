@@ -8,6 +8,8 @@ import { Row, Col } from 'antd'
 
 import Home from 'pages/home'
 
+import Welcome from 'pages/welcome'
+
 export default class App extends React.Component {
 
     public render() {
@@ -20,7 +22,7 @@ export default class App extends React.Component {
             //         <AntdTable />
             //     </Col>
             // </Row>
-            <Home></Home>
+            <Welcome></Welcome>
         )
     }
 }

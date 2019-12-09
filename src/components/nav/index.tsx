@@ -28,7 +28,7 @@ export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
 
     React.useEffect(() => {
         // Update the document title using the browser API
-        document.title = `You clicked ${count} times`;
+        // document.title = `You clicked ${count} times`;
     });
 
     const handleClick = () => {
