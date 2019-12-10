@@ -7,20 +7,19 @@ import * as PropTypes from "prop-types";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const buildSubMenu = function (subMenu: Array<subMenu>) {
-    return subMenu.map(menu => {
-        return (
-            <Menu.Item key={menu.id}>
-                {menu.text}
-            </Menu.Item>
-        )
-    })
-}
-
-
 var logosrc = require('../../asstes/images/logo.png');
 
 export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
+    const buildSubMenu = function (subMenu: Array<subMenu>) {
+        return subMenu.map(menu => {
+            return (
+                <Menu.Item key={menu.id}>
+                    {menu.text}
+                </Menu.Item>
+            )
+        })
+    }
+
     const SubMenu = buildSubMenu(subMenu)
 
     // 声明一个新的叫做 “count” 的 state 变量
