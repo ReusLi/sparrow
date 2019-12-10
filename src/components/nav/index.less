@@ -1,5 +1,7 @@
 @import '~@/less/index.less';
 
+@menu-heihgt: 64px;
+
 .spr-nav {
     background-color: #1e2428;
 
@@ -13,21 +15,26 @@
         }
 
         .spr-menu {
-            background-color: #0891aa;
             border-bottom: none;
-            height: 100%;
-            line-height: 64px;
+            height: @menu-heihgt;
+            line-height: @menu-heihgt;
             color: #ffffff;
+            background-color: transparent;
         }
     }
 }
 
-.ant-menu-horizontal>.ant-menu-item-selected {
-    border-bottom: 2px solid #ffffff;
-    color: #ffffff;
+// .ant-menu-horizontal>.ant-menu-item {
+//     &:hover {
+//         border-bottom: none;
+//         color: @--color-1;
+//         background-color: #272c30;
+//     }
+// }
 
-    &:hover {
-        border-bottom: 2px solid #ffffff;
-        color: @--color-1;
-    }
+.ant-menu-horizontal>.ant-menu-item-active,
+.ant-menu-horizontal>.ant-menu-item-selected {
+    background-color: #0891aa;
+    border-bottom: none;
+    color: #ffffff;
 }
