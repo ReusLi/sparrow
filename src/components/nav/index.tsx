@@ -1,9 +1,12 @@
 import * as React from 'react'
 import './index.less';
 
-import { Layout, Menu, Row } from 'antd';
+import { Layout, Menu, Row, Col } from 'antd';
 
 import * as PropTypes from "prop-types";
+
+import EntryIcon from 'components/entry-icon';
+
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -36,11 +39,18 @@ export function Nav ({ subMenu }: PropTypes.InferProps<navProps>) {
 
     return (
         <Header className="spr-nav">
-            <Row className="content"type="flex" align="middle">
-                <img src={logosrc} className=""/>
-                <Menu className="spr-menu" mode="horizontal" onClick={handleClick}>
-                    {SubMenu}
-                </Menu>
+            <Row className="content" type="flex" align="middle" justify="space-between">
+                <Col span={20}>
+                    <Row type="flex" align="middle">
+                        <img src={logosrc} className="" />
+                        <Menu className="spr-menu" mode="horizontal" onClick={handleClick}>
+                            {SubMenu}
+                        </Menu>
+                    </Row>
+                </Col>
+                <Col span={4}>
+                    <EntryIcon></EntryIcon>
+                </Col>
             </Row>
         </Header>
     )
