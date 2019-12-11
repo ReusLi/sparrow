@@ -6,7 +6,7 @@ import { Row, Icon } from 'antd';
 export default class Home extends React.Component {
     public render () {
         return (
-            <Row>
+            <Row className="entry-icon">
                 <Icon type="notification" />
                 <Icon type="question-circle" />
                 <Icon type="edit" />
