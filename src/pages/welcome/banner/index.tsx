@@ -5,7 +5,6 @@ import { Layout } from 'antd'
 import { observer } from 'mobx-react'
 
 import { Nav } from 'components/nav'
-import { Banner } from './banner'
 
 import { TableGroup } from 'components/table-radio-group'
 
@@ -21,14 +20,9 @@ const subMenu = [
         text: '帮助'
     }
 ]
-@observer
-export default class Home extends React.Component {
-    public render () {
-        return (
-            <div>
-                <Nav subMenu={subMenu}></Nav>
-                <Banner></Banner>
-            </div>
-        )
-    }
+export function Banner () {
+
+    return (
+        <div>123</div>
+    )
 }
