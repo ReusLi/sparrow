@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Layout } from 'antd'
+import { Layout, Row } from 'antd'
 
 import { observer } from 'mobx-react'
 
@@ -26,8 +26,12 @@ export default class Home extends React.Component {
     public render () {
         return (
             <div>
-                <Nav subMenu={subMenu}></Nav>
-                <Banner></Banner>
+                <Row>
+                    <Nav subMenu={subMenu}></Nav>
+                </Row>
+                <Row>
+                    <Banner></Banner>
+                </Row>
             </div>
         )
     }
