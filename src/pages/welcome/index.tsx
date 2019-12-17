@@ -1,13 +1,11 @@
 import * as React from 'react'
 
-import { Layout, Row } from 'antd'
+import { Row } from 'antd'
 
 import { observer } from 'mobx-react'
 
 import { Nav } from 'components/nav'
 import { Banner } from './banner'
-
-import { TableGroup } from 'components/table-radio-group'
 
 const subMenu = [
     {
